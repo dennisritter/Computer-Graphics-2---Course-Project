@@ -1,6 +1,14 @@
 define(['PointDragger', 'Line'], function (PointDragger, Line) {
     "use strict";
 
+    /**
+     * Represents a Rectangle geometry
+     * @param   topLeft     [x,y] coordinates of the top-left point
+     * @param   bottomRight [x,y] coordinates of the bottom-right point
+     * @param   lineStyle   object containing style information for the outer line
+     *
+     * @constructor
+     */
     var Rectangle = function (topLeft, bottomRight, lineStyle) {
         this.lineStyle = lineStyle || {
                 width: 2,
@@ -24,6 +32,9 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
         this.updateLines();
     };
 
+    /**
+     * Updates the points of the lines
+     */
     Rectangle.prototype.updateLines = function () {
         var topRight = [this.bottomRight[0], this.topLeft[1]];
         var bottomLeft = [this.topLeft[0], this.bottomRight[1]];
@@ -41,15 +52,25 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
         this.lines[3].p1 = this.topLeft;
     };
 
+    /**
+     * Draws the rectangle
+     * @param   context     The 2d context in which to draw the rectangle
+     */
     Rectangle.prototype.draw = function ( context ) {
         for ( var i = 0; i < this.lines.length; ++i ) {
             this.lines[i].draw( context );
         }
     };
 
-    Rectangle.prototype.isHit = function ( mousePosition ) {
+    /**
+     * Checks whether the provided mousePosition hits the outline of the rectangle
+     * @param   context     The context in which the geometry is drawn
+     * @param   pos         vec2 containing the current mouse position
+     * @returns {boolean}   Whether the current mouse position hits the outline of the rectanfle
+     */
+    Rectangle.prototype.isHit = function ( context, pos ) {
         for ( var i = 0; i < this.lines.length; ++i ) {
-            if ( this.lines[i].isHit( mousePosition ) ) {
+            if ( this.lines[i].isHit( context, pos ) ) {
                 return true;
             }
         }
@@ -57,6 +78,10 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
         return false;
     };
 
+    /**
+     * Creates all necessary draggers for the rectangle
+     * @returns {Array}     Array of PointDraggers
+     */
     Rectangle.prototype.createDraggers = function () {
         var draggerStyle = {
             radius: 4,
