@@ -42,10 +42,19 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
     };
 
     Rectangle.prototype.draw = function ( context ) {
-        this.updateLines();
         for ( var i = 0; i < this.lines.length; ++i ) {
             this.lines[i].draw( context );
         }
+    };
+
+    Rectangle.prototype.isHit = function ( mousePosition ) {
+        for ( var i = 0; i < this.lines.length; ++i ) {
+            if ( this.lines[i].isHit( mousePosition ) ) {
+                return true;
+            }
+        }
+
+        return false;
     };
 
     Rectangle.prototype.createDraggers = function () {
@@ -72,6 +81,7 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
             _geo.topLeft[1] += d[1];
             _geo.bottomRight[0] += d[0];
             _geo.bottomRight[1] += d[1];
+            _geo.updateLines();
         };
 
         draggers.push( new PointDragger(getCenter, setCenter, draggerStyle) );
@@ -83,6 +93,7 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
             var d = dragEvent.delta;
             _geo.bottomRight[0] += d[0];
             _geo.bottomRight[1] += d[1];
+            _geo.updateLines();
         };
         draggers.push( new PointDragger(getResizeDraggerPosition, setSize, draggerStyle) );
 
