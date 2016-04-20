@@ -75,6 +75,17 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
         };
 
         draggers.push( new PointDragger(getCenter, setCenter, draggerStyle) );
+
+        var getResizeDraggerPosition = function () {
+            return _geo.bottomRight;
+        };
+        var setSize = function ( dragEvent ) {
+            var d = dragEvent.delta;
+            _geo.bottomRight[0] += d[0];
+            _geo.bottomRight[1] += d[1];
+        };
+        draggers.push( new PointDragger(getResizeDraggerPosition, setSize, draggerStyle) );
+
         return draggers;
     };
 
