@@ -47,8 +47,8 @@ define(["util", "vec2", "Scene", "PointDragger"],
             var dy = mousePos[1] - this.center[1];
             var r = this.radius + this.lineStyle.width / 2;
             // Hittest for the circles outline with a tolerance of 5 pixels in total
-            return (dx * dx + dy * dy) <= ((r + 2) * (r + 2))
-                && (dx * dx + dy * dy) >= ((r - 2) * (r - 2));
+            return (dx * dx + dy * dy) <= ((r + this.lineStyle.width / 2) * (r + this.lineStyle.width / 2))
+                && (dx * dx + dy * dy) >= ((r - this.lineStyle.width / 2) * (r - this.lineStyle.width / 2));
         };
 
         // return list of draggers to manipulate this circle
@@ -59,13 +59,23 @@ define(["util", "vec2", "Scene", "PointDragger"],
 
             // create closure and callbacks for dragger
             var _circle = this;
+            // Position-Dragger
             var getCenter = function () {
                 return _circle.center;
             };
             var setCenter = function (dragEvent) {
                 _circle.center = dragEvent.position;
             };
+            // Radius-Dragger
+            var getRadius = function () {
+                return _circle.radius;
+            }
+            var setRadius = function (dragEvent) {
+                _circle.radius = dragEvent.position.sub(_circle.center);
+            }
+            //Add Draggers to the draggers-list
             draggers.push(new PointDragger(getCenter, setCenter, draggerStyle));
+            //draggers.push(new PointDragger([getCenter[0] + getRadius[0], getCenter[1]], setRadius, draggerStyle));
 
             return draggers;
 

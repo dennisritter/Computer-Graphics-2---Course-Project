@@ -10,6 +10,15 @@ h3 {
     font-size:14px;
 }
 
+/* buttons and input elements get 100% width to stand next to each other */
+input,
+button {
+    width: 100%;
+    height: 30px;
+    max-width: 200px;
+    margin: 5px 0;
+}
+
 /* region to display an error */
 #error { 
     color:white; 
@@ -35,9 +44,4 @@ h3 {
     border-style: dashed;
     border-color: #c3c3c3;
     text-align:left;
-}
-
-/* all input elements get a fixed width */
-input {
-    width:80px;
 }
