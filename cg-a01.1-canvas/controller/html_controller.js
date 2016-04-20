@@ -79,7 +79,7 @@ define(["jquery", "Line", "Circle", "Point"],
              */
             $("#btnNewCircle").click((function () {
                 // create the circle and add it to the scene
-                var circle = new Circle([randomX(), randomY()], 50);
+                var circle = new Circle([randomX(), randomY()], (Math.random() + 0.5) * 50);
                 scene.addObjects([circle]);
 
                 // deselect all objects, then select the newly created object
