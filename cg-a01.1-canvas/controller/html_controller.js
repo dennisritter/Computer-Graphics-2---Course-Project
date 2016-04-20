@@ -114,7 +114,7 @@ define(["jquery", "Line", "Circle", "Point"],
                 inputColor.val(selectedObj.lineStyle.color);
                 inputLineWidth.val(selectedObj.lineStyle.width);
 
-                if(selectedObj.radius != undefined) {
+                if ( selectedObj instanceof Circle ) {
                     inputRadius.val(selectedObj.radius);
                     inputRadius.show();
                 } else {
@@ -134,7 +134,7 @@ define(["jquery", "Line", "Circle", "Point"],
                 selectedObj.lineStyle.color = inputColor.val();
                 selectedObj.lineStyle.width = parseInt( inputLineWidth.val() );
 
-                if ( selectedObj.radius ) {
+                if ( selectedObj instanceof Circle ) {
                     selectedObj.radius = parseInt( inputRadius.val() );
                 }
 
@@ -150,7 +150,5 @@ define(["jquery", "Line", "Circle", "Point"],
 
 
     })); // require
-
-
 
             
