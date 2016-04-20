@@ -1,4 +1,4 @@
-define(['PointDragger', 'Line', 'jquery'], function (PointDragger, Line, $) {
+define(['PointDragger', 'Line'], function (PointDragger, Line) {
     "use strict";
 
     var Rectangle = function (topLeft, bottomRight, lineStyle) {
