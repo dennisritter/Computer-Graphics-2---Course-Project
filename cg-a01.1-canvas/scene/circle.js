@@ -69,16 +69,19 @@ define(["util", "vec2", "Scene", "PointDragger"],
             var setCenter = function (dragEvent) {
                 _circle.center = dragEvent.position;
             };
-            // Radius-Dragger
-            var getRadius = function () {
-                return _circle.radius;
-            }
-            var setRadius = function (dragEvent) {
-                _circle.radius = dragEvent.position.sub(_circle.center);
-            }
             //Add Draggers to the draggers-list
             draggers.push(new PointDragger(getCenter, setCenter, draggerStyle));
-            //draggers.push(new PointDragger([getCenter[0] + getRadius[0], getCenter[1]], setRadius, draggerStyle));
+
+            var getRadiusDraggerPosition = function () {
+                return [_circle.center[0] + _circle.radius, _circle.center[1]];
+            };
+
+            var setRadius = function (dragEvent) {
+                var dx = _circle.center[0] - dragEvent.position[0];
+                var dy = _circle.center[1] - dragEvent.position[1];
+                _circle.radius = Math.sqrt( dx*dx + dy*dy );
+            };
+            draggers.push(new PointDragger(getRadiusDraggerPosition, setRadius, draggerStyle));
 
             return draggers;
 
