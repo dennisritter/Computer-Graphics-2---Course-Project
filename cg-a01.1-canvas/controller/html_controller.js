@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point"],
-    (function ($, Line, Circle, Point) {
+define(["jquery", "Line", "Circle", "Point", "Rectangle"],
+    (function ($, Line, Circle, Point, Rectangle) {
         "use strict";
 
         /*
@@ -104,6 +104,20 @@ define(["jquery", "Line", "Circle", "Point"],
                 sceneController.deselect();
                 sceneController.select(point); // this will also redraw
             }));
+
+            $('#btnNewRectangle').click(function () {
+                var x1 = randomX();
+                var x2 = randomX();
+                var y1 = randomY();
+                var y2 = randomY();
+                var topLeft = [Math.min(x1, x2), Math.max(y1, y2)];
+                var bottomRight = [Math.max(x1, x2), Math.min(y1, y2)];
+                var rect = new Rectangle(topLeft, bottomRight, randomStyle());
+
+                scene.addObjects([rect]);
+                sceneController.deselect();
+                sceneController.select(rect);
+            });
 
             /*
              * event handler for Object-selection
