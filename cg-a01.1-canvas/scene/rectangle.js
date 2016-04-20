@@ -91,10 +91,15 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
         };
         var setSize = function ( dragEvent ) {
             var d = dragEvent.delta;
+            var p = dragEvent.position;
             var width = _geo.bottomRight[0] - _geo.topLeft[0];
             var height = _geo.bottomRight[1] - _geo.topLeft[1];
 
             if ( d[0] <= -width || d[1] <= -height ) {
+                return;
+            }
+
+            if ( p[0] < _geo.topLeft[0] || p[1] < _geo.topLeft[1] ) {
                 return;
             }
 
