@@ -22,6 +22,9 @@ define(["jquery", "Line", "Circle", "Point"],
          */
         var HtmlController = function (context, scene, sceneController) {
 
+            var inputLineWidth = $('#inputLineWidth');
+            var inputColor = $('#inputColor');
+            var inputRadius = $('#inputRadius');
 
             // generate random X coordinate within the canvas
             var randomX = function () {
@@ -100,7 +103,6 @@ define(["jquery", "Line", "Circle", "Point"],
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(point); // this will also redraw
-
             }));
 
             /*
@@ -109,14 +111,14 @@ define(["jquery", "Line", "Circle", "Point"],
              */
             var updateInputs = function () {
                 var selectedObj = sceneController.getSelectedObject();
-                $("#inputColor").attr("value", selectedObj.lineStyle.color);
-                $("#inputLineWidth").attr("value", selectedObj.lineStyle.width);
+                inputColor.val(selectedObj.lineStyle.color);
+                inputLineWidth.val(selectedObj.lineStyle.width);
 
                 if(selectedObj.radius != undefined) {
-                    $("#inputRadius").attr("value", selectedObj.radius);
-                    $("#inputRadius").show();
+                    inputRadius.val(selectedObj.radius);
+                    inputRadius.show();
                 } else {
-                    $("#inputRadius").hide();
+                    inputRadius.hide();
                 }
             };
 
@@ -127,18 +129,19 @@ define(["jquery", "Line", "Circle", "Point"],
              * event handler for changes in input fields
              * Changes the values of the selected Geometry to the new input field value
              */
-            $(".objParam").change(function () {
+            var updateSelectedObject = function () {
                 var selectedObj = sceneController.getSelectedObject();
-                selectedObj.lineStyle.color = $("#inputColor").val();
-                selectedObj.lineStyle.width = parseInt( $("#inputLineWidth").val() );
+                selectedObj.lineStyle.color = inputColor.val();
+                selectedObj.lineStyle.width = parseInt( inputLineWidth.val() );
 
                 if ( selectedObj.radius ) {
-                    selectedObj.radius = parseInt( $("#inputRadius").val() );
+                    selectedObj.radius = parseInt( inputRadius.val() );
                 }
 
                 sceneController.select(selectedObj);
-            });
+            };
 
+            $(".objParam").change( updateSelectedObject );
 
         };
 
