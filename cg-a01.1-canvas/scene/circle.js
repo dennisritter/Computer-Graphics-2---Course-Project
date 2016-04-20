@@ -66,7 +66,7 @@ define(["util", "vec2", "Scene", "PointDragger"],
             var getCenter = function () {
                 return _circle.center;
             };
-            var setCenter = function (dragEvent) {
+            var setCenter = function (dragEvent) { console.log(dragEvent.position);
                 _circle.center = dragEvent.position;
             };
             //Add Draggers to the draggers-list

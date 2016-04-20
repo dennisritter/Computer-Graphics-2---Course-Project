@@ -28,17 +28,17 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
         var topRight = [this.bottomRight[0], this.topLeft[1]];
         var bottomLeft = [this.topLeft[0], this.bottomRight[1]];
 
-        this.lines[0].p1 = this.topLeft;
-        this.lines[0].p2 = topRight;
+        this.lines[0].p0 = this.topLeft;
+        this.lines[0].p1 = topRight;
 
-        this.lines[1].p1 = topRight;
-        this.lines[1].p2 = this.bottomRight;
+        this.lines[1].p0 = topRight;
+        this.lines[1].p1 = this.bottomRight;
 
-        this.lines[2].p1 = this.bottomRight;
-        this.lines[2].p2 = bottomLeft;
+        this.lines[2].p0 = this.bottomRight;
+        this.lines[2].p1 = bottomLeft;
 
-        this.lines[3].p1 = bottomLeft;
-        this.lines[3].p2 = this.topLeft;
+        this.lines[3].p0 = bottomLeft;
+        this.lines[3].p1 = this.topLeft;
     };
 
     Rectangle.prototype.draw = function ( context ) {
@@ -46,13 +46,6 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
         for ( var i = 0; i < this.lines.length; ++i ) {
             this.lines[i].draw( context );
         }
-    };
-
-    Rectangle.prototype.getDimensions = function () {
-        return [
-            this.bottomRight[0] - this.topLeft[0],
-            this.topLeft[1] - this.bottomRight[1]
-        ];
     };
 
     Rectangle.prototype.createDraggers = function () {
@@ -67,14 +60,18 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
         var _geo = this;
 
         var getCenter = function () {
-            return [(_geo.topLeft[0] + _geo.bottomRight[0]) / 2, (_geo.topLeft[1] + _geo.bottomRight[1]) / 2];
+            return [
+                (_geo.topLeft[0] + _geo.bottomRight[0]) / 2,
+                (_geo.topLeft[1] + _geo.bottomRight[1]) / 2
+            ];
         };
 
         var setCenter = function ( dragEvent ) {
-            var dim = _geo.getDimensions();
-            var pos = dragEvent.position;
-            _geo.topLeft = [ pos[0] - dim[0] / 2, pos[1] + dim[1] / 2 ];
-            _geo.bottomRight = [ pos[0] + dim[0] / 2, pos[1] - dim[1] / 2 ];
+            var d = dragEvent.delta;
+            _geo.topLeft[0] += d[0];
+            _geo.topLeft[1] += d[1];
+            _geo.bottomRight[0] += d[0];
+            _geo.bottomRight[1] += d[1];
         };
 
         draggers.push( new PointDragger(getCenter, setCenter, draggerStyle) );

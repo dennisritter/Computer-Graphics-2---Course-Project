@@ -110,8 +110,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle"],
                 var x2 = randomX();
                 var y1 = randomY();
                 var y2 = randomY();
-                var topLeft = [Math.min(x1, x2), Math.max(y1, y2)];
-                var bottomRight = [Math.max(x1, x2), Math.min(y1, y2)];
+                var topLeft = [Math.min(x1, x2), Math.min(y1, y2)];
+                var bottomRight = [Math.max(x1, x2), Math.max(y1, y2)];
                 var rect = new Rectangle(topLeft, bottomRight, randomStyle());
 
                 scene.addObjects([rect]);
