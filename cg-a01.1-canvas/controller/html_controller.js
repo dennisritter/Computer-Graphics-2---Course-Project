@@ -126,10 +126,14 @@ define(["jquery", "Line", "Circle", "Point"],
              */
             $(".objParam").change(function () {
                 var selectedObj = sceneController.getSelectedObject();
-                selectedObj.lineStyle.color = $("#inputColor").attr("value");
-                selectedObj.lineStyle.width = $("#inputLineWidth").attr("value");
+                selectedObj.lineStyle.color = $("#inputColor").val();
+                selectedObj.lineStyle.width = parseInt( $("#inputLineWidth").val() );
+
+                if ( selectedObj.radius ) {
+                    selectedObj.radius = parseInt( $("#inputRadius").val() );
+                }
+
                 sceneController.select(selectedObj);
-                console.log("changed...");
             });
 
 
