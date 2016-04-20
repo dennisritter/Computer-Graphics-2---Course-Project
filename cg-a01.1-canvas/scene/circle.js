@@ -22,9 +22,12 @@ define(["util", "vec2", "Scene", "PointDragger"],
          * A circle that can be repositioned.
          */
 
-        var Circle = function (center, radius) {
+        var Circle = function (center, radius, lineStyle) {
             // draw style for drawing the outline of the circle
-            this.lineStyle = {width: "2", color: "#FF00A1"};
+            this.lineStyle = lineStyle || {
+              width: "2",
+              color: "#FF00A1"
+            };
 
             // initial values in case the center or radius is undefined
             this.center = center || [50, 50];
