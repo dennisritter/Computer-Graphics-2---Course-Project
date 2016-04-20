@@ -51,20 +51,21 @@ define(["jquery", "Line", "Circle", "Point"],
                 return "#" + toHex2(r) + toHex2(g) + toHex2(b);
             };
 
+            // Generates a random line style
+            var randomStyle = function () {
+                return {
+                    width: Math.floor(Math.random() * 3) + 1,
+                    color: randomColor()
+                };
+            };
+
             /*
              * event handler for "new line button".
              */
             $("#btnNewLine").click((function () {
-
-                // create the actual line and add it to the scene
-                var style = {
-                    width: Math.floor(Math.random() * 3) + 1,
-                    color: randomColor()
-                };
-
                 var line = new Line([randomX(), randomY()],
                     [randomX(), randomY()],
-                    style);
+                    randomStyle());
                 scene.addObjects([line]);
 
                 // deselect all objects, then select the newly created object
@@ -79,7 +80,7 @@ define(["jquery", "Line", "Circle", "Point"],
              */
             $("#btnNewCircle").click((function () {
                 // create the circle and add it to the scene
-                var circle = new Circle([randomX(), randomY()], 50);
+                var circle = new Circle([randomX(), randomY()], (Math.random() + 0.5) * 50, randomStyle());
                 scene.addObjects([circle]);
 
                 // deselect all objects, then select the newly created object
