@@ -107,18 +107,21 @@ define(["jquery", "Line", "Circle", "Point"],
              * event handler for Object-selection
              * Changes the values of the input fields to the values of the selected Geometry
              */
-            sceneController.onSelection(function () {
+            var updateInputs = function () {
                 var selectedObj = sceneController.getSelectedObject();
                 $("#inputColor").attr("value", selectedObj.lineStyle.color);
                 $("#inputLineWidth").attr("value", selectedObj.lineStyle.width);
 
-                if(selectedObj.radius != undefined){
+                if(selectedObj.radius != undefined) {
                     $("#inputRadius").attr("value", selectedObj.radius);
                     $("#inputRadius").show();
-                }else {
+                } else {
                     $("#inputRadius").hide();
                 }
-            });
+            };
+
+            sceneController.onSelection( updateInputs );
+            sceneController.onObjChange( updateInputs );
 
             /*
              * event handler for changes in input fields
