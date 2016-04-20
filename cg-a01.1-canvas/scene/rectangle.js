@@ -91,6 +91,13 @@ define(['PointDragger', 'Line'], function (PointDragger, Line) {
         };
         var setSize = function ( dragEvent ) {
             var d = dragEvent.delta;
+            var width = _geo.bottomRight[0] - _geo.topLeft[0];
+            var height = _geo.bottomRight[1] - _geo.topLeft[1];
+
+            if ( d[0] <= -width || d[1] <= -height ) {
+                return;
+            }
+
             _geo.bottomRight[0] += d[0];
             _geo.bottomRight[1] += d[1];
             _geo.updateLines();
