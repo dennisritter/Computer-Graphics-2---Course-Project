@@ -29,7 +29,7 @@ requirejs.config({
         "Point" : "./scene/point",
         "PointDragger" : "./scene/point_dragger",
         "KdTree": "./kdtree/kdtree",
-        "KdUtil": "./kdtree/kdutil",
+        "kdutil": "./kdtree/kdutil",
         "KdNode": "./kdtree/kdnode",
         "BoundingBox": "./kdtree/boundingbox",
 

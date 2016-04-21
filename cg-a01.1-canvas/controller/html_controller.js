@@ -12,7 +12,7 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "KdUtil"],
+define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
     (function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil) {
         "use strict";
 
