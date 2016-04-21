@@ -41,6 +41,20 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
 
                 // Note: We need to compute the bounding box for EACH new 'node'
                 //       to be able to query correctly
+                
+                //<Neuen Knoten im Baum erzeugen>
+                //<Berechne Split Position in pointlist>
+
+                //<set node.point>
+
+                //<Berechne Bounding Box des Unterbaumes / node.bbox >
+
+                //<Extrahiere Punkte für die linke Unterbaumhälfte>
+                //<Extrahiere Punkte für die rechte Unterbaumhälfte>
+
+                //<Unterbaum für linke Seite aufbauen>
+                //<Unterbaum für rinke Seite aufbauen>
+                
 
                 return node;
             };

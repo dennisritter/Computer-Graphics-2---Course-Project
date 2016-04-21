@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point", "Rectangle"],
-    (function ($, Line, Circle, Point, Rectangle) {
+define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "KdUtil"],
+    (function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil) {
         "use strict";
 
         /*
@@ -25,6 +25,9 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle"],
             var inputLineWidth = $('#inputLineWidth');
             var inputColor = $('#inputColor');
             var inputRadius = $('#inputRadius');
+
+            var kdTree;
+            var pointList = [];
 
             // generate random X coordinate within the canvas
             var randomX = function () {
@@ -156,6 +159,81 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle"],
             };
 
             $(".objParam").change( updateSelectedObject );
+
+            // KDTree
+
+            $("#btnNewPointList").click( (function() {
+
+                // create the actual line and add it to the scene
+                var style = {
+                    width: Math.floor(Math.random()*3)+1,
+                    color: randomColor()
+                };
+
+                var numPoints = parseInt($("#numPoints").attr("value"));;
+                for(var i=0; i<numPoints; ++i) {
+                    var point = new Point([randomX(), randomY()], 5,
+                        style);
+                    scene.addObjects([point]);
+                    pointList.push(point);
+                }
+
+                // deselect all objects, then select the newly created object
+                sceneController.deselect();
+
+            }));
+
+            $("#visKdTree").click( (function() {
+
+                var showTree = $("#visKdTree").attr("checked");
+                if(showTree && kdTree) {
+                    KdUtil.visualizeKdTree(sceneController, scene, kdTree.root, 0, 0, 600, true);
+                }
+
+            }));
+
+            $("#btnBuildKdTree").click( (function() {
+
+                kdTree = new KdTree(pointList);
+
+            }));
+
+            /**
+             * creates a random query point and
+             * runs linear search and kd-nearest-neighbor search
+             */
+            $("#btnQueryKdTree").click( (function() {
+
+                var style = {
+                    width: 2,
+                    color: "#ff0000"
+                };
+                var queryPoint = new Point([randomX(), randomY()], 2,
+                    style);
+                scene.addObjects([queryPoint]);
+                sceneController.select(queryPoint);
+
+                console.log("query point: ", queryPoint.center);
+
+                ////////////////////////////////////////////////
+                // TODO: measure and compare timings of linear
+                //       and kd-nearest-neighbor search
+                ////////////////////////////////////////////////
+                var linearTiming;
+                var kdTiming;
+
+                var minIdx = KdUtil.linearSearch(pointList, queryPoint);
+
+                console.log("nearest neighbor linear: ", pointList[minIdx].center);
+
+                var kdNearestNeighbor = kdTree.findNearestNeighbor(kdTree.root, queryPoint, 10000000, kdTree.root, 0);
+
+                console.log("nearest neighbor kd: ", kdNearestNeighbor.point.center);
+
+                sceneController.select(pointList[minIdx]);
+                sceneController.select(kdNearestNeighbor.point);
+
+            }));
 
         };
 

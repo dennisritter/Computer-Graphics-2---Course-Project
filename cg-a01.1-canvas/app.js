@@ -28,6 +28,10 @@ requirejs.config({
         "Rectangle": "./scene/rectangle",
         "Point" : "./scene/point",
         "PointDragger" : "./scene/point_dragger",
+        "KdTree": "./kdtree/kdtree",
+        "KdUtil": "./kdtree/kdutil",
+        "KdNode": "./kdtree/kdnode",
+        "BoundingBox": "./kdtree/boundingbox",
 
         "vec2" : "./math/vec2",
 
