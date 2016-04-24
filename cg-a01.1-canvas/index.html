@@ -41,12 +41,22 @@
         <button id="btnNewPoint" type="button">New Point</button>
         <button id="btnNewRectangle" type="button">New Rectangle</button>
 
+        <h3>Selected Object:</h3>
         <label for="inputColor">Selected Object Color</label>
         <input id="inputColor" class="objParam" type="color" />
         <label for="inputLineWidth">Selected Object Line Width</label>
         <input id="inputLineWidth" class="objParam" type="number" />
         <label for="inputRadius">Selected Object Radius</label>
         <input id="inputRadius" class="objParam" type="number" />
+
+        <h3>kd-Tree:</h3>
+        <button id="btnNewPointList" type="button">New Point List</button>
+        <input id="numPoints" type="number" />
+        <label for="visKdTree">
+            <input type="checkbox" id="visKdTree" />Show kdTree!
+        </label>
+        <button id="btnBuildKdTree" type="button">Build kdTree</button>
+        <button id="btnQueryKdTree" type="button">Query kdTree</button>
     </div>
 
 
