@@ -160,8 +160,10 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
 
             $(".objParam").change( updateSelectedObject );
 
-            // KDTree
-
+            /**
+             * Creates a new PointList based on the given number of points
+             * from the input field #numPoints.
+             */
             $("#btnNewPointList").click( (function() {
 
                 // create the actual line and add it to the scene
@@ -183,6 +185,9 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
 
             }));
 
+            /**
+             * Displays the kd-Tree
+             */
             $("#visKdTree").click( (function() {
 
                 var showTree = $("#visKdTree").attr("checked");
@@ -192,6 +197,9 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
 
             }));
 
+            /**
+             *Generates the kd-Tree
+             */
             $("#btnBuildKdTree").click( (function() {
 
                 kdTree = new KdTree(pointList);
