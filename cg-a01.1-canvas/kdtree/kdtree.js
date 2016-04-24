@@ -43,15 +43,16 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
                 //       to be able to query correctly
 
                 //<Neuen Knoten im Baum erzeugen>
-                node = KdNode(dim);
+                node = new KdNode(dim);
 
                 //<Berechne Split Position in pointlist>
-                var splitPosition = sortAndMedian(pointList, dim);
+                var splitPosition = KdUtil.sortAndMedian(pointList, dim);
 
                 //<set node.point>
                 node.point = pointList[splitPosition];
 
                 //<Berechne Bounding Box des Unterbaumes / node.bbox >
+                //wie berechnet man die bounding box des unterbaums???
                 node.bbox = undefined;
 
                 //<Extrahiere Punkte für die linke Unterbaumhälfte>
@@ -59,7 +60,7 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
                 for (var i = 0; i <= splitPosition-1; i++){
                     pointListLeft.push(pointList[i]);
                 }
-                var splitPositionLeft = sortAndMedian(pointListLeft,dim);
+                var splitPositionLeft = KdUtil.sortAndMedian(pointListLeft,dim);
                 node.leftChild = pointListLeft[splitPositionLeft] ;
 
                 //<Extrahiere Punkte für die rechte Unterbaumhälfte>
@@ -67,14 +68,18 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
                 for (var i = pointList.length-1; i >= splitPosition+1; i--){
                     pointListRight.push(pointList[i]);
                 }
-                var splitPositionRight = sortAndMedian(pointListRight,dim);
+                var splitPositionRight = KdUtil.sortAndMedian(pointListRight,dim);
                 node.rightChild = pointListRight[splitPositionRight] ;
 
                 //<Unterbaum für linke Seite aufbauen>
-                this.build(pointListLeft);
+                if (pointListLeft.length > 0) {
+                    this.build(pointListLeft);
+                }
 
                 //<Unterbaum für rinke Seite aufbauen>
-                this.build(pointListRight);
+                if (pointListRight.length > 0) {
+                    this.build(pointListRight);
+                }
 
 
                 return node;
