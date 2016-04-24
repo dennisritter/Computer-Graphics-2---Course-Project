@@ -10,7 +10,7 @@
 
 /* requireJS module definition */
 define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
-    (function(KdUtil, vec2, Scene, KdNode, BoundingBox) {
+    function (KdUtil, vec2, Scene, KdNode, BoundingBox) {
 
         "use strict";
 
@@ -31,7 +31,7 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
              * @param isLeft    - flag if node is left or right child of its parent
              * @returns returns root node after tree is build
              */
-            this.build = function(pointList, dim, parent, isLeft) {
+            this.build = function (pointList, dim, parent, isLeft) {
 
                 var node = undefined;
 
@@ -41,20 +41,41 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
 
                 // Note: We need to compute the bounding box for EACH new 'node'
                 //       to be able to query correctly
-                
+
                 //<Neuen Knoten im Baum erzeugen>
+                node = KdNode(dim);
+
                 //<Berechne Split Position in pointlist>
+                var splitPosition = sortAndMedian(pointList, dim);
 
                 //<set node.point>
+                node.point = pointList[splitPosition];
 
                 //<Berechne Bounding Box des Unterbaumes / node.bbox >
+                node.bbox = undefined;
 
                 //<Extrahiere Punkte für die linke Unterbaumhälfte>
+                var pointListLeft = [];
+                for (var i = 0; i <= splitPosition-1; i++){
+                    pointListLeft.push(pointList[i]);
+                }
+                var splitPositionLeft = sortAndMedian(pointListLeft,dim);
+                node.leftChild = pointListLeft[splitPositionLeft] ;
+
                 //<Extrahiere Punkte für die rechte Unterbaumhälfte>
+                var pointListRight = [];
+                for (var i = pointList.length-1; i >= splitPosition+1; i--){
+                    pointListRight.push(pointList[i]);
+                }
+                var splitPositionRight = sortAndMedian(pointListRight,dim);
+                node.rightChild = pointListRight[splitPositionRight] ;
 
                 //<Unterbaum für linke Seite aufbauen>
+                this.build(pointListLeft);
+
                 //<Unterbaum für rinke Seite aufbauen>
-                
+                this.build(pointListRight);
+
 
                 return node;
             };
@@ -70,9 +91,9 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
              * @param dim - current axis (x or y)
              * @returns closest tree node to query node
              */
-            this.findNearestNeighbor = function(node, query, currentBest, nearestDistance, dim) {
+            this.findNearestNeighbor = function (node, query, currentBest, nearestDistance, dim) {
 
-                if( !node ) {
+                if (!node) {
                     return currentBest;
                 }
 
@@ -80,14 +101,14 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
                 var closestDistance = nearestDistance;
 
                 var dist = KdUtil.distance(node.point.center, query.center);
-                if( dist < nearestDistance ) {
+                if (dist < nearestDistance) {
                     closestDistance = dist;
                     closest = node;
                 }
 
                 var a, b;
                 if (dim == 0) {
-                    if ( query.center[0] < node.point.center[0]) {
+                    if (query.center[0] < node.point.center[0]) {
                         a = node.leftChild;
                         b = node.rightChild;
                     } else {
@@ -105,12 +126,12 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
                 }
 
                 var nextDim = (dim === 0) ? 1 : 0;
-                if( a && a.bbox.distanceTo(query.center) < closestDistance) {
+                if (a && a.bbox.distanceTo(query.center) < closestDistance) {
                     closest = this.findNearestNeighbor(a, query, closest, closestDistance, nextDim);
                     closestDistance = KdUtil.distance(closest.point.center, query.center);
                 }
 
-                if( b && b.bbox.distanceTo(query.center) < closestDistance) {
+                if (b && b.bbox.distanceTo(query.center) < closestDistance) {
                     closest = this.findNearestNeighbor(b, query, closest, closestDistance, nextDim);
                 }
 
@@ -127,6 +148,6 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
         return KdTree;
 
 
-    })); // define
+    }); // define
 
 
