@@ -52,8 +52,11 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
                 //<Berechne Bounding Box des Unterbaumes / node.bbox >
                 if (parent = null){
                     //zeichne canvas komplett (kann als default-wert festgelegt werden)
+                }
+                if (isLeft){
+                    //nimm linke seite der node.
                 } else {
-                    //nimm linke (if isleft) oder rechte seite (if !isleft) der node.
+                    //nimm rechte seite der node.
                 }
 
                 //<Extrahiere Punkte für die linke Unterbaumhälfte>
@@ -71,10 +74,10 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
                 var dimSwitched = (dim + 1) % 2;
 
                 //<Unterbaum für linke Seite aufbauen>
-                return node.leftChild(this.build( pointListLeft, dimSwitched, node, true ));
+                node.leftChild = this.build( pointListLeft, dimSwitched, node, true );
 
                 //<Unterbaum für rinke Seite aufbauen>
-                return node.rightChild(this.build( pointListRight, dimSwitched, node, false ));
+                node.rightChild = this.build( pointListRight, dimSwitched, node, false );
 
                 return node;
             };
