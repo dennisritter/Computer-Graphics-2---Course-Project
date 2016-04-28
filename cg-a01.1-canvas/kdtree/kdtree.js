@@ -9,8 +9,8 @@
 
 
 /* requireJS module definition */
-define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
-    function (KdUtil, vec2, Scene, KdNode, BoundingBox) {
+define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox", "Rectangle"],
+    function (KdUtil, vec2, Scene, KdNode, BoundingBox, Rectangle) {
 
         "use strict";
 
@@ -34,7 +34,7 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
             this.build = function (pointList, dim, parent, isLeft) {
 
 
-                if ( pointList.length = 0 ){
+                if ( pointList.length === 0 ){
                     return null;
                 }
 
@@ -50,7 +50,11 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
                 node.point = pointList[splitPosition];
 
                 //<Berechne Bounding Box des Unterbaumes / node.bbox >
-                if (parent = null){
+                if (parent ===  undefined || parent === null){
+                    var width = context.canvas.width;
+                    var height = context.canvas.height;
+                    node.bbox = new BoundingBox(0, 0, width, height, node.point, dim);
+
                     //zeichne canvas komplett (kann als default-wert festgelegt werden)
                 }
                 if (isLeft){
@@ -67,8 +71,8 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
 
                 //<Extrahiere Punkte für die rechte Unterbaumhälfte>
                 var pointListRight = [];
-                for (var i = pointList.length-1; i > splitPosition; i--){
-                    pointListRight.push(pointList[i]);
+                for (var j = pointList.length-1; j > splitPosition; j--){
+                    pointListRight.push(pointList[j]);
                 }
 
                 var dimSwitched = (dim + 1) % 2;
