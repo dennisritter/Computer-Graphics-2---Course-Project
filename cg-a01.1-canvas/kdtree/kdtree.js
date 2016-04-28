@@ -33,14 +33,12 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
              */
             this.build = function (pointList, dim, parent, isLeft) {
 
-                var node = undefined;
 
-                // ===========================================
-                // TODO: implement build tree
-                // ===========================================
+                if ( pointList.length = 0 ){
+                    return null;
+                }
 
-                // Note: We need to compute the bounding box for EACH new 'node'
-                //       to be able to query correctly
+                var node;
 
                 //<Neuen Knoten im Baum erzeugen>
                 node = new KdNode(dim);
@@ -52,35 +50,31 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
                 node.point = pointList[splitPosition];
 
                 //<Berechne Bounding Box des Unterbaumes / node.bbox >
-                //wie berechnet man die bounding box des unterbaums???
-                node.bbox = undefined;
+                if (parent = null){
+                    //zeichne canvas komplett (kann als default-wert festgelegt werden)
+                } else {
+                    //nimm linke (if isleft) oder rechte seite (if !isleft) der node.
+                }
 
                 //<Extrahiere Punkte für die linke Unterbaumhälfte>
                 var pointListLeft = [];
-                for (var i = 0; i <= splitPosition-1; i++){
+                for (var i = 0; i < splitPosition; i++){
                     pointListLeft.push(pointList[i]);
                 }
-                var splitPositionLeft = KdUtil.sortAndMedian(pointListLeft,dim);
-                node.leftChild = pointListLeft[splitPositionLeft] ;
 
                 //<Extrahiere Punkte für die rechte Unterbaumhälfte>
                 var pointListRight = [];
-                for (var i = pointList.length-1; i >= splitPosition+1; i--){
+                for (var i = pointList.length-1; i > splitPosition; i--){
                     pointListRight.push(pointList[i]);
                 }
-                var splitPositionRight = KdUtil.sortAndMedian(pointListRight,dim);
-                node.rightChild = pointListRight[splitPositionRight] ;
+
+                var dimSwitched = (dim + 1) % 2;
 
                 //<Unterbaum für linke Seite aufbauen>
-                if (pointListLeft.length > 0) {
-                    this.build(pointListLeft);
-                }
+                return node.leftChild(this.build( pointListLeft, dimSwitched, node, true ));
 
                 //<Unterbaum für rinke Seite aufbauen>
-                if (pointListRight.length > 0) {
-                    this.build(pointListRight);
-                }
-
+                return node.rightChild(this.build( pointListRight, dimSwitched, node, false ));
 
                 return node;
             };
