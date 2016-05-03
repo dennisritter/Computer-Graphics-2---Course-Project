@@ -160,8 +160,10 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
 
             $(".objParam").change( updateSelectedObject );
 
-            // KDTree
-
+            /**
+             * Creates a new PointList based on the given number of points
+             * from the input field #numPoints.
+             */
             $("#btnNewPointList").click( (function() {
 
                 // create the actual line and add it to the scene
@@ -183,6 +185,9 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
 
             }));
 
+            /**
+             * Displays the kd-Tree
+             */
             $("#visKdTree").click( (function() {
 
                 var showTree = $("#visKdTree").attr("checked");
@@ -192,10 +197,11 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
 
             }));
 
+            /**
+             *Generates the kd-Tree
+             */
             $("#btnBuildKdTree").click( (function() {
-
-                kdTree = new KdTree(pointList);
-
+                kdTree = new KdTree(pointList, context.canvas.width, context.canvas.height);
             }));
 
             /**
@@ -203,17 +209,18 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
              * runs linear search and kd-nearest-neighbor search
              */
             $("#btnQueryKdTree").click( (function() {
-
                 var style = {
                     width: 2,
                     color: "#ff0000"
                 };
+
                 var queryPoint = new Point([randomX(), randomY()], 2,
                     style);
+
                 scene.addObjects([queryPoint]);
                 sceneController.select(queryPoint);
 
-                console.log("query point: ", queryPoint.center);
+                console.log("query point: ", queryPoint);
 
                 ////////////////////////////////////////////////
                 // TODO: measure and compare timings of linear
@@ -226,13 +233,12 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
 
                 console.log("nearest neighbor linear: ", pointList[minIdx].center);
 
-                var kdNearestNeighbor = kdTree.findNearestNeighbor(kdTree.root, queryPoint, 10000000, kdTree.root, 0);
+                var kdNearestNeighbor = kdTree.findNearestNeighbor(kdTree.root, queryPoint, kdTree.root, 10000000, 0);
 
                 console.log("nearest neighbor kd: ", kdNearestNeighbor.point.center);
 
                 sceneController.select(pointList[minIdx]);
                 sceneController.select(kdNearestNeighbor.point);
-
             }));
 
         };

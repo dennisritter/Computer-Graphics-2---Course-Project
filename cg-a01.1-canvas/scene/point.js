@@ -22,10 +22,10 @@ define(["util", "vec2", "Scene", "PointDragger"],
          * A point that can be repositioned.
          */
 
-        var Point = function (center) {
+        var Point = function (center, radius, lineStyle) {
             // draw style for drawing the outline of the point
-            this.radius = 5;
-            this.lineStyle = {width: "2", color: "#67FF73"};
+            this.radius = radius || 5;
+            this.lineStyle = lineStyle || {width: "2", color: "#67FF73"};
 
             // initial values in case the center or radius is undefined
             this.center = center || [50, 50];

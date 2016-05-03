@@ -57,14 +57,21 @@ define([], (function() {
      * @param queryPoint
      */
     kdutil.linearSearch = function(pointList, queryPoint) {
+        var closest = {
+            distance: undefined,
+            index: 0
+        };
 
-        // ===========================================
-        // TODO: implement linear search
-        // ===========================================
+        for ( var i = 0; i < pointList.length; ++i ) {
+            var distance = kdutil.distance(queryPoint.center, pointList[i].center);
 
-        var minIdx = 0;
-        return minIdx;
+            if ( closest.distance === undefined || distance < closest.distance ) {
+                closest.distance = distance;
+                closest.index = i
+            }
+        }
 
+        return closest.index;
     };
 
 
