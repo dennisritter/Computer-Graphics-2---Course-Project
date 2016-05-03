@@ -21,7 +21,9 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox", "Rectangle"],
          * @param pointList
          * @constructor
          */
-        var KdTree = function (pointList) {
+        var KdTree = function (pointList, width, height) {
+            this.width = width;
+            this.height = height;
 
             /**
              *
@@ -32,8 +34,6 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox", "Rectangle"],
              * @returns returns root node after tree is build
              */
             this.build = function (pointList, dim, parent, isLeft) {
-
-
                 if ( pointList.length === 0 ){
                     return null;
                 }
@@ -49,20 +49,6 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox", "Rectangle"],
                 //<set node.point>
                 node.point = pointList[splitPosition];
 
-                //<Berechne Bounding Box des Unterbaumes / node.bbox >
-                if (parent ===  undefined || parent === null){
-                    var width = context.canvas.width;
-                    var height = context.canvas.height;
-                    node.bbox = new BoundingBox(0, 0, width, height, node.point, dim);
-
-                    //zeichne canvas komplett (kann als default-wert festgelegt werden)
-                }
-                if (isLeft){
-                    //nimm linke seite der node.
-                } else {
-                    //nimm rechte seite der node.
-                }
-
                 //<Extrahiere Punkte für die linke Unterbaumhälfte>
                 var pointListLeft = [];
                 for (var i = 0; i < splitPosition; i++){
@@ -77,12 +63,33 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox", "Rectangle"],
 
                 var dimSwitched = (dim + 1) % 2;
 
+                //<Berechne Bounding Box des Unterbaumes / node.bbox >
+                if (!(parent instanceof KdNode)) {
+                    node.bbox = new BoundingBox(0, 0, this.width, this.height, node.point, dim);
+                    //zeichne canvas komplett (kann als default-wert festgelegt werden)
+                } else {
+                    var pb = parent.bbox;
+                    if ( isLeft ){
+                        if ( parent.dim == 0 ) {
+                            node.bbox = new BoundingBox(pb.xmin, pb.ymin, parent.point.center[0], pb.ymax, node.point, dim);
+                        } else {
+                            node.bbox = new BoundingBox(pb.xmin, pb.ymin, pb.xmax, parent.point.center[1], node.point, dim);
+                        }
+                    } else {
+                        if ( parent.dim == 0 ) {
+                            node.bbox = new BoundingBox(parent.point.center[0], pb.ymin, pb.xmax, pb.ymax, node.point, dim);
+                        } else {
+                            node.bbox = new BoundingBox(pb.xmin, parent.point.center[1], pb.xmax, pb.ymax, node.point, dim);
+                        }
+                    }
+                }
+
                 //<Unterbaum für linke Seite aufbauen>
                 node.leftChild = this.build( pointListLeft, dimSwitched, node, true );
 
                 //<Unterbaum für rinke Seite aufbauen>
                 node.rightChild = this.build( pointListRight, dimSwitched, node, false );
-
+                
                 return node;
             };
 

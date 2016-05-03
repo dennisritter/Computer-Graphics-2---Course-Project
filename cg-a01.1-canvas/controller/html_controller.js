@@ -201,9 +201,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
              *Generates the kd-Tree
              */
             $("#btnBuildKdTree").click( (function() {
-
-                kdTree = new KdTree(pointList);
-
+                kdTree = new KdTree(pointList, context.canvas.width, context.canvas.height);
             }));
 
             /**
