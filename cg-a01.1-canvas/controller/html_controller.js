@@ -209,17 +209,18 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
              * runs linear search and kd-nearest-neighbor search
              */
             $("#btnQueryKdTree").click( (function() {
-
                 var style = {
                     width: 2,
                     color: "#ff0000"
                 };
+
                 var queryPoint = new Point([randomX(), randomY()], 2,
                     style);
+
                 scene.addObjects([queryPoint]);
                 sceneController.select(queryPoint);
 
-                console.log("query point: ", queryPoint.center);
+                console.log("query point: ", queryPoint);
 
                 ////////////////////////////////////////////////
                 // TODO: measure and compare timings of linear
@@ -238,7 +239,6 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
 
                 sceneController.select(pointList[minIdx]);
                 sceneController.select(kdNearestNeighbor.point);
-
             }));
 
         };
