@@ -8,8 +8,8 @@
  */
 
 /* requireJS module definition */
-define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
-    (function (util, vec2, Scene, PointDragger, Line, Point) {
+define(["util", "vec2", "Scene", "PointDragger", "Line"],
+    function (util, vec2, Scene, PointDragger, Line) {
 
         "use strict";
 
@@ -17,31 +17,34 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
          * A Parametric Curve
          */
 
-        var Parametric_Curve = function (f, g, tmin, tmax, n, lineStyle ) {
+        var Parametric_Curve = function (f, g, tmin, tmax, n, lineStyle) {
 
             this.points = [];
             this.lines = [];
 
             // use default line style for outline of the parametric curve
             // if constructor parameter is undefined
-            this.lineStyle = lineStyle || { width: "2", color: "#FF00A1" };
+            this.lineStyle = lineStyle || {width: "2", color: "#FF00A1"};
 
             //calculate n points in the range of tmin and tmax and push them into the point-array
-            var delta = tmax-tmin;
-            for ( var i = 0 ; i < n ; i++ ){
-                var t = delta / n * i  + tmin;
+            var delta = tmax - tmin;
 
-                ///MÖGLICHERWEISE FALSCH.
-                var x = eval (f);
-                var y = eval (g);
+            for (var i = 0; i < n; i++) {
+                var t = delta / n * i + tmin;
 
-                this.points.push( new Point(x, y, this.lineStyle) );
+                var x = eval(f);
+                var y = eval(g);
+
+                this.points[i] = [x, y];
+                console.log("point an der " + i + ". stelle im array: " + this.points[i] );
             }
 
             //create lines between the points in the point-array and push them into the lines-array
-            for ( var j = 0; j < this.points.length; j ++){
-                this.lines.push( new Line (this.points[j+1], this.points[j], this.lineStyle) );
+            for (var j = 0; j < this.points.length-1; j++) {
+                this.lines[j] = new Line( this.points[j+1], this.points[j], this.lineStyle );
+                console.log("linie an der " + j + ". stelle im array: " + this.lines[j] );
             }
+
         };
 
         // draw this parametric curve into the provided 2D rendering context
@@ -49,9 +52,9 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
             context.beginPath();
 
             // set points to be drawn for each line in the array
-            for ( var i = 0; i < this.lines.length; i++ ){
-                context.moveTo(this.lines[i][0], this.lines[i][1]);
-                context.lineTo(this.lines[i][0], this.lines[i][1]);
+            for (var i = 0; i < this.lines.length; i++) {
+                context.moveTo(this.lines[i].p0, this.lines[i].p1);
+                context.lineTo(this.lines[i].p0, this.lines[i].p1);
             }
 
             context.lineWidth = this.lineStyle.width;
@@ -66,10 +69,10 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
 
         // return list of draggers to manipulate this circle
         Parametric_Curve.prototype.createDraggers = function () {
-            // TODO return empty array.
+            return [];
         };
 
         // this module only exports the constructor for Parametric_Curve-Objects
         return Parametric_Curve;
 
-    })); // define
+    }); // define

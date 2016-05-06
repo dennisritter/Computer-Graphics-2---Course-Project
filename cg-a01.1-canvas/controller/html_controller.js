@@ -247,18 +247,25 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
              */
             $("#btnDrawCurve").click(function () {
 
-                var g = $("#inputX").attr("value");
-                var f = $("#inputY").attr("value");
+                var f = $("#inputX").attr("value");
+                console.log("f: " + f);
+                var g = $("#inputY").attr("value");
+                console.log("g: " + g);
                 try {
-                    if (g === undefined || f === undefined) throw "bitte Formel angeben."
+                    if (f === undefined || g === undefined) throw "bitte Formel angeben."
                 } catch (err) {
-                    alert(err);
+                    alert("piep");
                 }
                 var tmin = $("#tmin").attr("value");
-                var tmax = $("#tmax").attr("value");
-                var n = $("#n").attr("value");
+                console.log("tmin: " + tmin);
 
-                var curve = new Parametric_Curve(g, f, tmin, tmax, n, randomStyle());
+                var tmax = $("#tmax").attr("value");
+                console.log("tmax: " + tmax);
+
+                var n = $("#n").attr("value");
+                console.log("n: " + n);
+
+                var curve = new Parametric_Curve(f, g, tmin, tmax, n, randomStyle());
 
                 scene.addObjects([curve]);
                 sceneController.deselect();
