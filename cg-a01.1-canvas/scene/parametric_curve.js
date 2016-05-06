@@ -64,7 +64,27 @@ define(["util", "vec2", "Scene", "PointDragger", "Line"],
 
         // test whether the mouse position is on this outline of the curve
         Parametric_Curve.prototype.isHit = function (context, mousePos) {
-            // TODO implement hittest.
+
+            var t;
+            // project point on line, get parameter of that projection point
+            for (var i = 0; i < this.lines.length; i++){
+                t = vec2.projectPointOnLine(mousePos, this.lines[i].p0, this.lines[i].p1);
+                console.log("t:", t);
+                // outside the line segment?
+                if (t < 0.0 || t > 1.0) {
+                    return false;
+                }
+                // coordinates of the projected point
+                var p = vec2.add(this.lines[i].p0, vec2.mult(vec2.sub(this.lines[i].p1, this.lines[i].p0), t));
+
+                // distance of the point from the line
+                var d = vec2.length(vec2.sub(p, pos));
+
+                // allow 2 pixels extra "sensitivity"
+                return d <= (this.lineStyle.width / 2) + 2;
+            }
+
+
         };
 
         // return list of draggers to manipulate this circle
