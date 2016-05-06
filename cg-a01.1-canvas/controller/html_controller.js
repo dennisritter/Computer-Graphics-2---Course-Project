@@ -251,6 +251,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 console.log("f: " + f);
                 var g = $("#inputY").attr("value");
                 console.log("g: " + g);
+
+                // hier muss natürlich noch eine schicke Validierung stattfinden.
                 try {
                     if (f === undefined || g === undefined) throw "bitte Formel angeben."
                 } catch (err) {
