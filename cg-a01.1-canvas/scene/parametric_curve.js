@@ -66,7 +66,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line"],
         Parametric_Curve.prototype.isHit = function (context, mousePos) {
 
             var t;
-            // project point on line, get parameter of that projection point
+            // project point on each line, get parameter of that projection point
             for (var i = 0; i < this.lines.length; i++){
                 t = vec2.projectPointOnLine(mousePos, this.lines[i].p0, this.lines[i].p1);
                 console.log("t:", t);
