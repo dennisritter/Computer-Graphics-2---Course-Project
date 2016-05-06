@@ -27,43 +27,41 @@ define(["util", "vec2", "Scene", "PointDragger", "Line"],
             this.lineStyle = lineStyle || {width: "2", color: "#FF00A1"};
 
             //calculate n points in the range of tmin and tmax and push them into the point-array
+            var x = 0;
+            var y = 0;
+            var t = 0;
             var delta = tmax - tmin;
-
             for (var i = 0; i < n; i++) {
-                var t = delta / n * i + tmin;
+                t = delta / n * i + tmin;
+                console.log(i + ". t: " + t);
 
-                var x = eval(f);
-                var y = eval(g);
+                //multyply with t only for x (because y includes x)
+                x = t * (eval(f));
+                y = eval(g);
 
                 this.points[i] = [x, y];
-                console.log("point an der " + i + ". stelle im array: " + this.points[i] );
             }
 
             //create lines between the points in the point-array and push them into the lines-array
             for (var j = 0; j < this.points.length-1; j++) {
-                this.lines[j] = new Line( this.points[j+1], this.points[j], this.lineStyle );
-                console.log("linie an der " + j + ". stelle im array: " + this.lines[j] );
+                this.lines[j] = new Line( this.points[j], this.points[j+1], this.lineStyle );
             }
 
         };
 
         // draw this parametric curve into the provided 2D rendering context
         Parametric_Curve.prototype.draw = function (context) {
-            context.beginPath();
 
-            // set points to be drawn for each line in the array
-            for (var i = 0; i < this.lines.length; i++) {
-                context.moveTo(this.lines[i].p0, this.lines[i].p1);
-                context.lineTo(this.lines[i].p0, this.lines[i].p1);
+            //draw all the lines by invoking the draw method for all lines in the array
+            for (var j = 0; j < this.lines.length; j++) {
+                this.lines[j].draw(context);
             }
-
-            context.lineWidth = this.lineStyle.width;
-            context.strokeStyle = this.lineStyle.color;
-            context.stroke();
         };
 
         // test whether the mouse position is on this outline of the curve
         Parametric_Curve.prototype.isHit = function (context, mousePos) {
+
+            //Vorschlag: Für alle Linien und Punkte im jeweiligen Array, rufe isHit(..) auf.
 
             var t;
             // project point on each line, get parameter of that projection point
