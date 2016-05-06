@@ -33,6 +33,8 @@ requirejs.config({
         "KdNode": "./kdtree/kdnode",
         "BoundingBox": "./kdtree/boundingbox",
 
+        "Parametric_Curve": "./scene/parametric_curve",
+
         "vec2" : "./math/vec2",
 
         "SceneController" : "./controller/scene_controller",

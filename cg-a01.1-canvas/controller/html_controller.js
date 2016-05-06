@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
-    (function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil) {
+define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "Parametric_Curve"],
+    function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil, Parametric_Curve) {
         "use strict";
 
         /*
@@ -25,7 +25,6 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
             var inputLineWidth = $('#inputLineWidth');
             var inputColor = $('#inputColor');
             var inputRadius = $('#inputRadius');
-
             var kdTree;
             var pointList = [];
 
@@ -131,7 +130,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
                 inputColor.val(selectedObj.lineStyle.color);
                 inputLineWidth.val(selectedObj.lineStyle.width);
 
-                if ( selectedObj instanceof Circle ) {
+                if (selectedObj instanceof Circle) {
                     inputRadius.val(selectedObj.radius);
                     inputRadius.show();
                 } else {
@@ -139,8 +138,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
                 }
             };
 
-            sceneController.onSelection( updateInputs );
-            sceneController.onObjChange( updateInputs );
+            sceneController.onSelection(updateInputs);
+            sceneController.onObjChange(updateInputs);
 
             /*
              * event handler for changes in input fields
@@ -149,31 +148,32 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
             var updateSelectedObject = function () {
                 var selectedObj = sceneController.getSelectedObject();
                 selectedObj.lineStyle.color = inputColor.val();
-                selectedObj.lineStyle.width = parseInt( inputLineWidth.val() );
+                selectedObj.lineStyle.width = parseInt(inputLineWidth.val());
 
-                if ( selectedObj instanceof Circle ) {
-                    selectedObj.radius = parseInt( inputRadius.val() );
+                if (selectedObj instanceof Circle) {
+                    selectedObj.radius = parseInt(inputRadius.val());
                 }
 
                 sceneController.select(selectedObj);
             };
 
-            $(".objParam").change( updateSelectedObject );
+            $(".objParam").change(updateSelectedObject);
 
             /**
              * Creates a new PointList based on the given number of points
              * from the input field #numPoints.
              */
-            $("#btnNewPointList").click( (function() {
+            $("#btnNewPointList").click((function () {
 
                 // create the actual line and add it to the scene
                 var style = {
-                    width: Math.floor(Math.random()*3)+1,
+                    width: Math.floor(Math.random() * 3) + 1,
                     color: randomColor()
                 };
 
-                var numPoints = parseInt($("#numPoints").attr("value"));;
-                for(var i=0; i<numPoints; ++i) {
+                var numPoints = parseInt($("#numPoints").attr("value"));
+                ;
+                for (var i = 0; i < numPoints; ++i) {
                     var point = new Point([randomX(), randomY()], 5,
                         style);
                     scene.addObjects([point]);
@@ -188,10 +188,10 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
             /**
              * Displays the kd-Tree
              */
-            $("#visKdTree").click( (function() {
+            $("#visKdTree").click((function () {
 
                 var showTree = $("#visKdTree").attr("checked");
-                if(showTree && kdTree) {
+                if (showTree && kdTree) {
                     KdUtil.visualizeKdTree(sceneController, scene, kdTree.root, 0, 0, 600, true);
                 }
 
@@ -200,7 +200,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
             /**
              *Generates the kd-Tree
              */
-            $("#btnBuildKdTree").click( (function() {
+            $("#btnBuildKdTree").click((function () {
                 kdTree = new KdTree(pointList, context.canvas.width, context.canvas.height);
             }));
 
@@ -208,7 +208,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
              * creates a random query point and
              * runs linear search and kd-nearest-neighbor search
              */
-            $("#btnQueryKdTree").click( (function() {
+            $("#btnQueryKdTree").click((function () {
                 var style = {
                     width: 2,
                     color: "#ff0000"
@@ -241,12 +241,38 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil"],
                 sceneController.select(kdNearestNeighbor.point);
             }));
 
+
+            /**
+             * Draws the curve.
+             */
+            $("#btnDrawCurve").click(function () {
+
+                var g = $("#inputX").attr("value");
+                var f = $("#inputY").attr("value");
+                try {
+                    if (g === undefined || f === undefined) throw "bitte Formel angeben."
+                } catch (err) {
+                    alert(err);
+                }
+                var tmin = $("#tmin").attr("value");
+                var tmax = $("#tmax").attr("value");
+                var n = $("#n").attr("value");
+
+                var curve = new Parametric_Curve(g, f, tmin, tmax, n, randomStyle());
+
+                scene.addObjects([curve]);
+                sceneController.deselect();
+                sceneController.select(curve);
+
+
+            });
+
         };
 
         // return the constructor function
         return HtmlController;
 
 
-    })); // require
+    }); // require
 
             
