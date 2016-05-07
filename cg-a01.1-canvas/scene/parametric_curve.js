@@ -8,8 +8,8 @@
  */
 
 /* requireJS module definition */
-define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
-    function (util, vec2, Scene, PointDragger, Line, Point) {
+define(["util", "vec2", "Scene", "PointDragger", "Line", "Point", "Ticks"],
+    function (util, vec2, Scene, PointDragger, Line, Point, Ticks) {
 
         "use strict";
 
@@ -41,6 +41,11 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
                 this.lines.push( new Line(this.points[j], this.points[j + 1], this.lineStyle) );
             }
 
+            var _geo = this;
+            this.showTicks = true;
+            this.ticks = new Ticks( function () {
+              return _geo.showTicks ? _geo.points : [];
+            } );
         };
 
         // draw this parametric curve into the provided 2D rendering context
@@ -49,6 +54,8 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
             for (var i = 0; i < this.lines.length; i++) {
                 this.lines[i].draw(context);
             }
+
+            this.ticks.draw(context);
         };
 
         // test whether the mouse position is on this outline of the curve
