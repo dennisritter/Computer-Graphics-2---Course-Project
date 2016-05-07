@@ -160,9 +160,10 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 } else if ( selectedObj instanceof BezierCurve ) {
                     $('.form-row.params.on-bezier-curve').show();
                     for ( var i = 0; i < 4; ++i ) {
-                        selectedObj.controlPoints[i][0] = $('#controlPoint'+i+'x').val();
-                        selectedObj.controlPoints[i][1] = $('#controlPoint'+i+'y').val();
+                        $('#controlPoint'+i+'x').val( selectedObj.controlPoints[i][0] );
+                        $('#controlPoint'+i+'y').val( selectedObj.controlPoints[i][1] );
                     }
+                    $('#bezierCurveSegments').val( selectedObj.n );
                 }
 
                 inputColor.val(selectedObj.lineStyle.color);
