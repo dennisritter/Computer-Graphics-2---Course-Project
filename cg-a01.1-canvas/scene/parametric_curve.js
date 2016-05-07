@@ -27,27 +27,25 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
             this.lineStyle = lineStyle || {width: "5", color: "#FF00A1"};
 
             //calculate n points in the range of tmin and tmax and push them into the point-array
-            var x;
-            var y;
-            var t;
             var delta = tmax - tmin;
             for (var i = 0; i <= n; i++) {
 
-                t = tmin + i / n * delta;
+                var t = tmin + i / n * delta;
 
-                try{
-                    x = eval(f);
-                    y = eval(g);
+                try {
+                    var x = parseInt( eval(f) );
+                    var y = parseInt( eval(g) );
 
-                    this.points[i] = [x, y];
-                } catch (err){
-                    alert(err);
+                    this.points.push([x, y]);
+                } catch ( err ) {
+                    alert( err );
+                    return;
                 }
             }
 
             //create lines between the points in the point-array and push them into the lines-array
             for (var j = 0; j < this.points.length - 1; j++) {
-                this.lines[j] = new Line(this.points[j], this.points[j + 1], this.lineStyle);
+                this.lines.push( new Line(this.points[j], this.points[j + 1], this.lineStyle) );
             }
 
         };
