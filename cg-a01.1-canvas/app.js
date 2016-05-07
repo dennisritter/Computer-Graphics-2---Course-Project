@@ -30,6 +30,7 @@ requirejs.config({
         "BezierCurve": "./scene/bezier_curve",
         "PointDragger" : "./scene/point_dragger",
         "ControlPolygon": "./scene/control_polygon",
+        "Ticks": "./scene/ticks",
         "KdTree": "./kdtree/kdtree",
         "kdutil": "./kdtree/kdutil",
         "KdNode": "./kdtree/kdnode",
