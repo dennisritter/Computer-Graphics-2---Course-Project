@@ -9,8 +9,6 @@ define(['Line', 'PointDragger'],
 
       this.controlPoints = controlPoints;
       this.lineStyle = lineStyle || {width: 5, color: '#FF00A1'};
-      this.tMin = 0;
-      this.tMax = 1;
       this.n = n || 5;
 
       this.points = [];
@@ -22,10 +20,9 @@ define(['Line', 'PointDragger'],
     BezierCurve.prototype.generateLines = function () {
       this.points = [];
       this.lines = [];
-
-      var delta = 1;
+      
       for ( var i = 0; i <= this.n; ++i ) {
-        var t = tmin + i/this.n * delta;
+        var t = i/this.n;
         this.points.push( this.generatePoint(t) );
 
         if ( i > 0 ) {
@@ -79,7 +76,7 @@ define(['Line', 'PointDragger'],
           _geo.generateLines();
         };
 
-        return new PointDragger(getPosition, setPosition, this.lineStyle );
+        return new PointDragger(getPosition, setPosition, _geo.lineStyle );
       };
 
       for ( var i = 0; i < this.controlPoints.length; ++i ) {
