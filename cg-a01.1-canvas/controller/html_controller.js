@@ -184,6 +184,12 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
 
                 if (selectedObj instanceof Circle) {
                     selectedObj.radius = parseInt(inputRadius.val());
+                } else if ( selectedObj instanceof BezierCurve ) {
+                    selectedObj.n = parseInt( $('#bezierCurveSegments').val() );
+                    for ( var i = 0; i < 4; ++i ) {
+                        selectedObj.controlPoints[i][0] = parseInt( $('#controlPoint'+i+'x').val() );
+                        selectedObj.controlPoints[i][1] = parseInt( $('#controlPoint'+i+'y').val() );
+                    }
                 }
 
                 sceneController.select(selectedObj);

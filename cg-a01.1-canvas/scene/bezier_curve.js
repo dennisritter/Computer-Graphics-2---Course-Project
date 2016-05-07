@@ -81,6 +81,7 @@ define(['Line', 'PointDragger', 'ControlPolygon'],
      * @param   context     The context in which to draw the BezierCurve
      */
     BezierCurve.prototype.draw = function (context) {
+      this.generateLines();
       // Draw each line
       for ( var i = 0; i < this.lines.length; ++i ) {
         this.lines[i].draw( context );
@@ -120,7 +121,6 @@ define(['Line', 'PointDragger', 'ControlPolygon'],
 
         var setPosition = function (dragEvent) {
           _geo.controlPoints[i] = dragEvent.position;
-          _geo.generateLines();
         };
 
         return new PointDragger(getPosition, setPosition, _geo.lineStyle );
