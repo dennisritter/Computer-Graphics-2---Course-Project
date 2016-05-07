@@ -50,6 +50,29 @@ define([], (function() {
 
     };
 
+    kdutil.devisualizeKdTree = function (sceneController, scene, node) {
+        kdutil.devisualizeKdTreeRec(scene, node);
+        sceneController.deselect();
+    };
+
+    kdutil.devisualizeKdTreeRec = function (scene, node) {
+        if ( !node ) {
+            return;
+        }
+
+        if ( node.bbox ) {
+            scene.removeObjects([node.bbox]);
+        }
+
+        if ( node.leftChild ) {
+            kdutil.devisualizeKdTreeRec(scene, node.leftChild);
+        }
+
+        if ( node.rightChild ) {
+            kdutil.devisualizeKdTreeRec(scene, node.rightChild);
+        }
+    };
+
     /**
      * Linear search over all points
      *

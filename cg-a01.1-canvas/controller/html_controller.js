@@ -226,13 +226,19 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             /**
              * Displays the kd-Tree
              */
-            $("#visKdTree").click((function () {
-
-                var showTree = $("#visKdTree").attr("checked");
-                if (showTree && kdTree) {
-                    KdUtil.visualizeKdTree(sceneController, scene, kdTree.root, 0, 0, 600, true);
+            $("#visKdTree").click((function (e) {
+                if ( !kdTree ) {
+                    e.preventDefault();
+                    alert("KdTree has not yet been built.");
+                    return;
                 }
 
+                var showTree = $("#visKdTree").attr("checked");
+                if (showTree) {
+                    KdUtil.visualizeKdTree(sceneController, scene, kdTree.root, 0, 0, 600, true);
+                } else {
+                    KdUtil.devisualizeKdTree(sceneController, scene, kdTree.root);
+                }
             }));
 
             /**
