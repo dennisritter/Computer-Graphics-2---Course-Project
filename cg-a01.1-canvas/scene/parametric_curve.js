@@ -45,17 +45,9 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
 
         // draw this parametric curve into the provided 2D rendering context
         ParametricCurve.prototype.draw = function (context) {
-
             //draw all the lines by invoking the draw method for all lines in the array
             for (var i = 0; i < this.lines.length; i++) {
                 this.lines[i].draw(context);
-                //console.log(this.lines[i].p0 + ", " +this.lines[i].p1);
-            }
-
-            //draw all points by creating a Point object and invoking the draw method for each point in the array
-            for (var j = 0; j < this.points.length; j++) {
-                var p = new Point([this.points[j][0], this.points[j][1]]);
-                p.draw(context);
             }
         };
 
