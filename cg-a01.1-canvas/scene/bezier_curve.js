@@ -2,7 +2,7 @@ define(['Line', 'PointDragger'],
   function (Line, PointDragger) {
     "use strict";
 
-    var Bezier_Curve = function (controlPoints, n, lineStyle) {
+    var BezierCurve = function (controlPoints, n, lineStyle) {
       if ( controlPoints.length !== 4 ) {
         throw new Error("You must specify exactly four controlPoints");
       }
@@ -19,7 +19,7 @@ define(['Line', 'PointDragger'],
       this.generateLines();
     };
 
-    Bezier_Curve.prototype.generateLines = function () {
+    BezierCurve.prototype.generateLines = function () {
       this.points = [];
       this.lines = [];
 
@@ -34,7 +34,7 @@ define(['Line', 'PointDragger'],
       }
     };
 
-    Bezier_Curve.prototype.generatePoint = function (t) {
+    BezierCurve.prototype.generatePoint = function (t) {
       var generateCoordinate = function ( factors ) {
         var coord = Math.pow(1-t, 3) * factors[0];
         coord += 3 * (1-t)*(1-t)*t * factors[1];
@@ -49,13 +49,13 @@ define(['Line', 'PointDragger'],
       ];
     };
 
-    Bezier_Curve.prototype.draw = function (context) {
+    BezierCurve.prototype.draw = function (context) {
       for ( var i = 0; i < this.lines.length; ++i ) {
         this.lines[i].draw( context );
       }
     };
 
-    Bezier_Curve.prototype.isHit = function (context, mousePos) {
+    BezierCurve.prototype.isHit = function (context, mousePos) {
       for ( var i = 0; i < this.lines.length; ++i ) {
         if ( this.lines[i].isHit(context, mousePos) ) {
           return true;
@@ -65,7 +65,7 @@ define(['Line', 'PointDragger'],
       return false;
     };
 
-    Bezier_Curve.prototype.createDraggers = function () {
+    BezierCurve.prototype.createDraggers = function () {
       var draggers = [];
       var _geo = this;
 
@@ -89,5 +89,5 @@ define(['Line', 'PointDragger'],
       return draggers;
     };
 
-    return Bezier_Curve;
+    return BezierCurve;
 });
