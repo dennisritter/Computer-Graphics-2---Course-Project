@@ -10,8 +10,8 @@
  * The ControlPolygon does not offer any interaction.
  */
 
-define(['Line', 'PointDragger', 'ControlPolygon'],
-  function (Line, PointDragger, ControlPolygon) {
+define(['Line', 'PointDragger', 'ControlPolygon', 'Ticks'],
+  function (Line, PointDragger, ControlPolygon, Ticks) {
     "use strict";
 
     /**
@@ -31,6 +31,12 @@ define(['Line', 'PointDragger', 'ControlPolygon'],
 
       this.points = [];
       this.lines = [];
+
+      var _geo = this;
+      this.showTicks = false;
+      this.ticks = new Ticks( function () {
+        return _geo.showTicks ? _geo.points : [];
+      } );
 
       this.generateLines();
     };
@@ -86,6 +92,8 @@ define(['Line', 'PointDragger', 'ControlPolygon'],
       for ( var i = 0; i < this.lines.length; ++i ) {
         this.lines[i].draw( context );
       }
+
+      this.ticks.draw(context);
     };
 
     /**
