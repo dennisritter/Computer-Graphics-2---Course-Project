@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "ParametricCurve"],
-    function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil, ParametricCurve) {
+define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "ParametricCurve", "BezierCurve"],
+    function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil, ParametricCurve, BezierCurve) {
         "use strict";
 
         /*
@@ -27,6 +27,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             var inputRadius = $('#inputRadius');
             var kdTree;
             var pointList = [];
+
+            $('.form-row.params').not('.on-all').hide();
 
             // generate random X coordinate within the canvas
             var randomX = function () {
@@ -121,21 +123,51 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 sceneController.select(rect);
             });
 
+            $('#btnNewBezierCurve').click(function () {
+                var x1 = randomX();
+                var x2 = randomX();
+                var y1 = randomY();
+                var y2 = randomY();
+                var minX = Math.min(x1, x2);
+                var maxX = Math.max(x1, x2);
+                var minY = Math.min(y1, y2);
+                var maxY = Math.max(y1, y2);
+
+                var points = [
+                    [minX, minY],
+                    [minX, maxY],
+                    [maxX, minY],
+                    [maxX, maxY]
+                ];
+
+                var curve = new BezierCurve( points, 50, randomStyle() );
+                scene.addObjects([curve]);
+                sceneController.deselect();
+                sceneController.select(curve);
+            });
+
             /*
              * event handler for Object-selection
              * Changes the values of the input fields to the values of the selected Geometry
              */
             var updateInputs = function () {
                 var selectedObj = sceneController.getSelectedObject();
+                $('.form-row.params').not('.on-all').hide();
+
+                if ( selectedObj instanceof Circle ) {
+                    $('.form-row.params.on-circle').show();
+                    inputRadius.val( selectedObj.radius );
+                } else if ( selectedObj instanceof BezierCurve ) {
+                    $('.form-row.params.on-bezier-curve').show();
+                    for ( var i = 0; i < 4; ++i ) {
+                        $('#controlPoint'+i+'x').val( selectedObj.controlPoints[i][0] );
+                        $('#controlPoint'+i+'y').val( selectedObj.controlPoints[i][1] );
+                    }
+                    $('#bezierCurveSegments').val( selectedObj.n );
+                }
+
                 inputColor.val(selectedObj.lineStyle.color);
                 inputLineWidth.val(selectedObj.lineStyle.width);
-
-                if (selectedObj instanceof Circle) {
-                    inputRadius.val(selectedObj.radius);
-                    inputRadius.show();
-                } else {
-                    inputRadius.hide();
-                }
             };
 
             sceneController.onSelection(updateInputs);
@@ -152,6 +184,12 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
 
                 if (selectedObj instanceof Circle) {
                     selectedObj.radius = parseInt(inputRadius.val());
+                } else if ( selectedObj instanceof BezierCurve ) {
+                    selectedObj.n = parseInt( $('#bezierCurveSegments').val() );
+                    for ( var i = 0; i < 4; ++i ) {
+                        selectedObj.controlPoints[i][0] = parseInt( $('#controlPoint'+i+'x').val() );
+                        selectedObj.controlPoints[i][1] = parseInt( $('#controlPoint'+i+'y').val() );
+                    }
                 }
 
                 sceneController.select(selectedObj);
