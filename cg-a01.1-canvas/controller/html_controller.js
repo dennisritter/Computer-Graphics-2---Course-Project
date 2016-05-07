@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "Parametric_Curve"],
-    function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil, Parametric_Curve) {
+define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "ParametricCurve"],
+    function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil, ParametricCurve) {
         "use strict";
 
         /*
@@ -261,7 +261,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 var n = $("#n").attr("value");
                 console.log("n: " + n);
 
-                var curve = new Parametric_Curve(f, g, tmin, tmax, n, randomStyle());
+                var curve = new ParametricCurve(f, g, tmin, tmax, n, randomStyle());
 
                 scene.addObjects([curve]);
                 sceneController.deselect();

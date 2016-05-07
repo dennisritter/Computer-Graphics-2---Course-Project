@@ -17,7 +17,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
          * A Parametric Curve
          */
 
-        var Parametric_Curve = function (f, g, tmin, tmax, n, lineStyle) {
+        var ParametricCurve = function (f, g, tmin, tmax, n, lineStyle) {
 
             this.points = [];
             this.lines = [];
@@ -51,7 +51,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
         };
 
         // draw this parametric curve into the provided 2D rendering context
-        Parametric_Curve.prototype.draw = function (context) {
+        ParametricCurve.prototype.draw = function (context) {
 
             //draw all the lines by invoking the draw method for all lines in the array
             for (var i = 0; i < this.lines.length; i++) {
@@ -67,7 +67,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
         };
 
         // test whether the mouse position is on this outline of the curve
-        Parametric_Curve.prototype.isHit = function (context, mousePos) {
+        ParametricCurve.prototype.isHit = function (context, mousePos) {
 
             for (var i = 0; i < this.lines.length; ++i) {
                 if (this.lines[i].isHit(context, mousePos)) {
@@ -78,7 +78,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
         };
 
         // return list of draggers to manipulate this curve
-        Parametric_Curve.prototype.createDraggers = function () {
+        ParametricCurve.prototype.createDraggers = function () {
             // var draggers = [];
             // for (var i = 0; i < this.lines.length; i++) {
             //     draggers.push(this.lines[i].createDraggers()[0]);
@@ -88,7 +88,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
             return[];
         };
 
-        // this module only exports the constructor for Parametric_Curve-Objects
-        return Parametric_Curve;
+        // this module only exports the constructor for ParametricCurve-Objects
+        return ParametricCurve;
 
     }); // define
