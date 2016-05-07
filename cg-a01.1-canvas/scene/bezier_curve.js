@@ -1,5 +1,5 @@
-define(['Line', 'PointDragger'],
-  function (Line, PointDragger) {
+define(['Line', 'PointDragger', 'ControlPolygon'],
+  function (Line, PointDragger, ControlPolygon) {
     "use strict";
 
     var BezierCurve = function (controlPoints, n, lineStyle) {
@@ -20,7 +20,7 @@ define(['Line', 'PointDragger'],
     BezierCurve.prototype.generateLines = function () {
       this.points = [];
       this.lines = [];
-      
+
       for ( var i = 0; i <= this.n; ++i ) {
         var t = i/this.n;
         this.points.push( this.generatePoint(t) );
@@ -82,6 +82,12 @@ define(['Line', 'PointDragger'],
       for ( var i = 0; i < this.controlPoints.length; ++i ) {
         draggers.push( createControlPointDragger(i) );
       }
+
+      var getControlPoints = function () {
+        return _geo.controlPoints;
+      };
+
+      draggers.push( new ControlPolygon( getControlPoints, _geo.lineStyle ) );
 
       return draggers;
     };
