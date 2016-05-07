@@ -1,5 +1,5 @@
 define(['Line', 'PointDragger'],
-  function (Line) {
+  function (Line, PointDragger) {
     "use strict";
 
     var Bezier_Curve = function (controlPoints, n, lineStyle) {
