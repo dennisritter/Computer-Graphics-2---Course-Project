@@ -35,10 +35,14 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
 
                 t = tmin + i/n * delta;
 
-                x = eval(f);
-                y = eval(g);
+                try{
+                    x = eval(f);
+                    y = eval(g);
 
-                this.points[i] = [x, y];
+                    this.points[i] = [x, y];
+                } catch (err){
+                    alert(err);
+                }
             }
 
             //create lines between the points in the point-array and push them into the lines-array

@@ -252,12 +252,6 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 var g = $("#inputY").attr("value");
                 console.log("g: " + g);
 
-                // hier muss natürlich noch eine schicke Validierung stattfinden.
-                try {
-                    if (f === undefined || g === undefined) throw "bitte Formel angeben."
-                } catch (err) {
-                    alert("piep");
-                }
                 var tmin = $("#tmin").attr("value");
                 console.log("tmin: " + tmin);
 
@@ -273,6 +267,9 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 sceneController.deselect();
                 sceneController.select(curve);
             });
+
+
+
         };
         // return the constructor function
         return HtmlController;
