@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "Parametric_Curve"],
-    function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil, Parametric_Curve) {
+define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "Parametric_Curve", "BezierCurve"],
+    function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil, Parametric_Curve, BezierCurve) {
         "use strict";
 
         /*
@@ -119,6 +119,29 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 scene.addObjects([rect]);
                 sceneController.deselect();
                 sceneController.select(rect);
+            });
+
+            $('#btnNewBezierCurve').click(function () {
+                var x1 = randomX();
+                var x2 = randomX();
+                var y1 = randomY();
+                var y2 = randomY();
+                var minX = Math.min(x1, x2);
+                var maxX = Math.max(x1, x2);
+                var minY = Math.min(y1, y2);
+                var maxY = Math.max(y1, y2);
+
+                var points = [
+                    [minX, minY],
+                    [minX, maxY],
+                    [maxX, minY],
+                    [maxX, maxY]
+                ];
+
+                var curve = new BezierCurve( points, 50, randomStyle() );
+                scene.addObjects([curve]);
+                sceneController.deselect();
+                sceneController.select(curve);
             });
 
             /*
