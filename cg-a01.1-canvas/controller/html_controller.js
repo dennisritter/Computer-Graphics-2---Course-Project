@@ -164,6 +164,12 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                         $('#controlPoint'+i+'y').val( selectedObj.controlPoints[i][1] );
                     }
                     $('#bezierCurveSegments').val( selectedObj.n );
+                } else if ( selectedObj instanceof ParametricCurve ) {
+                    $('.form-row.params.on-parametric-curve').show();
+                }
+
+                if ( selectedObj instanceof BezierCurve || selectedObj || ParametricCurve ) {
+                    $('#showTicks').prop('checked', selectedObj.showTicks);
                 }
 
                 inputColor.val(selectedObj.lineStyle.color);
@@ -190,6 +196,10 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                         selectedObj.controlPoints[i][0] = parseInt( $('#controlPoint'+i+'x').val() );
                         selectedObj.controlPoints[i][1] = parseInt( $('#controlPoint'+i+'y').val() );
                     }
+                }
+
+                if ( selectedObj instanceof BezierCurve || selectedObj instanceof ParametricCurve ) {
+                    selectedObj.showTicks = $('#showTicks').prop('checked');
                 }
 
                 sceneController.select(selectedObj);

@@ -42,7 +42,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point", "Ticks"],
             }
 
             var _geo = this;
-            this.showTicks = true;
+            this.showTicks = false;
             this.ticks = new Ticks( function () {
               return _geo.showTicks ? _geo.points : [];
             } );
