@@ -60,9 +60,10 @@ define(["util", "vec2", "Scene", "PointDragger"],
 
             // project point on line, get parameter of that projection point
             var t = vec2.projectPointOnLine(pos, this.p0, this.p1);
-            console.log("t:", t);
             // outside the line segment?
             if (t < 0.0 || t > 1.0) {
+                console.log("t:", t);
+                console.log("false..");
                 return false;
             }
 
@@ -73,6 +74,7 @@ define(["util", "vec2", "Scene", "PointDragger"],
             var d = vec2.length(vec2.sub(p, pos));
 
             // allow 2 pixels extra "sensitivity"
+            console.log(d <= (this.lineStyle.width / 2) + 2);
             return d <= (this.lineStyle.width / 2) + 2;
         };
 

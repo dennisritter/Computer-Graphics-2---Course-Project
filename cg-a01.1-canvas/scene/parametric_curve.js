@@ -24,7 +24,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
 
             // use default line style for outline of the parametric curve
             // if constructor parameter is undefined
-            this.lineStyle = lineStyle || {width: "2", color: "#FF00A1"};
+            this.lineStyle = lineStyle || {width: "5", color: "#FF00A1"};
 
             //calculate n points in the range of tmin and tmax and push them into the point-array
             var x;
@@ -33,7 +33,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
             var delta = tmax - tmin;
             for (var i = 0; i <= n; i++) {
 
-                t = tmin + i/n * delta;
+                t = tmin + i / n * delta;
 
                 try{
                     x = eval(f);
@@ -46,8 +46,8 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
             }
 
             //create lines between the points in the point-array and push them into the lines-array
-            for (var j = 0; j < this.points.length-1; j++) {
-                this.lines[j] = new Line( this.points[j], this.points[j+1], this.lineStyle );
+            for (var j = 0; j < this.points.length - 1; j++) {
+                this.lines[j] = new Line(this.points[j], this.points[j + 1], this.lineStyle);
             }
 
         };
@@ -58,7 +58,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
             //draw all the lines by invoking the draw method for all lines in the array
             for (var i = 0; i < this.lines.length; i++) {
                 this.lines[i].draw(context);
-                console.log(this.lines[i].p0 + ", " +this.lines[i].p1);
+                //console.log(this.lines[i].p0 + ", " +this.lines[i].p1);
             }
 
             //draw all points by creating a Point object and invoking the draw method for each point in the array
@@ -71,14 +71,23 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
         // test whether the mouse position is on this outline of the curve
         Parametric_Curve.prototype.isHit = function (context, mousePos) {
 
-            for (var i = 0; i < this.lines.length; i++){
-                this.lines[i].isHit(context, mousePos);
+            for (var i = 0; i < this.lines.length; ++i) {
+                if (this.lines[i].isHit(context, mousePos)) {
+                    return true;
+                }
             }
+            return false;
         };
 
-        // return list of draggers to manipulate this circle
+        // return list of draggers to manipulate this curve
         Parametric_Curve.prototype.createDraggers = function () {
-            return [];
+            // var draggers = [];
+            // for (var i = 0; i < this.lines.length; i++) {
+            //     draggers.push(this.lines[i].createDraggers()[0]);
+            //     draggers.push(this.lines[i].createDraggers()[1]);
+            // }
+            // return draggers;
+            return[];
         };
 
         // this module only exports the constructor for Parametric_Curve-Objects
