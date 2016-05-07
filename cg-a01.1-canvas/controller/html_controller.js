@@ -272,12 +272,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 scene.addObjects([curve]);
                 sceneController.deselect();
                 sceneController.select(curve);
-
-
             });
-
         };
-
         // return the constructor function
         return HtmlController;
 

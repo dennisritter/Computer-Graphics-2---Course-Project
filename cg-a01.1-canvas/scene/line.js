@@ -53,7 +53,6 @@ define(["util", "vec2", "Scene", "PointDragger"],
 
             // actually start drawing
             context.stroke();
-
         };
 
         // test whether the mouse position is on this line segment
@@ -61,7 +60,7 @@ define(["util", "vec2", "Scene", "PointDragger"],
 
             // project point on line, get parameter of that projection point
             var t = vec2.projectPointOnLine(pos, this.p0, this.p1);
-            //console.log("t:", t);
+            console.log("t:", t);
             // outside the line segment?
             if (t < 0.0 || t > 1.0) {
                 return false;
@@ -75,7 +74,6 @@ define(["util", "vec2", "Scene", "PointDragger"],
 
             // allow 2 pixels extra "sensitivity"
             return d <= (this.lineStyle.width / 2) + 2;
-
         };
 
         // return list of draggers to manipulate this line
@@ -102,13 +100,9 @@ define(["util", "vec2", "Scene", "PointDragger"],
             draggers.push(new PointDragger(getP1, setP1, draggerStyle));
 
             return draggers;
-
         };
-
-
         // this module only exports the constructor for StraightLine objects
         return Line;
-
     })); // define
 
     

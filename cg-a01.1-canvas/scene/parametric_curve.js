@@ -35,8 +35,7 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
 
                 t = tmin + i/n * delta;
 
-                //multiply with t only for x (because y includes x)
-                x = t * eval(f);
+                x = eval(f);
                 y = eval(g);
 
                 this.points[i] = [x, y];
@@ -71,7 +70,6 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
             for (var i = 0; i < this.lines.length; i++){
                 this.lines[i].isHit(context, mousePos);
             }
-
         };
 
         // return list of draggers to manipulate this circle
