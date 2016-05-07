@@ -28,6 +28,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             var kdTree;
             var pointList = [];
 
+            $('.form-row.params').not('.on-all').hide();
+
             // generate random X coordinate within the canvas
             var randomX = function () {
                 return Math.floor(Math.random() * (context.canvas.width - 10)) + 5;
@@ -150,15 +152,21 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
              */
             var updateInputs = function () {
                 var selectedObj = sceneController.getSelectedObject();
+                $('.form-row.params').not('.on-all').hide();
+
+                if ( selectedObj instanceof Circle ) {
+                    $('.form-row.params.on-circle').show();
+                    inputRadius.val( selectedObj.radius );
+                } else if ( selectedObj instanceof BezierCurve ) {
+                    $('.form-row.params.on-bezier-curve').show();
+                    for ( var i = 0; i < 4; ++i ) {
+                        selectedObj.controlPoints[i][0] = $('#controlPoint'+i+'x').val();
+                        selectedObj.controlPoints[i][1] = $('#controlPoint'+i+'y').val();
+                    }
+                }
+
                 inputColor.val(selectedObj.lineStyle.color);
                 inputLineWidth.val(selectedObj.lineStyle.width);
-
-                if (selectedObj instanceof Circle) {
-                    inputRadius.val(selectedObj.radius);
-                    inputRadius.show();
-                } else {
-                    inputRadius.hide();
-                }
             };
 
             sceneController.onSelection(updateInputs);
