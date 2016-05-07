@@ -261,11 +261,15 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 var n = $("#n").attr("value");
                 console.log("n: " + n);
 
-                var curve = new ParametricCurve(f, g, tmin, tmax, n, randomStyle());
+                try {
+                    var curve = new ParametricCurve(f, g, tmin, tmax, n, randomStyle());
 
-                scene.addObjects([curve]);
-                sceneController.deselect();
-                sceneController.select(curve);
+                    scene.addObjects([curve]);
+                    sceneController.deselect();
+                    sceneController.select(curve);
+                } catch ( err ) {
+                    alert(err);
+                }
             });
 
 

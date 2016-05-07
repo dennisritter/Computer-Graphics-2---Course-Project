@@ -29,18 +29,11 @@ define(["util", "vec2", "Scene", "PointDragger", "Line", "Point"],
             //calculate n points in the range of tmin and tmax and push them into the point-array
             var delta = tmax - tmin;
             for (var i = 0; i <= n; i++) {
-
                 var t = tmin + i / n * delta;
+                var x = parseInt( eval(f) );
+                var y = parseInt( eval(g) );
 
-                try {
-                    var x = parseInt( eval(f) );
-                    var y = parseInt( eval(g) );
-
-                    this.points.push([x, y]);
-                } catch ( err ) {
-                    alert( err );
-                    return;
-                }
+                this.points.push([x, y]);
             }
 
             //create lines between the points in the point-array and push them into the lines-array
