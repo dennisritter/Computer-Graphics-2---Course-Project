@@ -300,18 +300,12 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             $("#btnDrawCurve").click(function () {
 
                 var f = $("#inputX").attr("value");
-                console.log("f: " + f);
                 var g = $("#inputY").attr("value");
-                console.log("g: " + g);
 
                 var tmin = $("#tmin").attr("value");
-                console.log("tmin: " + tmin);
-
                 var tmax = $("#tmax").attr("value");
-                console.log("tmax: " + tmax);
 
                 var n = $("#n").attr("value");
-                console.log("n: " + n);
 
                 try {
                     var curve = new ParametricCurve(f, g, tmin, tmax, n, randomStyle());
