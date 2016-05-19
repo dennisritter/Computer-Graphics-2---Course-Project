@@ -1,0 +1,74 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <!--
+     *
+     * JavaScript / WebGL teaching framwork
+     * (C)opyright Kristian Hildebrand, khildebrand@beuth-hochschule.de
+    -->
+
+    <title>CG2 A2: WebGL / Surfaces</title>
+
+    <!-- import main module using RequireJS -->
+    <script data-main="app.js" src="../lib/require.js"></script>
+
+    <!-- import style sheet -->
+    <link rel="stylesheet" type="text/css" media="screen" href="style/style.css">
+
+</head>
+
+<body>
+
+  <!-- this element will be used to diplay errors -->
+  <pre id="error"></pre>
+
+  <!-- centered region with drawing canvas and parameter area -->
+  <div align="center">
+
+      <div id="drawing_container" width="600" height="400"></div>
+
+    <div id="param_area" >
+
+        <button id="btnRandom"   type="button"   >Random</button>
+        <button id="btnBand" type="button"   >Band</button>
+        <button id="btnEllipsoid" type="button"   >Ellipsoid</button>
+        <button id="btnParametric" type="button"   >Parametric</button>
+
+        <!-- add more here... -->
+        <h3>Selected Object:</h3>
+        <table id="random">
+            <tr>
+                <td>Number of Items:</td>
+                <td><input id="numItems" class="objParam" type="number" min="1" max="10000" value="1000">
+            </tr>
+            <tr>
+                <td><button id="btnNewRandom"   type="button"   >Create Random</button></td>
+            </tr>
+        </table>
+        <table id="band">
+            <tr>
+                <td>Number of Segments:</td>
+                <td><input id="numSegments" class="objParam" type="number" min="1" max="10000" value="1000">
+            </tr>
+            <tr>
+                <td>Radius:</td>
+                <td><input id="radius" class="objParam" type="number" min="1" max="1000" value="300">
+            </tr>
+            <tr>
+                <td>Height:</td>
+                <td><input id="height" class="objParam" type="number" min="1" max="1000" value="100">
+            </tr>
+            <tr>
+                <td><button id="btnNewBand"   type="button"   >Create Band</button></td>
+            </tr>
+        </table>
+
+    </div>
+
+
+
+  </div>
+
+</body>
+</html>
