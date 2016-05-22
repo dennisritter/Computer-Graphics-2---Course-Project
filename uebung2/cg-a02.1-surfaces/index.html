@@ -35,6 +35,8 @@
         <button id="btnEllipsoid" type="button"   >Ellipsoid</button>
         <button id="btnParametric" type="button"   >Parametric</button>
 
+
+
         <button id="btnBox" type="button"   >Box</button>
         <button id="btnRing" type="button"   >Ring</button>
         <button id="btnDode" type="button"   >Dodecahedron</button>
@@ -65,6 +67,41 @@
             </tr>
             <tr>
                 <td><button id="btnNewBand"   type="button"   >Create Band</button></td>
+            </tr>
+        </table>
+        <table id="parametric">
+            <tr>
+                <td>u-min:</td>
+                <td><input id="umin" class="objParam" type="number" min="1" max="10000" value="0">
+            </tr>
+            <tr>
+                <td>u-max:</td>
+                <td><input id="umax" class="objParam" type="number" min="1" max="10000" value="6">
+            </tr>
+            <tr>
+                <td>v-min:</td>
+                <td><input id="vmin" class="objParam" type="number" min="1" max="10000" value="0">
+            </tr>
+            <tr>
+                <td>v-max:</td>
+                <td><input id="vmax" class="objParam" type="number" min="1" max="10000" value="6">
+            </tr>
+            <tr>
+                <td>Number of Segments in u Direction:</td>
+                <td><input id="numElementsU" class="objParam" type="number" min="1" max="10000" value="10">
+            </tr>
+            <tr>
+                <td>Number of Segments in v Direction:</td>
+                <td><input id="numElementsV" class="objParam" type="number" min="1" max="10000" value="10">
+            </tr>
+            <tr>
+                <td>Which object do you want to draw?</td>
+                <td> <select id ="geoFunction">
+                    <option value="ellipsoid">Ellipsoid</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td><button id="btnNewParametric"   type="button"   >Create Object</button></td>
             </tr>
         </table>
 
