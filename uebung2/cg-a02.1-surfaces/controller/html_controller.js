@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "three"],
-    (function($,BufferGeometry, Random, Band, THREE) {
+define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
+    (function($,BufferGeometry, Random, Band, THREE, Parametric) {
         "use strict";
 
         /*
@@ -24,15 +24,24 @@ define(["jquery", "BufferGeometry", "random", "band", "three"],
 
             $("#random").show();
             $("#band").hide();
+            $("#parametric").hide();
 
             $("#btnRandom").click( (function() {
                 $("#random").show();
                 $("#band").hide();
+                $("#parametric").hide();
             }));
 
             $("#btnBand").click( (function() {
                 $("#random").hide();
                 $("#band").show();
+                $("#parametric").hide();
+            }));
+
+            $("#btnParametric").click( (function() {
+                $("#random").hide();
+                $("#band").hide();
+                $("#parametric").show();
             }));
 
             $("#btnNewRandom").click( (function() {
@@ -62,6 +71,33 @@ define(["jquery", "BufferGeometry", "random", "band", "three"],
                 bufferGeometryBand.addAttribute("color", band.getColors());
 
                 scene.addBufferGeometry(bufferGeometryBand);
+            }));
+
+            $("#btnNewParametric").click ( (function() {
+
+                /**Als weiteres Argument übergibt die Szene dem ParametricSurface-Konstruktor ein config-Objekt
+                * mit den Wertebereichen der Parameter u und v (umin, umax, vmin, vmax) sowie der gewünschten
+                * Anzahl von Segmenten in u- und v-Richtung. */
+
+                var config = {
+                    umin : parseInt($('#umin').attr("value")),
+                    umax : parseInt($('#umax').attr("value")),
+                    vmin : parseInt($('#vmin').attr("value")),
+                    vmax : parseInt($('#vmax').attr("value"))  ,
+
+                    elementsU : parseInt($('#numElementsU').attr("value")),
+                    elementsV : parseInt($('#numElementsV').attr("value"))
+                };
+
+                var geoFunction =  $('select#geoFunction').val();;
+                console.log(geoFunction);
+
+                var parametric = new Parametric(geoFunction, config);
+                var bufferGeometryParametric = new BufferGeometry();
+                bufferGeometryParametric.addAttribute("position", parametric.getPositions());
+                bufferGeometryParametric.addAttribute("color", parametric.getColors());
+
+                scene.addBufferGeometry(bufferGeometryParametric);
             }));
 
             $("#btnBox").click( (function(){
