@@ -80,13 +80,17 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 * Anzahl von Segmenten in u- und v-Richtung. */
 
                 var config = {
-                    umin : parseInt($('#umin').attr("value")),
-                    umax : parseInt($('#umax').attr("value")),
-                    vmin : parseInt($('#vmin').attr("value")),
-                    vmax : parseInt($('#vmax').attr("value"))  ,
+                    umin : parseInt($('#umin').val()),
+                    umax : parseInt($('#umax').val()),
+                    vmin : parseInt($('#vmin').val()),
+                    vmax : parseInt($('#vmax').val()),
 
-                    elementsU : parseInt($('#numElementsU').attr("value")),
-                    elementsV : parseInt($('#numElementsV').attr("value"))
+                    elementsU : parseInt($('#numElementsU').val()),
+                    elementsV : parseInt($('#numElementsV').val()),
+
+                    a: parseFloat( $('#ellipsoidA').val() ),
+                    b: parseFloat( $('#ellipsoidB').val() ),
+                    c: parseFloat( $('#ellipsoidC').val() )
                 };
 
                 var geoFunction =  $('select#geoFunction').val();;

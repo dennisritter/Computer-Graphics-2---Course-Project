@@ -40,7 +40,7 @@ define(["three"],
             for ( var i = 0; i < elementsU; i++){
                 var tU = umin + i / elementsU * deltaU;
                 uValues.push(tU);
-            };
+            }
 
             // Calculate all values in the direction of v
             var vValues = [];
@@ -48,7 +48,7 @@ define(["three"],
             for ( var j = 0; j < elementsV; j++){
                 var tV = vmin + j / elementsV * deltaV;
                 vValues.push(tV);
-            };
+            }
 
             // u-v-Array mit allen möglichen Kombinationen aus den Parametern in u-Richtung und v-Richtung
             var uv_array = [];
@@ -70,7 +70,7 @@ define(["three"],
 
 
             //Berechne das Objekt je nachdem, was im dropdown-Menü ausgewählt wurde.
-            switch(posFunc) {
+            switch (posFunc) {
                 case "ellipsoid":
 
                     var i = 0;
@@ -80,9 +80,10 @@ define(["three"],
                         var u = uv_array[j][0];
                         var v = uv_array[j][1];
 
-                        var x = Math.sin(u) * Math.sin(v);
-                        var y = Math.cos(u) * Math.sin(v);
-                        var z = Math.cos(v);
+
+                        var x = config.a * Math.sin(u) * Math.sin(v);
+                        var y = config.b * Math.cos(u) * Math.sin(v);
+                        var z = config.c * Math.cos(v);
 
                         this.positions[ i ]     = x;
                         this.positions[ i + 1 ] = y;
@@ -97,7 +98,7 @@ define(["three"],
                         i +=3;
                     }
                     break;
-            };
+            }
 
 
             this.getPositions = function() {
