@@ -133,6 +133,15 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
 
                 scene.scene.add(cube);
             }));
+
+            var btnAnimate = $('#animate');
+            btnAnimate.change(function () {
+                if ( btnAnimate.prop('checked') ) {
+                    scene.startAnimation();
+                } else {
+                    scene.stopAnimation();
+                }
+            });
         };
 
         // return the constructor function

@@ -58,6 +58,24 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                     scope.currentMesh.rotation.y += -0.05;
                     // Cursor up
                 }
+            }
+
+            var animInterval;
+            this.startAnimation = function () {
+                if ( !animInterval ) {
+                    animInterval = setInterval(function () {
+                        scope.currentMesh.rotation.x += .05;
+                        scope.currentMesh.rotation.y += .05;
+                        scope.currentMesh.rotation.z += .05;
+                    }, 50);
+                }
+            };
+
+            this.stopAnimation = function () {
+                if ( animInterval ) {
+                    clearInterval( animInterval );
+                    animInterval = undefined;
+                }
             };
 
             this.addBufferGeometry = function(bufferGeometry) {
@@ -65,7 +83,7 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 scope.currentMesh = bufferGeometry.getMesh();
                 scope.scene.add( scope.currentMesh );
 
-            }
+            };
 
             /*
              * drawing the scene
