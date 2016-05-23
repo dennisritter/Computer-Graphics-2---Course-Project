@@ -64,6 +64,10 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             this.startAnimation = function () {
                 if ( !animInterval ) {
                     animInterval = setInterval(function () {
+                        if ( !scope.currentMesh.rotation ) {
+                            return;
+                        }
+
                         scope.currentMesh.rotation.x += .05;
                         scope.currentMesh.rotation.y += .05;
                         scope.currentMesh.rotation.z += .05;
