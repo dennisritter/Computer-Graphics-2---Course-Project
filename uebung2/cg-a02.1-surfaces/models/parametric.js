@@ -72,7 +72,7 @@ define(["three"],
             //Berechne das Objekt je nachdem, was im dropdown-Menü ausgewählt wurde.
             switch (posFunc) {
                 case "ellipsoid":
-
+                    console.log("calculating ellipsoid...");
                     var i = 0;
 
                     for (var j = 0; j < uv_array.length; j++) {
@@ -98,8 +98,35 @@ define(["three"],
                         i +=3;
                     }
                     break;
-            }
+                case "torus":
+                    console.log("calculating torus...");
+                    var i = 0;
 
+                    for (var j = 0; j < uv_array.length; j++) {
+
+                        var u = uv_array[j][0];
+                        var v = uv_array[j][1];
+
+                        // R: Radius A
+                        // r: Radius B
+                        var x = (config.R1 + config.r2 * Math.cos(v)) * Math.cos(u);
+                        var y = (config.R1 + config.r2 * Math.cos(v)) * Math.sin(u);
+                        var z = config.r2 * Math.sin(v);
+
+                        this.positions[ i ]     = x;
+                        this.positions[ i + 1 ] = y;
+                        this.positions[ i + 2 ] = z;
+
+                        color.setRGB( 0,0,1 );
+
+                        this.colors[ i ]     = color.r;
+                        this.colors[ i + 1 ] = color.g;
+                        this.colors[ i + 2 ] = color.b;
+
+                        i +=3;
+                    }
+                    break;
+            }
 
             this.getPositions = function() {
                 return this.positions;
