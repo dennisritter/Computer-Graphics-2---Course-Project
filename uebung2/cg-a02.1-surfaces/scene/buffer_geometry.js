@@ -43,7 +43,7 @@ define(["three"],
                 this.geometry.computeBoundingSphere();
 
                 this.mesh = new THREE.Points( this.geometry, this.material );
-            }
+            };
 
             this.getMesh = function() {
                 return this.mesh;
