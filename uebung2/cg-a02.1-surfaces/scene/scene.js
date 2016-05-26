@@ -22,6 +22,9 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
          */
         var Scene = function(renderer, width, height) {
 
+            this.keyboardBehavior = 'rotate';
+            var _this = this;
+
             // the scope of the object instance
             var scope = this;
 
@@ -36,27 +39,48 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             // passed to the function 'onDocumentKeyDown'. There's another event type 'keypress'.
             document.addEventListener("keydown", onDocumentKeyDown, false);
 
+            function onDocumentKeyDown (event) {
+                console.log('Congratulations! You hit the key with id ' + event.which + '! 🎖. You have successfully unlocked the achievement "Keyboard Expert"! 🏆');
+                var dim, delta;
+                switch (event.which) {
+                    case 38: // up
+                        dim = 'y';
+                        delta = 0.05;
+                        break;
 
-            function onDocumentKeyDown(event){
-                // Get the key code of the pressed key
-                var keyCode = event.which;
+                    case 40: // down
+                        dim = 'y';
+                        delta = -0.05;
+                        break;
 
-                if(keyCode == 38){
-                    console.log("cursor up");
-                    scope.currentMesh.rotation.x += 0.05;
-                    // Cursor down
-                } else if(keyCode == 40){
-                    console.log("cursor down");
-                    scope.currentMesh.rotation.x += -0.05;
-                    // Cursor left
-                } else if(keyCode == 37){
-                    console.log("cursor left");
-                    scope.currentMesh.rotation.y += 0.05;
-                    // Cursor right
-                } else if(keyCode == 39){
-                    console.log("cursor right");
-                    scope.currentMesh.rotation.y += -0.05;
-                    // Cursor up
+                    case 37: // left
+                        dim = 'x';
+                        delta = -0.05;
+                        break;
+
+                    case 39: // right
+                        dim = 'x';
+                        delta = 0.05;
+                        break;
+
+                    case 87: // W
+                        dim = 'z';
+                        delta = -0.05;
+                        break;
+
+                    case 83: // S
+                        dim = 'z';
+                        delta = 0.05;
+                        break;
+
+                    default:
+                        return;
+                }
+
+                if ( _this.keyboardBehavior == 'rotate' ) {
+                    scope.currentMesh.rotation[ dim ] += delta;
+                } else if ( _this.keyboardBehavior == 'move' ) {
+                    scope.currentMesh.position[ dim ] += delta * 100;
                 }
             }
 

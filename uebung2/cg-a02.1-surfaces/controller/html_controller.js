@@ -166,6 +166,11 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 scene.scene.add(cube);
             }));
 
+            var selectKeyboardBehavior = $('#selectKeyboardBehavior');
+            selectKeyboardBehavior.change(function () {
+                scene.keyboardBehavior = selectKeyboardBehavior.val();
+            });
+
             var btnAnimate = $('#animate');
             btnAnimate.change(function () {
                 if ( btnAnimate.prop('checked') ) {
