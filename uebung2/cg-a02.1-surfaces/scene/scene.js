@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["three", "util", "shaders", "BufferGeometry", "random", "band"],
-    (function(THREE, util, shaders, BufferGeometry, Random, Band) {
+define(["three", "util", "shaders", "BufferGeometry", "random", "band", "parametric"],
+    (function(THREE, util, shaders, BufferGeometry, Random, Band, Parametric) {
 
         "use strict";
 
@@ -58,6 +58,28 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band"],
                     scope.currentMesh.rotation.y += -0.05;
                     // Cursor up
                 }
+            }
+
+            var animInterval;
+            this.startAnimation = function () {
+                if ( !animInterval ) {
+                    animInterval = setInterval(function () {
+                        if ( !scope.currentMesh.rotation ) {
+                            return;
+                        }
+
+                        scope.currentMesh.rotation.x += .05;
+                        scope.currentMesh.rotation.y += .05;
+                        scope.currentMesh.rotation.z += .05;
+                    }, 50);
+                }
+            };
+
+            this.stopAnimation = function () {
+                if ( animInterval ) {
+                    clearInterval( animInterval );
+                    animInterval = undefined;
+                }
             };
 
             this.addBufferGeometry = function(bufferGeometry) {
@@ -65,7 +87,7 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band"],
                 scope.currentMesh = bufferGeometry.getMesh();
                 scope.scene.add( scope.currentMesh );
 
-            }
+            };
 
             /*
              * drawing the scene

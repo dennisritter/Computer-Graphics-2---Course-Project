@@ -24,7 +24,9 @@ requirejs.config({
         "scene" : "./scene/scene",
         "random" : "./models/random",
         "band" : "./models/band",
+        "parametric" : "./models/parametric",
         "util"  : "./utils/util",
+        "validation" : "./utils/validation",
         "shaders" : "./shaders",
         "BufferGeometry" : "./scene/buffer_geometry",
         "HtmlController": "./controller/html_controller"
