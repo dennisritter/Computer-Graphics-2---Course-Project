@@ -109,9 +109,9 @@ define(["three"],
 
                         // R: Radius A
                         // r: Radius B
-                        var x = (config.R1 + config.r2 * Math.cos(v)) * Math.cos(u);
-                        var y = (config.R1 + config.r2 * Math.cos(v)) * Math.sin(u);
-                        var z = config.r2 * Math.sin(v);
+                        var x = (config.rOuter + config.rInner * Math.cos(v)) * Math.cos(u);
+                        var y = (config.rOuter + config.rInner * Math.cos(v)) * Math.sin(u);
+                        var z = config.rInner * Math.sin(v);
 
                         this.positions[ i ]     = x;
                         this.positions[ i + 1 ] = y;

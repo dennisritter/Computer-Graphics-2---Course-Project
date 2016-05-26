@@ -112,11 +112,11 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                     c: parseFloat( $('#ellipsoidC').val() ),
 
                     // R und r für Torus
-                    R1: parseFloat( $('#torusR1').val() ),
-                    r2: parseFloat( $('#torusr2').val() )
+                    rOuter: parseFloat( $('#torusROuter').val() ),
+                    rInner: parseFloat( $('#torusRInner').val() )
                 };
 
-                var geoFunction =  $('select#geoFunction').val();;
+                var geoFunction =  $('#geoFunction option:selected').val();;
                 console.log(geoFunction);
 
                 var parametric = new Parametric(geoFunction, config);
