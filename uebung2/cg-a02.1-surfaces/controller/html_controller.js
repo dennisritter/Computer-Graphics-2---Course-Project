@@ -38,12 +38,6 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 $("#parametric").hide();
             }));
 
-            $("#btnParametric").click( (function() {
-                $("#random").hide();
-                $("#band").hide();
-                $("#parametric").show();
-            }));
-
             $("#btnNewRandom").click( (function() {
 
                 var numPoints = parseInt($("#numItems").attr("value"));
@@ -73,6 +67,30 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 scene.addBufferGeometry(bufferGeometryBand);
             }));
 
+            $("#btnParametric").click( (function() {
+                $("#random").hide();
+                $("#band").hide();
+                $("#parametric").show();
+
+                // What options to show? (first selected Geometry for the parametric)
+                $("#ellipsoidOptions").show();
+                $("#torusOptions").hide();
+            }));
+
+            //get selected Geometry and only show options for this one
+            $("#geoFunction").change(function(){
+            var selectedOption = $("#geoFunction option:selected").val();
+                if (selectedOption === "ellipsoid"){
+                    $("#ellipsoidOptions").show();
+                    $("#torusOptions").hide();
+                }
+                if (selectedOption === "torus"){
+                    $("#torusOptions").show();
+                    $("#ellipsoidOptions").hide();
+                }
+            });
+
+
             $("#btnNewParametric").click ( (function() {
 
                 /**Als weiteres Argument übergibt die Szene dem ParametricSurface-Konstruktor ein config-Objekt
@@ -88,9 +106,14 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                     elementsU : parseInt($('#numElementsU').val()),
                     elementsV : parseInt($('#numElementsV').val()),
 
+                    // Elipsoid settings
                     a: parseFloat( $('#ellipsoidA').val() ),
                     b: parseFloat( $('#ellipsoidB').val() ),
-                    c: parseFloat( $('#ellipsoidC').val() )
+                    c: parseFloat( $('#ellipsoidC').val() ),
+
+                    // R und r für Torus
+                    R1: parseFloat( $('#torusR1').val() ),
+                    r2: parseFloat( $('#torusr2').val() )
                 };
 
                 var geoFunction =  $('select#geoFunction').val();;
