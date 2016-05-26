@@ -22,7 +22,7 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
          */
         var Scene = function(renderer, width, height) {
 
-            this.keyboardMode = 'move';
+            this.keyboardBehavior = 'rotate';
             var _this = this;
 
             // the scope of the object instance
@@ -39,7 +39,8 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             // passed to the function 'onDocumentKeyDown'. There's another event type 'keypress'.
             document.addEventListener("keydown", onDocumentKeyDown, false);
 
-            function onDocumentKeyDown (event) { console.log(event.which);
+            function onDocumentKeyDown (event) {
+                console.log('Congratulations! You hit the key with id ' + event.which + '! 🎖. You have successfully unlocked the achievement "Keyboard Expert"! 🏆');
                 var dim, delta;
                 switch (event.which) {
                     case 38: // up
@@ -76,9 +77,9 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                         return;
                 }
 
-                if ( _this.keyboardMode == 'rotate' ) {
+                if ( _this.keyboardBehavior == 'rotate' ) {
                     scope.currentMesh.rotation[ dim ] += delta;
-                } else if ( _this.keyboardMode == 'move' ) {
+                } else if ( _this.keyboardBehavior == 'move' ) {
                     scope.currentMesh.position[ dim ] += delta * 100;
                 }
             }
