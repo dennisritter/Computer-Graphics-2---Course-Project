@@ -107,17 +107,30 @@
         <td>Which object do you want to draw?</td>
         <td><select id="geoFunction">
           <option value="ellipsoid">Ellipsoid</option>
+          <option value="torus">Torus</option>
         </select></td>
       </tr>
       <tr>
-        <td>Specify a, b and c for the Ellipsoid</td>
-        <td>
+        <td id="ellipsoidOptions">
+          <p>Specify a, b and c for the Ellipsoid</p>
+          <!-- Options for Elipsoid -->
           <label for="ellipsoidA">a</label>
           <input type="number" class="objParam" id="ellipsoidA" value="100"/>
           <label for="ellipsoidB">b</label>
           <input type="number" class="objParam" id="ellipsoidB" value="100"/>
           <label for="ellipsoidC">c</label>
           <input type="number" class="objParam" id="ellipsoidC" value="100"/>
+        </td>
+      </tr>
+
+      <tr>
+        <!-- Options for Torus -->
+        <td id="torusOptions">
+          <p>Specify R and r for the Torus</p>
+          <label for="torusR1">R</label>
+          <input type="number" class="objParam" id="torusR1" value="100"/>
+          <label for="torusr2">r</label>
+          <input type="number" class="objParam" id="torusr2" value="300"/>
         </td>
       </tr>
       <tr>
