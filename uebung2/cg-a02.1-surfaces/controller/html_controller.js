@@ -83,19 +83,31 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 if (selectedOption === "ellipsoid"){
                     $("#ellipsoidOptions").show();
                     $("#torusOptions").hide();
+                    $("#tranguloidOption").hide();
                 }
                 if (selectedOption === "torus"){
                     $("#torusOptions").show();
                     $("#ellipsoidOptions").hide();
+                    $("#tranguloidOption").hide();
+                }
+                if (selectedOption === "tranguloid"){
+                    $("#tranguloidOption").show();
+                    $("#torusOptions").hide();
+                    $("#ellipsoidOptions").hide();
                 }
             });
-
 
             $("#btnNewParametric").click ( (function() {
 
                 /**Als weiteres Argument übergibt die Szene dem ParametricSurface-Konstruktor ein config-Objekt
                 * mit den Wertebereichen der Parameter u und v (umin, umax, vmin, vmax) sowie der gewünschten
                 * Anzahl von Segmenten in u- und v-Richtung. */
+
+                var geoFunction =  $('#geoFunction option:selected').val();;
+                    var umin = parseInt($('#umin').val());
+                    var umax = parseInt($('#umax').val());
+                    var vmin = parseInt($('#vmin').val());
+                    var vmax = parseInt($('#vmax').val());
 
                 var config = {
                     umin : parseInt($('#umin').val()),
@@ -115,9 +127,6 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                     rOuter: parseFloat( $('#torusROuter').val() ),
                     rInner: parseFloat( $('#torusRInner').val() )
                 };
-
-                var geoFunction =  $('#geoFunction option:selected').val();;
-                console.log(geoFunction);
 
                 var parametric = new Parametric(geoFunction, config);
                 var bufferGeometryParametric = new BufferGeometry();
