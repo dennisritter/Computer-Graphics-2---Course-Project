@@ -64,6 +64,9 @@ define(["three", "validation"],
             //Array mit ausgewerteten Koordinaten x,y,z für jeden der Punkte u, v
             this.positions = new Float32Array(uv_array.length * 3);
 
+            // Describes the triangle-faces of this object
+            this.IndexArray = new Uint32Array(this.positions.length * 3);
+
             //Array mit den Farben für die ausgewerteten Koordinaten x,y,z für jeden der Punkte u, v
             this.colors = new Float32Array(uv_array.length * 3);
 
@@ -157,6 +160,10 @@ define(["three", "validation"],
             this.getPositions = function () {
                 return this.positions;
             };
+
+            this.getIndexArray = function(){
+                return this.faces;
+            }
 
             this.getColors = function () {
                 return this.colors;
