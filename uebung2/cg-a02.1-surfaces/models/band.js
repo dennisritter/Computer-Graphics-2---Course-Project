@@ -33,7 +33,7 @@ define(["three"],
             for(var i=0; i<this.positions.length; i+=6) {
 
                 // X and Z coordinates are on a circle around the origin
-                var t = (i/segments)*Math.PI*2;
+                var t = (i/this.positions.length)*Math.PI*2;
                 var x = Math.sin(t) * radius;
                 var z = Math.cos(t) * radius;
                 // Y coordinates are simply -height/2 and +height/2
