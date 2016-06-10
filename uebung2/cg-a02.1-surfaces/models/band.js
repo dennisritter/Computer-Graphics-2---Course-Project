@@ -63,37 +63,41 @@ define(["three"],
 
             // Every position occurs 2 times in the array
             // Every face needs 3 positions to describe it
+            this.indexArray = new Uint32Array(2 * this.positions.length * 3);
+            var k = 0;
             /**
              * Fills the indexArray with positions describing the bands faces.
              */
-            this.indexArray = new Uint32Array(2 * this.positions.length * 3);
             for (var i = 0; i < this.indexArray.length; i += 9) {
+                k = i;
                 // first vertex
-                this.indexArray[i] = this.positions[i];
-                this.indexArray[i + 1] = this.positions[i + 1];
-                this.indexArray[i + 2] = this.positions[i + 2];
+                this.indexArray[k] = this.positions[i];
+                this.indexArray[k + 1] = this.positions[i + 1];
+                this.indexArray[k + 2] = this.positions[i + 2];
                 // second vertex
-                this.indexArray[i + 3] = this.positions[i + 3];
-                this.indexArray[i + 4] = this.positions[i + 4];
-                this.indexArray[i + 5] = this.positions[i + 5];
+                this.indexArray[k + 3] = this.positions[i + 3];
+                this.indexArray[k + 4] = this.positions[i + 4];
+                this.indexArray[k + 5] = this.positions[i + 5];
                 // third vertex
-                this.indexArray[i + 6] = this.positions[i + 6];
-                this.indexArray[i + 7] = this.positions[i + 7];
-                this.indexArray[i + 8] = this.positions[i + 8];
+                this.indexArray[k + 6] = this.positions[i + 6];
+                this.indexArray[k + 7] = this.positions[i + 7];
+                this.indexArray[k + 8] = this.positions[i + 8];
 
+                k += 9;
                 // third vertex
-                this.indexArray[i] = this.positions[i + 6];
-                this.indexArray[i + 1] = this.positions[i + 7];
-                this.indexArray[i + 2] = this.positions[i + 8];
+                this.indexArray[k] = this.positions[i + 6];
+                this.indexArray[k + 1] = this.positions[i + 7];
+                this.indexArray[k + 2] = this.positions[i + 8];
                 // second vertex
-                this.indexArray[i + 3] = this.positions[i + 3];
-                this.indexArray[i + 4] = this.positions[i + 4];
-                this.indexArray[i + 5] = this.positions[i + 5];
+                this.indexArray[k + 3] = this.positions[i + 3];
+                this.indexArray[k + 4] = this.positions[i + 4];
+                this.indexArray[k + 5] = this.positions[i + 5];
                 // fourth vertex
-                this.indexArray[i + 6] = this.positions[i + 9];
-                this.indexArray[i + 7] = this.positions[i + 10];
-                this.indexArray[i + 8] = this.positions[i + 11];
+                this.indexArray[k + 6] = this.positions[i + 9];
+                this.indexArray[k + 7] = this.positions[i + 10];
+                this.indexArray[k + 8] = this.positions[i + 11];
             }
+            console.log("band.js positions: ", this.positions);
             console.log("band.js indexArray: ", this.indexArray);
 
 
@@ -101,7 +105,7 @@ define(["three"],
                 return this.positions;
             };
 
-            this.getIndexArray = function(){
+            this.getIndexArray = function() {
                 return this.indexArray;
             };
 
