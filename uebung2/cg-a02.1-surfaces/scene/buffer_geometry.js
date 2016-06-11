@@ -23,12 +23,20 @@ define(["three"],
 
         var BufferGeometry = function () {
 
-            this.mesh     = undefined;
+            /** FOR POINTS */
+            // this.mesh     = undefined;
+            // this.geometry = new THREE.BufferGeometry();
+            // this.material = new THREE.PointsMaterial( {
+            //     color: 0xaaaaaa,
+            //     size: 10, vertexColors: THREE.VertexColors
+            // } );
+
+            /** FOR MESH */
             this.geometry = new THREE.BufferGeometry();
-            this.material = new THREE.PointsMaterial( {
-                color: 0xaaaaaa,
-                size: 10, vertexColors: THREE.VertexColors
+            this.material = new THREE.MeshBasicMaterial( {
+                color: 0xaaaaaa
             } );
+            this.mesh = new THREE.Mesh( this.geometry, this.material );
 
             /**
              * Adds a vertex attribute, we assume each element has three components, e.g.
