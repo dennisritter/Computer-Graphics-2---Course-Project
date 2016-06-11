@@ -25,9 +25,9 @@ define(["three"],
             var radius = config.radius || 300;
             var height = config.height || 100;
 
-            this.positions = new Float32Array(segments * 3);
-            this.colors = new Float32Array(segments * 3);
-            this.indexArray = new Uint32Array(this.positions.length * 3);
+            this.positions = new Float32Array(2 * segments * 3);
+            this.colors = new Float32Array(2 * segments * 3);
+            this.indexArray = new Uint32Array(segments * 2);
 
             var color = new THREE.Color();
 
@@ -46,9 +46,9 @@ define(["three"],
                 this.positions[i + 1] = y0;
                 this.positions[i + 2] = z;
 
-                // this.positions[i + 3] = x;
-                // this.positions[i + 4] = y1;
-                // this.positions[i + 5] = z;
+                this.positions[i + 3] = x;
+                this.positions[i + 4] = y1;
+                this.positions[i + 5] = z;
 
 
                 color.setRGB(1, 0, 0);
@@ -57,9 +57,9 @@ define(["three"],
                 this.colors[i + 1] = color.g;
                 this.colors[i + 2] = color.b;
 
-                // this.colors[i + 3] = color.r;
-                // this.colors[i + 4] = color.g;
-                // this.colors[i + 5] = color.b;
+                this.colors[i + 3] = color.r;
+                this.colors[i + 4] = color.g;
+                this.colors[i + 5] = color.b;
             };
 
             /**
