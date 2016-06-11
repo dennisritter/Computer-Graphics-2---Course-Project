@@ -68,12 +68,15 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 var band = new Band(config);
                 var bufferGeometryBand = new BufferGeometry();
                 bufferGeometryBand.addAttribute("position", band.getPositions());
-                bufferGeometryBand.addAttribute("index", band.getIndexArray());
+                bufferGeometryBand.setIndex(band.getIndexArray());
                 bufferGeometryBand.addAttribute("color", band.getColors());
 
                 scene.addBufferGeometry(bufferGeometryBand);
             }));
 
+            /**
+             * Shows the setup for the chosen Parametric-Surface-Object
+             */
             $("#btnParametric").click( (function() {
                 $("#random").hide();
                 $("#band").hide();
