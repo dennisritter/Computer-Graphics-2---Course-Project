@@ -38,6 +38,9 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 $("#parametric").hide();
             }));
 
+            /**
+             * Create new point cloud
+             */
             $("#btnNewRandom").click( (function() {
 
                 var numPoints = parseInt($("#numItems").attr("value"));
@@ -50,6 +53,9 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
             }));
 
 
+            /**
+             * Create a new Band-Object
+             */
             $("#btnNewBand").click( (function() {
 
                 var config = {
@@ -98,6 +104,9 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 }
             });
 
+            /**
+             * Creates a new Parametric-Surface-Object
+             */
             $("#btnNewParametric").click ( (function() {
 
                 /**Als weiteres Argument übergibt die Szene dem ParametricSurface-Konstruktor ein config-Objekt
@@ -138,6 +147,9 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 scene.addBufferGeometry(bufferGeometryParametric);
             }));
 
+            /**
+             * Creates a new Box-Object
+             */
             $("#btnBox").click( (function(){
 
                 var box = new THREE.BoxGeometry(100,100,700);
@@ -148,6 +160,9 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 scene.scene.add(cube);
             }));
 
+            /**
+             * Creates a new Ring-Object
+             */
             $("#btnRing").click( (function(){
 
                 var ring = new THREE.RingGeometry(50,500,500);
@@ -158,6 +173,9 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 scene.scene.add(cube);
             }));
 
+            /**
+             * Creates a new Dodecahedron-Object
+             */
             $("#btnDode").click( (function(){
 
                 var dode = new THREE.DodecahedronGeometry(300,0);
