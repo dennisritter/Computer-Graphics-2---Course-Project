@@ -27,7 +27,7 @@ define(["three"],
 
             this.positions = new Float32Array(2 * segments * 3);
             this.colors = new Float32Array(2 * segments * 3);
-            this.indexArray = new Uint32Array(segments * 2);
+            this.indexArray = new THREE.BufferAttribute(new Uint32Array(segments * 2), 1);
 
             var color = new THREE.Color();
 
@@ -60,24 +60,38 @@ define(["three"],
                 this.colors[i + 3] = color.r;
                 this.colors[i + 4] = color.g;
                 this.colors[i + 5] = color.b;
-            };
+            }
+            ;
 
             /**
              * Fills the indexArray with positions describing the bands faces.
              */
+            // var k = 0;
+            // for (var i = 0; i < this.positions.length; i += 3){
+            //     //the first face
+            //     this.indexArray[k] = i;
+            //     this.indexArray[k+1] = i+1;
+            //     this.indexArray[k+2] = i+2;
+            //
+            //     //the second face
+            //     this.indexArray[k+3] = i+2;
+            //     this.indexArray[k+4] = i+1;
+            //     this.indexArray[k+5] = i+3;
+            //     k+=6;
+            // };
             var k = 0;
-            for (var i = 0; i < this.positions.length; i += 3){
+            for (var i = 0; i < this.positions.length; i += 3) {
                 //the first face
-                this.indexArray[k] = i;
-                this.indexArray[k+1] = i+1;
-                this.indexArray[k+2] = i+2;
+                this.indexArray.setX(k, i); k++;
+                this.indexArray.setX(k, i + 1); k++;
+                this.indexArray.setX(k, i + 2); k++;
 
                 //the second face
-                this.indexArray[k+3] = i+2;
-                this.indexArray[k+4] = i+1;
-                this.indexArray[k+5] = i+3;
-                k+=6;
-            };
+                this.indexArray.setX(k, i + 2); k++;
+                this.indexArray.setX(k, i + 1); k++;
+                this.indexArray.setX(k, i + 3); k++;
+            }
+            ;
             console.log("band.js positions: ", this.positions);
             console.log("band.js indexArray: ", this.indexArray);
 
