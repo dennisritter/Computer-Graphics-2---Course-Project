@@ -67,8 +67,8 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 
                 var band = new Band(config);
                 var bufferGeometryBand = new BufferGeometry();
-                bufferGeometryBand.addAttribute("position", band.getPositions());
                 bufferGeometryBand.setIndex(band.getIndexArray());
+                bufferGeometryBand.addAttribute("position", band.getPositions());
                 bufferGeometryBand.addAttribute("color", band.getColors());
 
                 scene.addBufferGeometry(bufferGeometryBand);
