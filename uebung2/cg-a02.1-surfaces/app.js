@@ -19,7 +19,7 @@ requirejs.config({
             //If the load via CDN fails, load locally
             '../lib/jquery-1.7.2.min'],
 
-        "three" : "../lib/three.min",
+        "three" : "../lib/three",
 
         "scene" : "./scene/scene",
         "random" : "./models/random",

@@ -34,9 +34,14 @@ define(["three"],
             /** FOR MESH */
             this.geometry = new THREE.BufferGeometry();
             this.material = new THREE.MeshBasicMaterial( {
-                color: 0xaaaaaa
+                color: 0xff0000,
+                side: THREE.DoubleSide
             } );
             this.mesh = new THREE.Mesh( this.geometry, this.material );
+            this.wfMaterial = new THREE.MeshBasicMaterial({
+                color: 0xff0000,
+                wireframe: true
+            });
 
             /**
              * Adds a vertex attribute, we assume each element has three components, e.g.
@@ -49,7 +54,9 @@ define(["three"],
             this.addAttribute = function(name, buffer) {
                 this.geometry.addAttribute( name, new THREE.BufferAttribute( buffer, 3 ) );
                 this.geometry.computeBoundingSphere();
-                this.mesh = new THREE.Points( this.geometry, this.material );
+                // this.mesh = new THREE.Points( this.geometry, this.material );
+                this.mesh = new THREE.Mesh( this.geometry, this.wfMaterial );
+                // this.mesh = new THREE.Mesh( this.geometry, this.material );
             };
 
             this.setIndex = function(index){
