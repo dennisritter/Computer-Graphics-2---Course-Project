@@ -157,13 +157,36 @@ define(["three", "validation"],
                     break;
             }
 
+            var indices = new Uint32Array( this.positions.length );
+            var maxIdx = this.positions.length / 3;
+            var k = 0;
+            for ( var i = 0; i < indices.length; ) {
+                if ( k + elementsU <= maxIdx ) {
+                    indices[i] = k;
+                    indices[i+1] = k+elementsU;
+                    indices[i+2] = k+1;
+                    i += 3;
+                }
+
+                if ( k - elementsU >= 0 ) {
+                    indices[i] = k;
+                    indices[i+1] = k+1;
+                    indices[i+2] = k+1-elementsU;
+                    i += 3;
+                }
+                ++k;
+            }
+
+            this.indexArray = new THREE.BufferAttribute( indices, 1 );
+            console.log( indices );
+
             this.getPositions = function () {
                 return this.positions;
             };
 
             this.getIndexArray = function(){
-                return this.faces;
-            }
+                return this.indexArray;
+            };
 
             this.getColors = function () {
                 return this.colors;

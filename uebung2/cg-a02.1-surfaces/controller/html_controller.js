@@ -144,8 +144,8 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                 var parametric = new Parametric(geoFunction, config);
                 var bufferGeometryParametric = new BufferGeometry();
                 bufferGeometryParametric.addAttribute("position", parametric.getPositions());
-                bufferGeometryParametric.addAttribute("index", parametric.getIndexArray());
                 bufferGeometryParametric.addAttribute("color", parametric.getColors());
+                bufferGeometryParametric.setIndex( parametric.getIndexArray() );
 
                 scene.addBufferGeometry(bufferGeometryParametric);
             }));
