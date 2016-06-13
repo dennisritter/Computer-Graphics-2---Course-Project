@@ -65,7 +65,7 @@ define(["three", "validation"],
             this.positions = new Float32Array(uv_array.length * 3);
 
             // Describes the triangle-faces of this object
-            this.IndexArray = new Uint32Array(this.positions.length * 3);
+            // this.indexArray = new Uint32Array(this.positions.length * 3);
 
             //Array mit den Farben für die ausgewerteten Koordinaten x,y,z für jeden der Punkte u, v
             this.colors = new Float32Array(uv_array.length * 3);
@@ -143,7 +143,7 @@ define(["three", "validation"],
 
                         // The multiplication faktor for x, y, z ensures that the Tranguloid looks as intended.
                         this.positions[i] = 100 * x;
-                        this.positions[i + 1] = 3 * y;
+                        this.positions[i + 1] = 5 * y;
                         this.positions[i + 2] = 100 * z;
 
                         color.setRGB(0, 0, 1);
@@ -157,8 +157,8 @@ define(["three", "validation"],
                     break;
             }
 
-            var indices = new Uint32Array( this.positions.length );
-            var maxIdx = this.positions.length / 3;
+            var indices = new Uint32Array( this.positions.length + 1134);
+            var maxIdx = (this.positions.length / 3)-1;
             var k = 0;
             for ( var i = 0; i < indices.length; ) {
                 if ( k + elementsU <= maxIdx ) {
@@ -174,10 +174,18 @@ define(["three", "validation"],
                     indices[i+2] = k+1-elementsU;
                     i += 3;
                 }
+
+                if ( k >= uv_array.length - elementsU ) {
+                    indices[i] = k;
+                    indices[i+1] = k - uv_array.length + elementsU;
+                    indices[i+2] = k - uv_array.length + elementsU + 1;
+                    i += 3;
+                }
                 ++k;
             }
 
             this.indexArray = new THREE.BufferAttribute( indices, 1 );
+            console.log(this.positions.length);
             console.log( indices );
 
             this.getPositions = function () {
