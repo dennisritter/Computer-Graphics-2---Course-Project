@@ -157,21 +157,14 @@ define(["three", "validation"],
                     break;
             }
 
-            var indices = new Uint32Array( this.positions.length + 1134);
-            var maxIdx = (this.positions.length / 3)-1;
+            var indices = new Uint32Array( this.positions.length );
+            var maxIdx = (this.positions.length / 3) - 1;
             var k = 0;
             for ( var i = 0; i < indices.length; ) {
                 if ( k + elementsU <= maxIdx ) {
                     indices[i] = k;
                     indices[i+1] = k+elementsU;
                     indices[i+2] = k+1;
-                    i += 3;
-                }
-
-                if ( k - elementsU >= 0 ) {
-                    indices[i] = k;
-                    indices[i+1] = k+1;
-                    indices[i+2] = k+1-elementsU;
                     i += 3;
                 }
 
