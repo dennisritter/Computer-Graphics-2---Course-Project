@@ -37,7 +37,7 @@ define(["three", "validation"],
             // Calculate all values in the direction of u
             var uValues = [];
             var deltaU = umax - umin;
-            for (var i = 0; i < elementsU; i++) {
+            for (var i = 0; i <= elementsU; i++) {
                 var tU = umin + i / elementsU * deltaU;
                 uValues.push(tU);
             }
@@ -45,7 +45,7 @@ define(["three", "validation"],
             // Calculate all values in the direction of v
             var vValues = [];
             var deltaV = vmax - vmin;
-            for (var j = 0; j < elementsV; j++) {
+            for (var j = 0; j <= elementsV; j++) {
                 var tV = vmin + j / elementsV * deltaV;
                 vValues.push(tV);
             }
