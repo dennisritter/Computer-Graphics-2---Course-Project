@@ -29,7 +29,9 @@ requirejs.config({
         "validation" : "./utils/validation",
         "shaders" : "./shaders",
         "BufferGeometry" : "./scene/buffer_geometry",
-        "HtmlController": "./controller/html_controller"
+        "HtmlController": "./controller/html_controller",
+        "OBJLoader": "./loaders/OBJLoader",
+        "obj": "./models/obj"
 
     },
     shim: {

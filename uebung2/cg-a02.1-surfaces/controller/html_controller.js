@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
-    (function($,BufferGeometry, Random, Band, THREE, Parametric) {
+define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj" ],
+    (function($,BufferGeometry, Random, Band, THREE, Parametric, Obj) {
         "use strict";
 
         /*
@@ -25,17 +25,27 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
             $("#random").show();
             $("#band").hide();
             $("#parametric").hide();
+            $("#obj_file").hide();
 
             $("#btnRandom").click( (function() {
                 $("#random").show();
                 $("#band").hide();
                 $("#parametric").hide();
+                $("#obj_file").hide();
             }));
 
             $("#btnBand").click( (function() {
                 $("#random").hide();
                 $("#band").show();
                 $("#parametric").hide();
+                $("#obj_file").hide();
+            }));
+
+            $("#btnObj").click( (function(){
+                $("#random").hide();
+                $("#band").hide();
+                $("#parametric").hide();
+                $("#obj").show();
             }));
 
             /**
@@ -202,6 +212,16 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric"],
                     scene.stopAnimation();
                 }
             });
+
+
+            /**
+             * Read the selected OBJ-file and draws it to the canvas
+             */
+            $("#btnReadObj").click( (function(){
+
+                var myObjMesh = new ObjMesh () ;
+                scene.addMesh ( myObjMesh . getMesh ( ) );
+            }));
         };
 
         // return the constructor function
