@@ -8,7 +8,7 @@
 
 /* requireJS module definition */
 define(["three", "validation"],
-    (function (THREE, validation) {
+    (function(THREE, validation) {
 
         "use strict";
 
@@ -19,7 +19,7 @@ define(["three", "validation"],
          * @param config
          * @constructor
          */
-        var ParametricSurface = function (posFunc, config) {
+        var ParametricSurface = function(posFunc, config) {
 
             // posFunc : zu einem gegebenen Paar (u,v) Werten jeweils ein Array mit drei Koordinaten [x,y,z] zurückliefert.
 
@@ -157,39 +157,48 @@ define(["three", "validation"],
                     break;
             }
 
-            var indices = new Uint32Array( this.positions.length );
-            var maxIdx = (this.positions.length / 3) - 1;
+            
+            var indices = new Uint32Array(this.positions.length * 2);
+            // var maxIdx = (this.positions.length / 3) - 1;
             var k = 0;
-            for ( var i = 0; i < indices.length; ) {
-                if ( k + elementsU <= maxIdx ) {
+            for (var i = 0; i < indices.length - 6;) {
+                console.log(k);
+                if (k >= elementsU*elementsV - elementsU) {
                     indices[i] = k;
-                    indices[i+1] = k+elementsU;
-                    indices[i+2] = k+1;
+                    indices[i + 1] = k - elementsU*elementsV + elementsU;
+                    indices[i + 2] = k + 1;
                     i += 3;
-                }
 
-                if ( k >= uv_array.length - elementsU ) {
-                    indices[i] = k;
-                    indices[i+1] = k - uv_array.length + elementsU;
-                    indices[i+2] = k - uv_array.length + elementsU + 1;
+                    indices[i] = k - elementsU*elementsV + elementsU;
+                    indices[i + 1] = k - elementsU*elementsV + elementsU + 1;
+                    indices[i + 2] = k + 1;
                     i += 3;
                 }
-                ++k;
+                else {
+                    indices[i] = k;
+                    indices[i + 1] = k + elementsU;
+                    indices[i + 2] = k + 1;
+                    i += 3;
+
+                    indices[i] = k + elementsU;
+                    indices[i + 1] = k + elementsU + 1;
+                    indices[i + 2] = k + 1;
+                    i += 3;
+                }
+                k++;
             }
 
-            this.indexArray = new THREE.BufferAttribute( indices, 1 );
-            console.log(this.positions.length);
-            console.log( indices );
+            this.indexArray = new THREE.BufferAttribute(indices, 1);
 
-            this.getPositions = function () {
+            this.getPositions = function() {
                 return this.positions;
             };
 
-            this.getIndexArray = function(){
+            this.getIndexArray = function() {
                 return this.indexArray;
             };
 
-            this.getColors = function () {
+            this.getColors = function() {
                 return this.colors;
             };
 

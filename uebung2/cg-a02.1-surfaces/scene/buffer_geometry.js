@@ -33,12 +33,12 @@ define(["three"],
 
             /** FOR MESH */
             this.geometry = new THREE.BufferGeometry();
-            this.material = new THREE.MeshBasicMaterial( {
-                color: 0xff0000,
+            this.material = new THREE.MeshStandardMaterial( {
+                // color: 0xff0000,
                 side: THREE.DoubleSide
             } );
             this.mesh = new THREE.Mesh( this.geometry, this.material );
-            this.wfMaterial = new THREE.MeshBasicMaterial({
+            this.wfMaterial = new THREE.MeshStandardMaterial({
                 color: 0xff0000,
                 wireframe: true
             });
