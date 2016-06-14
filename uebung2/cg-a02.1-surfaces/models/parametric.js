@@ -157,25 +157,28 @@ define(["three", "validation"],
                     break;
             }
 
-            
+            // every segment contains of two triangles which consist of three vertices each
             var indices = new Uint32Array( elementsU * elementsV * 2 * 3 );
+
+            // The current index for the indices array
             var i = 0;
+            // For each vertex that is not directly on the right or bottom side
             for ( var v = 0; v < elementsV; ++v ) {
                 for ( var u = 0; u < elementsU; ++u ) {
                     var k = (elementsU+1) * v + u;
+                    // the first face
                     indices[i] = k;
                     indices[i+1] = k + elementsU + 1;
                     indices[i+2] = k + 1;
                     i += 3;
 
-                    indices[i] = k +  elementsU + 1;
+                    // the second face
+                    indices[i] = k + elementsU + 1;
                     indices[i+1] = k + elementsU + 2;
                     indices[i+2] = k + 1;
                     i += 3;
                 }
             }
-
-            console.log( 'indices', indices );
 
             this.indexArray = new THREE.BufferAttribute(indices, 1);
 
