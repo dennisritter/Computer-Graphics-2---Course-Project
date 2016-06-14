@@ -158,35 +158,24 @@ define(["three", "validation"],
             }
 
             
-            var indices = new Uint32Array(this.positions.length * 2);
-            // var maxIdx = (this.positions.length / 3) - 1;
-            var k = 0;
-            for (var i = 0; i < indices.length - 6;) {
-                console.log(k);
-                if (k >= elementsU*elementsV - elementsU) {
+            var indices = new Uint32Array( elementsU * elementsV * 2 * 3 );
+            var i = 0;
+            for ( var v = 0; v < elementsV; ++v ) {
+                for ( var u = 0; u < elementsU; ++u ) {
+                    var k = (elementsU+1) * v + u;
                     indices[i] = k;
-                    indices[i + 1] = k - elementsU*elementsV + elementsU;
-                    indices[i + 2] = k + 1;
+                    indices[i+1] = k + elementsU + 1;
+                    indices[i+2] = k + 1;
                     i += 3;
 
-                    indices[i] = k - elementsU*elementsV + elementsU;
-                    indices[i + 1] = k - elementsU*elementsV + elementsU + 1;
-                    indices[i + 2] = k + 1;
+                    indices[i] = k +  elementsU + 1;
+                    indices[i+1] = k + elementsU + 2;
+                    indices[i+2] = k + 1;
                     i += 3;
                 }
-                else {
-                    indices[i] = k;
-                    indices[i + 1] = k + elementsU;
-                    indices[i + 2] = k + 1;
-                    i += 3;
-
-                    indices[i] = k + elementsU;
-                    indices[i + 1] = k + elementsU + 1;
-                    indices[i + 2] = k + 1;
-                    i += 3;
-                }
-                k++;
             }
+
+            console.log( 'indices', indices );
 
             this.indexArray = new THREE.BufferAttribute(indices, 1);
 
