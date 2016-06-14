@@ -39,7 +39,7 @@ define(["jquery"], (function($) {
                     config.vmin = 0;
                     console.error("The entered vMin value is not allowed. Using [" + config.vmin + "] now.");
                 }
-                if (config.vmax < 0 || config.vmax > 2 * Math.Pi) {
+                if (config.vmax < 0 || config.vmax > 2 * Math.PI) {
                     config.vmax = 2 * Math.PI;
                     console.error("The entered vMax value is not allowed. Using [" + config.vmax + "] now.");
                 }
