@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj" ],
-    (function($,BufferGeometry, Random, Band, THREE, Parametric, Obj) {
+define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj", "meshFactory"],
+    (function($,BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory) {
         "use strict";
 
         /*
@@ -20,6 +20,13 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
          * and provide them with a closure defining context and scene
          */
         var HtmlController = function(scene) {
+
+            var selectMaterial = $('#selectMaterial');
+            selectMaterial.change(function () {
+                var val = selectMaterial.val();
+                if ( val )
+                  MeshFactory.material = val;
+            });
 
 
             $("#random").show();
@@ -170,12 +177,9 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
             /**
              * Creates a new Box-Object
              */
-            $("#btnBox").click( (function(){
-
+            $("#btnBox").click( (function() {
                 var box = new THREE.BoxGeometry(100,100,700);
-
-                var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-                var cube = new THREE.Mesh( box, material );
+                var cube = MeshFactory.createMesh( box );
 
                 scene.scene.add(cube);
             }));
@@ -184,11 +188,8 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
              * Creates a new Ring-Object
              */
             $("#btnRing").click( (function(){
-
                 var ring = new THREE.RingGeometry(50,500,500);
-
-                var material = new THREE.MeshBasicMaterial( { color: 0xde0000 } );
-                var cube = new THREE.Mesh( ring, material );
+                var cube = MeshFactory.createMesh( ring );
 
                 scene.scene.add(cube);
             }));
@@ -197,12 +198,8 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
              * Creates a new Dodecahedron-Object
              */
             $("#btnDode").click( (function(){
-
                 var dode = new THREE.DodecahedronGeometry(300,0);
-
-                var material = new THREE.MeshBasicMaterial( { color: 0x0000de } );
-                var cube = new THREE.Mesh( dode, material );
-
+                var cube = MeshFactory.createMesh( dode );
                 scene.scene.add(cube);
             }));
 

@@ -50,7 +50,9 @@
       <option value="points" selected>points</option>
       <option value="wireframe">wireframe</option>
       <option value="solid">solid</option>
-    </select><br>
+    </select>
+    <input type="color" id="selectMaterialColor">
+    <br>
 
     <label for="animate">
       <input type="checkbox" id="animate"/> animate
@@ -126,11 +128,13 @@
       </tr>
       <tr>
         <td>Which object do you want to draw?</td>
-        <td><select id="geoFunction">
-          <option value="ellipsoid">Ellipsoid</option>
-          <option value="torus" selected>Torus</option>
-          <option value="tranguloid">Tranguloid Trefoil</option>
-        </select></td>
+        <td>
+          <select id="geoFunction">
+            <option value="ellipsoid">Ellipsoid</option>
+            <option value="torus" selected>Torus</option>
+            <option value="tranguloid">Tranguloid Trefoil</option>
+          </select>
+        </td>
       </tr>
       <tr>
         <td id="ellipsoidOptions">

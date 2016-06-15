@@ -16,32 +16,12 @@
  */
 
 /* requireJS module definition */
-define(["three"],
-    (function(THREE) {
+define(["three", "meshFactory"],
+    (function(THREE, MeshFactory) {
 
-        "use strict";
-
-        var BufferGeometry = function ( material ) {
-
-            /** FOR POINTS */
-            // this.mesh     = undefined;
-            // this.geometry = new THREE.BufferGeometry();
-            // this.material = new THREE.PointsMaterial( {
-            //     color: 0xaaaaaa,
-            //     size: 10, vertexColors: THREE.VertexColors
-            // } );
-
-            /** FOR MESH */
+        var BufferGeometry = function () {
             this.geometry = new THREE.BufferGeometry();
-            this.material = new THREE.MeshStandardMaterial( {
-                // color: 0xff0000,
-                side: THREE.DoubleSide
-            } );
-            this.mesh = new THREE.Mesh( this.geometry, this.material );
-            this.wfMaterial = new THREE.MeshStandardMaterial({
-                color: 0xff0000,
-                wireframe: true
-            });
+            this.mesh = MeshFactory.createMesh( this.geometry );
 
             /**
              * Adds a vertex attribute, we assume each element has three components, e.g.
@@ -54,14 +34,10 @@ define(["three"],
             this.addAttribute = function(name, buffer) {
                 this.geometry.addAttribute( name, new THREE.BufferAttribute( buffer, 3 ) );
                 this.geometry.computeBoundingSphere();
-                // this.mesh = new THREE.Points( this.geometry, this.material );
-                this.mesh = new THREE.Mesh( this.geometry, this.wfMaterial );
-                // this.mesh = new THREE.Mesh( this.geometry, this.material );
             };
 
             // Jeder Liste von Primitiven (Mesh, Points) in three.js kann man ein Material übergeben.
             //     Bislang ist das ein THREE.PointsMaterial.
-
             this.setIndex = function(index){
                 this.geometry.setIndex(index);
             };

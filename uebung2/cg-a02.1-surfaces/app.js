@@ -26,6 +26,7 @@ requirejs.config({
         "band" : "./models/band",
         "parametric" : "./models/parametric",
         "util"  : "./utils/util",
+        "meshFactory": "./utils/meshFactory",
         "validation" : "./utils/validation",
         "shaders" : "./shaders",
         "BufferGeometry" : "./scene/buffer_geometry",
