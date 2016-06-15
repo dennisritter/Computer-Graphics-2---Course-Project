@@ -130,6 +130,7 @@
             <option value="ellipsoid">Ellipsoid</option>
             <option value="torus">Torus</option>
             <option value="tranguloid">Tranguloid Trefoil</option>
+            <option value="cylinder">Cylinder</option>
           </select>
         </td>
       </tr>
@@ -162,6 +163,13 @@
         </td>
       </tr>
       <tr>
+        <td id="cylinderOptions">
+          <p>Specify R and r for the Torus</p>
+          <label for="cylinderRadius">Radius</label>
+          <input type="number" class="objParam" id="cylinderRadius" value="300"/>
+          <label for="cylinderHeight">Height</label>
+          <input type="number" class="objParam" id="cylinderHeight" value="100"/>
+        </td>
         <td>
           <button id="btnNewParametric" type="button">Create Object</button>
         </td>

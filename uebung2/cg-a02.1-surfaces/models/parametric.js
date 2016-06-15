@@ -26,6 +26,7 @@ define(["three", "validation"],
             //config : mit den Wertebereichen der Parameter u und v (umin, umax, vmin, vmax) sowie der gewünschten 
             // Anzahl von Segmenten in u- und v-Richtung.
             config = validation.validateConfig(posFunc, config);
+            console.log(config);
             var umin = config.umin;
             var umax = config.umax;
             var vmin = config.vmin;
@@ -145,6 +146,31 @@ define(["three", "validation"],
                         this.positions[i] = 100 * x;
                         this.positions[i + 1] = 5 * y;
                         this.positions[i + 2] = 100 * z;
+
+                        color.setRGB(0, 0, 1);
+
+                        this.colors[i] = color.r;
+                        this.colors[i + 1] = color.g;
+                        this.colors[i + 2] = color.b;
+
+                        i += 3;
+                    }
+                    break;
+                case "cylinder":
+                    console.log("calculating cylinder...");
+                    var i = 0;
+
+                    for (var j = 0; j < uv_array.length; j++) {
+                        var u = uv_array[j][0];
+                        var v = uv_array[j][1];
+
+                        var x = config.cylinderRadius * Math.cos(u);
+                        var y = config.cylinderRadius * Math.sin(u);
+                        var z = v;
+
+                        this.positions[i] = x;
+                        this.positions[i + 1] = y;
+                        this.positions[i + 2] = z;
 
                         color.setRGB(0, 0, 1);
 
