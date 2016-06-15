@@ -25,20 +25,27 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
             $("#random").show();
             $("#band").hide();
             $("#parametric").hide();
-            $("#obj_file").hide();
+            $("#obj").hide();
 
             $("#btnRandom").click( (function() {
                 $("#random").show();
                 $("#band").hide();
                 $("#parametric").hide();
-                $("#obj_file").hide();
+                $("#obj").hide();
             }));
 
             $("#btnBand").click( (function() {
                 $("#random").hide();
                 $("#band").show();
                 $("#parametric").hide();
-                $("#obj_file").hide();
+                $("#obj").hide();
+            }));
+
+            $("#btnParametricj").click( (function(){
+                $("#random").hide();
+                $("#band").hide();
+                $("#parametric").show();
+                $("#obj").hide();
             }));
 
             $("#btnObj").click( (function(){

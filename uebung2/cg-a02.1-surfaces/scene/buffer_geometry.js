@@ -21,7 +21,7 @@ define(["three"],
 
         "use strict";
 
-        var BufferGeometry = function () {
+        var BufferGeometry = function ( material ) {
 
             /** FOR POINTS */
             // this.mesh     = undefined;
@@ -58,6 +58,9 @@ define(["three"],
                 this.mesh = new THREE.Mesh( this.geometry, this.wfMaterial );
                 // this.mesh = new THREE.Mesh( this.geometry, this.material );
             };
+
+            // Jeder Liste von Primitiven (Mesh, Points) in three.js kann man ein Material übergeben.
+            //     Bislang ist das ein THREE.PointsMaterial.
 
             this.setIndex = function(index){
                 this.geometry.setIndex(index);
