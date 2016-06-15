@@ -13,14 +13,14 @@
 
 /* requireJS module definition */
 define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "ParametricCurve", "BezierCurve"],
-    function ($, Line, Circle, Point, Rectangle, KdTree, KdUtil, ParametricCurve, BezierCurve) {
+    function($, Line, Circle, Point, Rectangle, KdTree, KdUtil, ParametricCurve, BezierCurve) {
         "use strict";
 
         /*
          * define callback functions to react to changes in the HTML page
          * and provide them with a closure defining context and scene
          */
-        var HtmlController = function (context, scene, sceneController) {
+        var HtmlController = function(context, scene, sceneController) {
 
             var inputLineWidth = $('#inputLineWidth');
             var inputColor = $('#inputColor');
@@ -31,22 +31,24 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             $('.form-row.params').not('.on-all').hide();
 
             // generate random X coordinate within the canvas
-            var randomX = function () {
+            var randomX = function() {
                 return Math.floor(Math.random() * (context.canvas.width - 10)) + 5;
             };
 
             // generate random Y coordinate within the canvas
-            var randomY = function () {
+            var randomY = function() {
                 return Math.floor(Math.random() * (context.canvas.height - 10)) + 5;
             };
 
             // generate random color in hex notation
-            var randomColor = function () {
+            var randomColor = function() {
 
                 // convert a byte (0...255) to a 2-digit hex string
-                var toHex2 = function (byte) {
+                var toHex2 = function(byte) {
                     var s = byte.toString(16); // convert to hex string
-                    if (s.length == 1) s = "0" + s; // pad with leading 0
+                    if (s.length == 1) {
+                        s = "0" + s;
+                    } // pad with leading 0
                     return s;
                 };
 
@@ -59,7 +61,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             };
 
             // Generates a random line style
-            var randomStyle = function () {
+            var randomStyle = function() {
                 return {
                     width: Math.floor(Math.random() * 3) + 1,
                     color: randomColor()
@@ -69,7 +71,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             /*
              * event handler for "new line button".
              */
-            $("#btnNewLine").click((function () {
+            $("#btnNewLine").click((function() {
                 var line = new Line([randomX(), randomY()],
                     [randomX(), randomY()],
                     randomStyle());
@@ -85,7 +87,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             /*
              * event handler for "new circle button"
              */
-            $("#btnNewCircle").click((function () {
+            $("#btnNewCircle").click((function() {
                 // create the circle and add it to the scene
                 var circle = new Circle([randomX(), randomY()], (Math.random() + 0.5) * 50, randomStyle());
                 scene.addObjects([circle]);
@@ -99,7 +101,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             /*
              * event handler for "new point button"
              */
-            $("#btnNewPoint").click((function () {
+            $("#btnNewPoint").click((function() {
                 // create the circle and add it to the scene
                 var point = new Point([randomX(), randomY()]);
                 scene.addObjects([point]);
@@ -109,7 +111,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 sceneController.select(point); // this will also redraw
             }));
 
-            $('#btnNewRectangle').click(function () {
+            $('#btnNewRectangle').click(function() {
                 var x1 = randomX();
                 var x2 = randomX();
                 var y1 = randomY();
@@ -123,7 +125,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 sceneController.select(rect);
             });
 
-            $('#btnNewBezierCurve').click(function () {
+            $('#btnNewBezierCurve').click(function() {
                 var x1 = randomX();
                 var x2 = randomX();
                 var y1 = randomY();
@@ -140,7 +142,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                     [maxX, maxY]
                 ];
 
-                var curve = new BezierCurve( points, 50, randomStyle() );
+                var curve = new BezierCurve(points, 50, randomStyle());
                 scene.addObjects([curve]);
                 sceneController.deselect();
                 sceneController.select(curve);
@@ -150,25 +152,27 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
              * event handler for Object-selection
              * Changes the values of the input fields to the values of the selected Geometry
              */
-            var updateInputs = function () {
+            var updateInputs = function() {
                 var selectedObj = sceneController.getSelectedObject();
                 $('.form-row.params').not('.on-all').hide();
 
-                if ( selectedObj instanceof Circle ) {
+                if (selectedObj instanceof Circle) {
                     $('.form-row.params.on-circle').show();
-                    inputRadius.val( selectedObj.radius );
-                } else if ( selectedObj instanceof BezierCurve ) {
+                    inputRadius.val(selectedObj.radius);
+                }
+                else if (selectedObj instanceof BezierCurve) {
                     $('.form-row.params.on-bezier-curve').show();
-                    for ( var i = 0; i < 4; ++i ) {
-                        $('#controlPoint'+i+'x').val( selectedObj.controlPoints[i][0] );
-                        $('#controlPoint'+i+'y').val( selectedObj.controlPoints[i][1] );
+                    for (var i = 0; i < 4; ++i) {
+                        $('#controlPoint' + i + 'x').val(selectedObj.controlPoints[i][0]);
+                        $('#controlPoint' + i + 'y').val(selectedObj.controlPoints[i][1]);
                     }
-                    $('#bezierCurveSegments').val( selectedObj.n );
-                } else if ( selectedObj instanceof ParametricCurve ) {
+                    $('#bezierCurveSegments').val(selectedObj.n);
+                }
+                else if (selectedObj instanceof ParametricCurve) {
                     $('.form-row.params.on-parametric-curve').show();
                 }
 
-                if ( selectedObj instanceof BezierCurve || selectedObj || ParametricCurve ) {
+                if (selectedObj instanceof BezierCurve || selectedObj || ParametricCurve) {
                     $('#showTicks').prop('checked', selectedObj.showTicks);
                 }
 
@@ -183,22 +187,23 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
              * event handler for changes in input fields
              * Changes the values of the selected Geometry to the new input field value
              */
-            var updateSelectedObject = function () {
+            var updateSelectedObject = function() {
                 var selectedObj = sceneController.getSelectedObject();
                 selectedObj.lineStyle.color = inputColor.val();
                 selectedObj.lineStyle.width = parseInt(inputLineWidth.val());
 
                 if (selectedObj instanceof Circle) {
                     selectedObj.radius = parseInt(inputRadius.val());
-                } else if ( selectedObj instanceof BezierCurve ) {
-                    selectedObj.n = parseInt( $('#bezierCurveSegments').val() );
-                    for ( var i = 0; i < 4; ++i ) {
-                        selectedObj.controlPoints[i][0] = parseInt( $('#controlPoint'+i+'x').val() );
-                        selectedObj.controlPoints[i][1] = parseInt( $('#controlPoint'+i+'y').val() );
+                }
+                else if (selectedObj instanceof BezierCurve) {
+                    selectedObj.n = parseInt($('#bezierCurveSegments').val());
+                    for (var i = 0; i < 4; ++i) {
+                        selectedObj.controlPoints[i][0] = parseInt($('#controlPoint' + i + 'x').val());
+                        selectedObj.controlPoints[i][1] = parseInt($('#controlPoint' + i + 'y').val());
                     }
                 }
 
-                if ( selectedObj instanceof BezierCurve || selectedObj instanceof ParametricCurve ) {
+                if (selectedObj instanceof BezierCurve || selectedObj instanceof ParametricCurve) {
                     selectedObj.showTicks = $('#showTicks').prop('checked');
                 }
 
@@ -211,7 +216,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
              * Creates a new PointList based on the given number of points
              * from the input field #numPoints.
              */
-            $("#btnNewPointList").click((function () {
+            $("#btnNewPointList").click((function() {
 
                 // create the actual line and add it to the scene
                 var style = {
@@ -236,8 +241,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             /**
              * Displays the kd-Tree
              */
-            $("#visKdTree").click((function (e) {
-                if ( !kdTree ) {
+            $("#visKdTree").click((function(e) {
+                if (!kdTree) {
                     e.preventDefault();
                     alert("KdTree has not yet been built.");
                     return;
@@ -246,7 +251,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 var showTree = $("#visKdTree").attr("checked");
                 if (showTree) {
                     KdUtil.visualizeKdTree(sceneController, scene, kdTree.root, 0, 0, 600, true);
-                } else {
+                }
+                else {
                     KdUtil.devisualizeKdTree(sceneController, scene, kdTree.root);
                 }
             }));
@@ -254,7 +260,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             /**
              *Generates the kd-Tree
              */
-            $("#btnBuildKdTree").click((function () {
+            $("#btnBuildKdTree").click((function() {
                 kdTree = new KdTree(pointList, context.canvas.width, context.canvas.height);
             }));
 
@@ -262,7 +268,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
              * creates a random query point and
              * runs linear search and kd-nearest-neighbor search
              */
-            $("#btnQueryKdTree").click((function () {
+            $("#btnQueryKdTree").click((function() {
                 var style = {
                     width: 2,
                     color: "#ff0000"
@@ -297,7 +303,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             /**
              * Draws the curve.
              */
-            $("#btnDrawCurve").click(function () {
+            $("#btnDrawCurve").click(function() {
 
                 var f = $("#inputX").attr("value");
                 var g = $("#inputY").attr("value");
@@ -313,60 +319,56 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                     scene.addObjects([curve]);
                     sceneController.deselect();
                     sceneController.select(curve);
-                } catch ( err ) {
+                }
+                catch (err) {
                     alert(err);
                 }
             });
 
-            var tangentPoints = function ( radius , p1 , p2) {
-                var p3 = [0, 0];
-                var p4 = [0, 0];
+            $("#calcTangents").click(function() {
 
-                // compute p_3 and p_4 here
-                return {p3: p3, p4: p4}
-            }
-            $("#calcTangents").click(function(){
-
-                var circle = new Circle([randomX(), randomY()], (Math.random() + 0.5) * 50, randomStyle());
+                var circle = new Circle([randomX(), randomY()], (Math.random() + 0.5) * 50);
                 scene.addObjects([circle]);
-                sceneController.deselect();
-                sceneController.select(circle); // this will also redraw
 
                 var point = new Point([randomX(), randomY()]);
                 scene.addObjects([point]);
-                sceneController.deselect();
-                sceneController.select(point); // this will also redraw
 
                 var line = new Line(
                     circle.center,
-                    [(circle.center[0] + circle.radius),circle.center[1]],
+                    [(circle.center[0] + circle.radius), circle.center[1]],
                     randomStyle());
                 scene.addObjects([line]);
-                sceneController.deselect();
-                sceneController.select(line); // this will also redraw
 
-                var tangents = tangentPoints(circle.radius, circle.center, point);
+                var tangents = sceneController.calcTangents(circle, point);
+                console.log(tangents);
                 var tangent1 = tangents.p3;
                 var tangent2 = tangents.p4;
 
                 var lineTangent1 = new Line(
-                    point,
-                    tangent1,
-                    randomStyle());
-                scene.addObjects([lineTangent1]);
-                sceneController.deselect();
-                sceneController.select(lineTangent1); // this will also redraw
+                    point.center,
+                    [circle.center[0] + tangent1[0], circle.center[1] + tangent1[1]]
+                );
 
                 var lineTangent2 = new Line(
-                    point,
-                    tangent2,
-                    randomStyle());
-                scene.addObjects([lineTangent2]);
+                    point.center,
+                    [circle.center[0] + tangent2[0], circle.center[1] + tangent2[1]]
+                );
+
+                var cToT1 = new Line(
+                    circle.center,
+                    [circle.center[0] + tangent1[0], circle.center[1] + tangent1[1]]
+                );
+
+                var cToT2 = new Line(
+                    circle.center,
+                    [circle.center[0] + tangent2[0], circle.center[1] + tangent2[1]]
+                );
+                scene.addObjects([circle, point, line, lineTangent1, lineTangent2, cToT1, cToT2 ]);
+
                 sceneController.deselect();
-                sceneController.select(lineTangent2); // this will also redraw
+                sceneController.select(point); // this will also redraw
 
             });
-
 
 
         };
