@@ -318,6 +318,28 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 }
             });
 
+            $("#calcTangents").click(function(){
+
+                var circle = new Circle([randomX(), randomY()], (Math.random() + 0.5) * 50, randomStyle());
+                scene.addObjects([circle]);
+                sceneController.deselect();
+                sceneController.select(circle); // this will also redraw
+
+                var point = new Point([randomX(), randomY()]);
+                scene.addObjects([point]);
+                sceneController.deselect();
+                sceneController.select(point); // this will also redraw
+
+                var line = new Line(
+                    circle.center,
+                    [(circle.center[0] + circle.radius),circle.center[1]],
+                    randomStyle());
+                scene.addObjects([line]);
+                sceneController.deselect();
+                sceneController.select(line); // this will also redraw
+
+            });
+
 
 
         };
