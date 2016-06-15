@@ -318,6 +318,13 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 }
             });
 
+            var tangentPoints = function ( radius , p1 , p2) {
+                var p3 = [0, 0];
+                var p4 = [0, 0];
+
+                // compute p_3 and p_4 here
+                return {p3: p3, p4: p4}
+            }
             $("#calcTangents").click(function(){
 
                 var circle = new Circle([randomX(), randomY()], (Math.random() + 0.5) * 50, randomStyle());
@@ -337,6 +344,10 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 scene.addObjects([line]);
                 sceneController.deselect();
                 sceneController.select(line); // this will also redraw
+
+                var tangents = tangentPoints(circle.radius, circle.center, point);
+                var tangent1 = tangents.p3;
+                var tangent2 = tangents.p4;
 
             });
 
