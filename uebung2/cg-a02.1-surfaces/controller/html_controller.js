@@ -181,7 +181,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                 var box = new THREE.BoxGeometry(100,100,700);
                 var cube = MeshFactory.createMesh( box );
 
-                scene.scene.add(cube);
+                scene.addMesh(cube);
             }));
 
             /**
@@ -191,7 +191,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                 var ring = new THREE.RingGeometry(50,500,500);
                 var cube = MeshFactory.createMesh( ring );
 
-                scene.scene.add(cube);
+                scene.addMesh(cube);
             }));
 
             /**
@@ -200,7 +200,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
             $("#btnDode").click( (function(){
                 var dode = new THREE.DodecahedronGeometry(300,0);
                 var cube = MeshFactory.createMesh( dode );
-                scene.scene.add(cube);
+                scene.addMesh(cube);
             }));
 
             var selectKeyboardBehavior = $('#selectKeyboardBehavior');

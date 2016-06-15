@@ -107,21 +107,21 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             };
 
             this.addBufferGeometry = function(bufferGeometry) {
-
                 scope.currentMesh = bufferGeometry.getMesh();
                 scope.scene.add( scope.currentMesh );
+            };
 
+            this.addMesh = function (mesh) {
+                scope.currentMesh = mesh;
+                scope.scene.add( mesh );
             };
 
             /*
              * drawing the scene
              */
             this.draw = function() {
-
                 requestAnimFrame( scope.draw );
-
                 scope.renderer.render(scope.scene, scope.camera);
-
             };
         };
         // Ergänzen Sie dafür notwendige Funktionen in scene.js und lagern notwendige Funktionalität zur
