@@ -8,7 +8,7 @@ define(["jquery", "three"],
      * @constructor
      */
     var MeshFactory = function () {
-      this.material = 'points';
+      this.material = 'wireframe';
     };
 
     /**
