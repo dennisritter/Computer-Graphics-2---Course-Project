@@ -349,6 +349,22 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
                 var tangent1 = tangents.p3;
                 var tangent2 = tangents.p4;
 
+                var lineTangent1 = new Line(
+                    point,
+                    tangent1,
+                    randomStyle());
+                scene.addObjects([lineTangent1]);
+                sceneController.deselect();
+                sceneController.select(lineTangent1); // this will also redraw
+
+                var lineTangent2 = new Line(
+                    point,
+                    tangent2,
+                    randomStyle());
+                scene.addObjects([lineTangent2]);
+                sceneController.deselect();
+                sceneController.select(lineTangent2); // this will also redraw
+
             });
 
 
