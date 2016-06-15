@@ -48,7 +48,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                 $("#obj").hide();
             }));
 
-            $("#btnParametricj").click( (function(){
+            $("#btnParametric").click( (function(){
                 $("#random").hide();
                 $("#band").hide();
                 $("#parametric").show();
@@ -140,7 +140,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                 * mit den Wertebereichen der Parameter u und v (umin, umax, vmin, vmax) sowie der gewünschten
                 * Anzahl von Segmenten in u- und v-Richtung. */
 
-                var geoFunction =  $('#geoFunction option:selected').val();;
+                var geoFunction =  $('#geoFunction option:selected').val();
                     var umin = parseInt($('#umin').val());
                     var umax = parseInt($('#umax').val());
                     var vmin = parseInt($('#vmin').val());
@@ -223,9 +223,32 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
              */
             $("#btnReadObj").click( (function(){
 
-                var myObjMesh = new ObjMesh () ;
-                scene.addMesh ( myObjMesh . getMesh ( ) );
+                // var materials = new THREE.MeshBasicMaterial( { color: 0xde0000 } );
+                // var mesh = new THREE.Mesh( this.geometry, wfMaterial );
+
+                var loader = new THREE.OBJLoader();
+                loader.load( getPath, function ( object ) {
+                    object.position.z = 980;
+                    scene.scene.add( object );
+                } );
+
+                // scene.addMesh(obj.getMesh());
             }));
+
+
+            /**
+             * Returns the path of the selected OBJ file in the dropdown menu.
+             * @returns {string} the path for the selected OBJ file.
+             */
+            var getPath = function(){
+                switch($('#selectObj option:selected').val()){
+                    case "dromedar":
+                        return 'obj/dromedar.obj';
+                        break;
+                }
+            };
+
+
         };
 
         // return the constructor function
