@@ -254,10 +254,12 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
              * @returns {string} the path for the selected OBJ file.
              */
             var getPath = function(){
-                switch($('#selectObj option:selected').val()){
+                switch($('#selectObj').val()){
                     case "dromedar":
                         return 'obj/dromedar.obj';
-                        break;
+
+                    case 'stalin':
+                        return 'obj/stalin.obj';
                 }
             };
 
