@@ -109,6 +109,8 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                 // What options to show? (first selected Geometry for the parametric)
                 $("#ellipsoidOptions").show();
                 $("#torusOptions").hide();
+                $("#tranguloidOptions").hide();
+                $("#cylinderOptions").hide();
             }));
 
             //get selected Geometry and only show options for this one
@@ -117,17 +119,26 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                 if (selectedOption === "ellipsoid"){
                     $("#ellipsoidOptions").show();
                     $("#torusOptions").hide();
-                    $("#tranguloidOption").hide();
+                    $("#tranguloidOptions").hide();
+                    $("#cylinderOptions").hide();
                 }
                 if (selectedOption === "torus"){
                     $("#torusOptions").show();
                     $("#ellipsoidOptions").hide();
-                    $("#tranguloidOption").hide();
+                    $("#tranguloidOptions").hide();
+                    $("#cylinderOptions").hide();
                 }
                 if (selectedOption === "tranguloid"){
-                    $("#tranguloidOption").show();
+                    $("#tranguloidOptions").show();
                     $("#torusOptions").hide();
                     $("#ellipsoidOptions").hide();
+                    $("#cylinderOptions").hide();
+                }
+                if (selectedOption === "cylinder"){
+                    $("#cylinderOptions").show();
+                    $("#torusOptions").hide();
+                    $("#ellipsoidOptions").hide();
+                    $("#tranguloidOptions").hide();
                 }
             });
 
@@ -162,7 +173,11 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
 
                     // R und r für Torus
                     rOuter: parseFloat( $('#torusROuter').val() ),
-                    rInner: parseFloat( $('#torusRInner').val() )
+                    rInner: parseFloat( $('#torusRInner').val() ),
+
+                    // Cylinder Settings
+                    cylinderRadius: parseFloat( $('#cylinderRadius').val() ),
+                    cylinderHeight: parseFloat( $('#cylinderHeight').val() )
                 };
 
                 var parametric = new Parametric(geoFunction, config);
