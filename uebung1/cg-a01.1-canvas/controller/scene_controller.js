@@ -277,14 +277,14 @@ define(["util", "Scene"],
             this.isDragging = false;
         };
 
-        var tangentPoints = function ( radius , p1 , p2) {
+        var tangentPoints = function ( radius , circleCenter , point) {
             var p3;
             var p4;
             
-            var dx = p1[0] - p2[0];
-            var dy = p1[1] - p2[1];
-            var dd = Math.sqrt(dx * dx + dy * dy);
-            var a = Math.asin(radius / dd);
+            var dx = circleCenter[0] - point[0];
+            var dy = circleCenter[1] - point[1];
+            var dxy = Math.sqrt(dx * dx + dy * dy);
+            var a = Math.asin(radius / dxy);
             var b = Math.atan2(dy, dx);
 
             var t = b - a;
