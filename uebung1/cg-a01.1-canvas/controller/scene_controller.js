@@ -296,7 +296,6 @@ define(["util", "Scene"],
         }
 
         SceneController.prototype.calcTangents = function(circle, point){
-
             return tangentPoints(circle.radius, circle.center, point.center);
         }
 

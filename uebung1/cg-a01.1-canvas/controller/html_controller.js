@@ -328,16 +328,13 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "kdutil", "P
             $("#calcTangents").click(function() {
 
                 var circle = new Circle([randomX(), randomY()], (Math.random() + 0.5) * 50);
-                scene.addObjects([circle]);
 
                 var point = new Point([randomX(), randomY()]);
-                scene.addObjects([point]);
 
                 var line = new Line(
                     circle.center,
                     [(circle.center[0] + circle.radius), circle.center[1]],
                     randomStyle());
-                scene.addObjects([line]);
 
                 var tangents = sceneController.calcTangents(circle, point);
                 console.log(tangents);
