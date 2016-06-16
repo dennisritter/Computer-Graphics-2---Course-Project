@@ -32,7 +32,8 @@ requirejs.config({
         "BufferGeometry" : "./scene/buffer_geometry",
         "HtmlController": "./controller/html_controller",
         "OBJLoader": "./loaders/OBJLoader",
-        "obj": "./models/obj"
+        "obj": "./models/obj",
+        "robot": "./models/robot"
 
     },
     shim: {

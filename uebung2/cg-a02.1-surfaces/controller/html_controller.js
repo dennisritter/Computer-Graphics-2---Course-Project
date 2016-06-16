@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj", "meshFactory"],
-    (function($,BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory) {
+define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj", "meshFactory", "robot"],
+    (function($,BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory, Robot) {
         "use strict";
 
         /*
@@ -242,7 +242,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                     for ( var i = 0; i < object.children.length; ++i ) {
                         var mesh = MeshFactory.createMesh( object.children[i].geometry );
                         // move Object to the front.
-                        mesh.position.z = 980;
+                        //mesh.position.z = 980;
                         scene.addMesh( mesh );
                     }
                 });
@@ -262,6 +262,12 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                         return 'obj/stalin.obj';
                 }
             };
+
+
+            $('#btnRobot').click( function (){
+               var robot = new Robot();
+                scene.addMesh(robot.getMesh());
+            });
 
 
         };
