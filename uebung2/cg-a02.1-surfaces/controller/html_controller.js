@@ -222,17 +222,15 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
              * Read the selected OBJ-file and draws it to the canvas
              */
             $("#btnReadObj").click( (function(){
-
-                // var materials = new THREE.MeshBasicMaterial( { color: 0xde0000 } );
-                // var mesh = new THREE.Mesh( this.geometry, wfMaterial );
-
                 var loader = new THREE.OBJLoader();
-                loader.load( getPath, function ( object ) {
+                loader.load( getPath(), function ( object ) {
                     object.position.z = 980;
-                    scene.scene.add( object );
-                } );
-
-                // scene.addMesh(obj.getMesh());
+                    for ( var i = 0; i < object.children.length; ++i ) {
+                        var mesh = MeshFactory.createMesh( object.children[i].geometry );
+                        mesh.position.z = 980;
+                        scene.addMesh( mesh );
+                    }
+                });
             }));
 
 
