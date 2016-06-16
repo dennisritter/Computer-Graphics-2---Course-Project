@@ -239,9 +239,9 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
             $("#btnReadObj").click( (function(){
                 var loader = new THREE.OBJLoader();
                 loader.load( getPath(), function ( object ) {
-                    object.position.z = 980;
                     for ( var i = 0; i < object.children.length; ++i ) {
                         var mesh = MeshFactory.createMesh( object.children[i].geometry );
+                        // move Object to the front.
                         mesh.position.z = 980;
                         scene.addMesh( mesh );
                     }
