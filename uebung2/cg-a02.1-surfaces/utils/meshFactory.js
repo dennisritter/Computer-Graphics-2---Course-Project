@@ -28,7 +28,7 @@ define(["jquery", "three"],
           }));
 
         case 'solid':
-          return new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({
+          return new THREE.Mesh(geometry, new THREE.MeshNormalMaterial({
             side: THREE.DoubleSide
           }));
 
