@@ -107,24 +107,23 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             };
 
             this.addBufferGeometry = function(bufferGeometry) {
-
                 scope.currentMesh = bufferGeometry.getMesh();
                 scope.scene.add( scope.currentMesh );
+            };
 
+            this.addMesh = function (mesh) {
+                scope.currentMesh = mesh;
+                scope.scene.add( mesh );
             };
 
             /*
              * drawing the scene
              */
             this.draw = function() {
-
                 requestAnimFrame( scope.draw );
-
                 scope.renderer.render(scope.scene, scope.camera);
-
             };
         };
-
 
         // this module only exports the constructor for Scene objects
         return Scene;

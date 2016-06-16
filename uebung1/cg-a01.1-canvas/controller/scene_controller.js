@@ -277,6 +277,27 @@ define(["util", "Scene"],
             this.isDragging = false;
         };
 
+        var tangentPoints = function ( radius , circleCenter , point) {
+            var p3;
+            var p4;
+            
+            var dx = circleCenter[0] - point[0];
+            var dy = circleCenter[1] - point[1];
+            var dxy = Math.sqrt(dx * dx + dy * dy);
+            var a = Math.asin(radius / dxy);
+            var b = Math.atan2(dy, dx);
+
+            var t = b - a;
+            p3 = [radius * Math.sin(t), radius * -Math.cos(t)];
+
+            t = b + a;
+            p4 = [radius * -Math.sin(t), radius * Math.cos(t)];
+            return {'p3': p3, 'p4': p4};
+        }
+
+        SceneController.prototype.calcTangents = function(circle, point){
+            return tangentPoints(circle.radius, circle.center, point.center);
+        }
 
         // this module exposes only the constructor function
         return SceneController;

@@ -40,10 +40,22 @@
       <button id="btnBand" type="button">Band</button>
       <button id="btnParametric" type="button">Parametric</button>
     </div>
+    <div>
+      <button id="btnObj" type="button">OBJ</button>
+    </div>
+
     <br><br>
+    <label for="selectMaterial">select material:</label>
+    <select id="selectMaterial">
+      <option value="wireframe" selected>wireframe</option>
+      <option value="points">points</option>
+      <option value="solid">solid</option>
+    </select>
+    <br>
+
     <label for="animate">
       <input type="checkbox" id="animate"/> animate
-    </label><br />
+    </label><br/>
     <label for="selectKeyboardBehavior">Keyboard Behavior:</label>
     <select id="selectKeyboardBehavior">
       <option value="rotate" selected>Rotate current mesh</option>
@@ -52,6 +64,8 @@
 
     <!-- add more here... -->
     <h3>Selected Object:</h3>
+
+
     <table id="random">
       <tr>
         <td>Number of Items:</td>
@@ -63,10 +77,11 @@
         </td>
       </tr>
     </table>
+
     <table id="band">
       <tr>
         <td>Number of Segments:</td>
-        <td><input id="numSegments" class="objParam" type="number" min="1" max="10000" value="1000">
+        <td><input id="numSegments" class="objParam" type="number" min="1" max="10000" value="100">
       </tr>
       <tr>
         <td>Radius:</td>
@@ -82,6 +97,7 @@
         </td>
       </tr>
     </table>
+
     <table id="parametric">
       <tr>
         <td>u-min:</td>
@@ -89,7 +105,7 @@
       </tr>
       <tr>
         <td>u-max:</td>
-        <td><input id="umax" class="objParam" type="number" min="1" max="10000" value="6">
+        <td><input id="umax" class="objParam" type="number" min="1" max="10000" value="7">
       </tr>
       <tr>
         <td>v-min:</td>
@@ -97,23 +113,26 @@
       </tr>
       <tr>
         <td>v-max:</td>
-        <td><input id="vmax" class="objParam" type="number" min="1" max="10000" value="6">
+        <td><input id="vmax" class="objParam" type="number" min="1" max="10000" value="7">
       </tr>
       <tr>
         <td>Number of Segments in u Direction:</td>
-        <td><input id="numElementsU" class="objParam" type="number" min="1" max="10000" value="100">
+        <td><input id="numElementsU" class="objParam" type="number" min="1" max="10000" value="20">
       </tr>
       <tr>
         <td>Number of Segments in v Direction:</td>
-        <td><input id="numElementsV" class="objParam" type="number" min="1" max="10000" value="100">
+        <td><input id="numElementsV" class="objParam" type="number" min="1" max="10000" value="20">
       </tr>
       <tr>
         <td>Which object do you want to draw?</td>
-        <td><select id="geoFunction">
-          <option value="ellipsoid">Ellipsoid</option>
-          <option value="torus">Torus</option>
-          <option value="tranguloid">Tranguloid Trefoil</option>
-        </select></td>
+        <td>
+          <select id="geoFunction">
+            <option value="ellipsoid">Ellipsoid</option>
+            <option value="torus">Torus</option>
+            <option value="tranguloid">Tranguloid Trefoil</option>
+            <option value="cylinder">Cylinder</option>
+          </select>
+        </td>
       </tr>
       <tr>
         <td id="ellipsoidOptions">
@@ -127,7 +146,6 @@
           <input type="number" class="objParam" id="ellipsoidC" value="100"/>
         </td>
       </tr>
-
       <tr>
         <!-- Options for Torus -->
         <td id="torusOptions">
@@ -138,7 +156,6 @@
           <input type="number" class="objParam" id="torusRInner" value="100"/>
         </td>
       </tr>
-
       <tr>
         <!-- Options for Tranguloid Trefoil -->
         <td id="tranguloidOptions">
@@ -146,8 +163,30 @@
         </td>
       </tr>
       <tr>
+        <td id="cylinderOptions">
+          <p>Specify R and r for the Torus</p>
+          <label for="cylinderRadius">Radius</label>
+          <input type="number" class="objParam" id="cylinderRadius" value="300"/>
+          <label for="cylinderHeight">Height</label>
+          <input type="number" class="objParam" id="cylinderHeight" value="100"/>
+        </td>
         <td>
           <button id="btnNewParametric" type="button">Create Object</button>
+        </td>
+      </tr>
+    </table>
+
+    <table id="obj">
+      <tr>
+        <td><select id="selectObj">
+          <option value="dromedar" selected>dromedar.obj</option>
+          <option value="stalin">stalin.obj</option>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button id="btnReadObj" type="button">Draw OBJ-File</button>
         </td>
       </tr>
     </table>

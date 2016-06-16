@@ -39,7 +39,7 @@ define(["jquery"], (function($) {
                     config.vmin = 0;
                     console.error("The entered vMin value is not allowed. Using [" + config.vmin + "] now.");
                 }
-                if (config.vmax < 0 || config.vmax > 2 * Math.Pi) {
+                if (config.vmax < 0 || config.vmax > 2 * Math.PI) {
                     config.vmax = 2 * Math.PI;
                     console.error("The entered vMax value is not allowed. Using [" + config.vmax + "] now.");
                 }
@@ -52,7 +52,36 @@ define(["jquery"], (function($) {
                 console.log("A Tranguloid Trefoil has an exact definition of umin/vmin and umax/vmax");
                 console.log("Using umin/vmin [" + -1 * Math.PI + "] and umax/vmax [" + -1 * Math.PI + "]");
                 return config;
+            case "tranguloid":
+                config.umin = -1 * Math.PI;
+                config.umax = Math.PI;
+                config.vmin = -1 * Math.PI;
+                config.vmax = Math.PI;
+                console.log("A Tranguloid Trefoil has an exact definition of umin/vmin and umax/vmax");
+                console.log("Using umin/vmin [" + -1 * Math.PI + "] and umax/vmax [" + -1 * Math.PI + "]");
+                return config;
+            case "cylinder":
+                if (config.umin < -Math.PI || config.umin > Math.PI) {
+                    config.umin = -Math.PI;
+                    console.error("The entered uMin value is not allowed. Using [" + config.umin + "] now.");
+                }
+                if (config.umax < 0 || config.umax > Math.PI) {
+                    config.umax = Math.PI;
+                    console.error("The entered uMax value is not allowed. Using [" + config.umax + "] now.");
+                }
+                if (config.vmin < 0 || config.vmin > 3) {
+                    config.vmin = 0;
+                    console.error("The entered vMin value is not allowed. Using [" + config.vmin + "] now.");
+                }
+                if (config.vmax < 0 || config.vmax > 3) {
+                    config.vmax = 3;
+                    console.error("The entered vMax value is not allowed. Using [" + config.vmax + "] now.");
+                }
+                return config;
+            default:
+                config.error = "Add a case for this Geo to validation.js";
         }
+
     };
 
     return validation;

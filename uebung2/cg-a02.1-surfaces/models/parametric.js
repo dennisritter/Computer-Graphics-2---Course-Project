@@ -8,7 +8,7 @@
 
 /* requireJS module definition */
 define(["three", "validation"],
-    (function (THREE, validation) {
+    (function(THREE, validation) {
 
         "use strict";
 
@@ -19,13 +19,14 @@ define(["three", "validation"],
          * @param config
          * @constructor
          */
-        var ParametricSurface = function (posFunc, config) {
+        var ParametricSurface = function(posFunc, config) {
 
             // posFunc : zu einem gegebenen Paar (u,v) Werten jeweils ein Array mit drei Koordinaten [x,y,z] zurückliefert.
 
             //config : mit den Wertebereichen der Parameter u und v (umin, umax, vmin, vmax) sowie der gewünschten 
             // Anzahl von Segmenten in u- und v-Richtung.
             config = validation.validateConfig(posFunc, config);
+            console.log(config);
             var umin = config.umin;
             var umax = config.umax;
             var vmin = config.vmin;
@@ -37,7 +38,7 @@ define(["three", "validation"],
             // Calculate all values in the direction of u
             var uValues = [];
             var deltaU = umax - umin;
-            for (var i = 0; i < elementsU; i++) {
+            for (var i = 0; i <= elementsU; i++) {
                 var tU = umin + i / elementsU * deltaU;
                 uValues.push(tU);
             }
@@ -45,7 +46,7 @@ define(["three", "validation"],
             // Calculate all values in the direction of v
             var vValues = [];
             var deltaV = vmax - vmin;
-            for (var j = 0; j < elementsV; j++) {
+            for (var j = 0; j <= elementsV; j++) {
                 var tV = vmin + j / elementsV * deltaV;
                 vValues.push(tV);
             }
@@ -63,6 +64,9 @@ define(["three", "validation"],
 
             //Array mit ausgewerteten Koordinaten x,y,z für jeden der Punkte u, v
             this.positions = new Float32Array(uv_array.length * 3);
+
+            // Describes the triangle-faces of this object
+            // this.indexArray = new Uint32Array(this.positions.length * 3);
 
             //Array mit den Farben für die ausgewerteten Koordinaten x,y,z für jeden der Punkte u, v
             this.colors = new Float32Array(uv_array.length * 3);
@@ -140,8 +144,33 @@ define(["three", "validation"],
 
                         // The multiplication faktor for x, y, z ensures that the Tranguloid looks as intended.
                         this.positions[i] = 100 * x;
-                        this.positions[i + 1] = 3 * y;
+                        this.positions[i + 1] = 5 * y;
                         this.positions[i + 2] = 100 * z;
+
+                        color.setRGB(0, 0, 1);
+
+                        this.colors[i] = color.r;
+                        this.colors[i + 1] = color.g;
+                        this.colors[i + 2] = color.b;
+
+                        i += 3;
+                    }
+                    break;
+                case "cylinder":
+                    console.log("calculating cylinder...");
+                    var i = 0;
+
+                    for (var j = 0; j < uv_array.length; j++) {
+                        var u = uv_array[j][0];
+                        var v = uv_array[j][1];
+
+                        var x = config.cylinderRadius * Math.cos(u);
+                        var y = config.cylinderRadius * Math.sin(u);
+                        var z = v;
+
+                        this.positions[i] = x;
+                        this.positions[i + 1] = y;
+                        this.positions[i + 2] = z;
 
                         color.setRGB(0, 0, 1);
 
@@ -154,11 +183,40 @@ define(["three", "validation"],
                     break;
             }
 
-            this.getPositions = function () {
+            // every segment contains of two triangles which consist of three vertices each
+            var indices = new Uint32Array( elementsU * elementsV * 2 * 3 );
+
+            // The current index for the indices array
+            var i = 0;
+            // For each vertex that is not directly on the right or bottom side
+            for ( var v = 0; v < elementsV; ++v ) {
+                for ( var u = 0; u < elementsU; ++u ) {
+                    var k = (elementsU+1) * v + u;
+                    // the first face
+                    indices[i] = k;
+                    indices[i+1] = k + elementsU + 1;
+                    indices[i+2] = k + 1;
+                    i += 3;
+
+                    // the second face
+                    indices[i] = k + elementsU + 1;
+                    indices[i+1] = k + elementsU + 2;
+                    indices[i+2] = k + 1;
+                    i += 3;
+                }
+            }
+
+            this.indexArray = new THREE.BufferAttribute(indices, 1);
+
+            this.getPositions = function() {
                 return this.positions;
             };
 
-            this.getColors = function () {
+            this.getIndexArray = function() {
+                return this.indexArray;
+            };
+
+            this.getColors = function() {
                 return this.colors;
             };
 
