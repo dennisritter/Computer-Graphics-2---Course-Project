@@ -124,9 +124,6 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 scope.renderer.render(scope.scene, scope.camera);
             };
         };
-        // Ergänzen Sie dafür notwendige Funktionen in scene.js und lagern notwendige Funktionalität zur
-        // Materialerzeugung und -verwaltung so aus, dass Sie Sourcecode nicht kopieren müssen.
-        // (z.B. könnte man die Materialerzeugung in ein weitere Modul in utils auslagern)
 
         // this module only exports the constructor for Scene objects
         return Scene;

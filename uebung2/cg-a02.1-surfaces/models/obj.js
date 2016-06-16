@@ -1,9 +1,6 @@
 /**
  * @author Nathalie Junker
  * 
- * Schreiben Sie ein weiteres Modul (im models-Verzeichnis), 
- * das sich um die Ausführung des Ladens und der Materialauswahl (wie in Aufgabe 2) kümmert. 
- * Dieses Modul kann dann das Mesh an unser Szenenmodul übergeben (bspw. im HtmlController).
  */
 
 define(["three", "OBJLoader"],
