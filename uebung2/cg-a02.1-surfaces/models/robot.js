@@ -38,7 +38,7 @@ define(["three"],
             this.neck.name = "neck";
             //move the skeleton from the center up to the upperside of the torso's skin. (A)
             this.neck.translateY(torsoSize[1]/2);
-            this.neckSkin = new THREE.Mesh ( new THREE.CylinderGeometry( neckSize[0], neckSize[0], neckSize[1], segments ),
+            this.neckSkin = new THREE.Mesh ( new THREE.SphereGeometry( jointSize, segments, segments ),
                 new THREE.MeshNormalMaterial());
             //move the skin from the middle of the skeleton up to the top of the torso's skin (B)
             this.neckSkin.translateY(neckSize[1]/2);
