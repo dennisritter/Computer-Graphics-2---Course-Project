@@ -242,7 +242,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                     for ( var i = 0; i < object.children.length; ++i ) {
                         var mesh = MeshFactory.createMesh( object.children[i].geometry );
                         // move Object to the front.
-                        //mesh.position.z = 980;
+                        mesh.position.z = 980;
                         scene.addMesh( mesh );
                     }
                 });
@@ -269,6 +269,33 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                 scene.addMesh(robot.getMesh());
             });
 
+            var btnAnimateHead = $('#animateHead');
+            var btnAnimateLUA = $('#animateLUA');
+            var btnAnimateLFA = $('#animateLFA');
+            
+            btnAnimateHead.change(function () {
+                if ( btnAnimateHead.prop('checked') ) {
+                    scene.animateRobot("neck");
+                } else {
+                    scene.stopAnimation();
+                }
+            });
+
+            btnAnimateLUA.change(function () {
+                if ( btnAnimateLUA.prop('checked') ) {
+                    scene.animateRobot("jointLUA");
+                } else {
+                    scene.stopAnimation();
+                }
+            });
+
+            btnAnimateLFA.change(function () {
+                if ( btnAnimateLFA.prop('checked') ) {
+                    scene.animateRobot("jointLFA");
+                } else {
+                    scene.stopAnimation();
+                }
+            });
 
         };
 
