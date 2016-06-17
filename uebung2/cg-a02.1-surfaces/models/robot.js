@@ -13,7 +13,7 @@ define(["three"],
             /* Define the size for every element */
             var torsoSize   = [minUnit * 3, minUnit * 10];  // radius, length of the cylinder
             var neckSize    = [minUnit, minUnit];           // radius, length of the cylinder
-            var headSize    = minUnit * 4;                  // if head was a sphere the diameter would be neckSize[0]
+            var headSize    = minUnit * 5;                  // diameter of the sphere, if head was a box the size would be minUnit * 4
             var jointSize   = minUnit;                      // radius of the sphere
             var armSize     = [minUnit, minUnit * 6];       // radius, length of the cylinder, upper arm and forearm are eqal
             var handSize    = minUnit;                      // radius of the sphere
@@ -55,7 +55,10 @@ define(["three"],
             this.head.translateY(neckSize[1]/2);
 
             // you can't see a sphere rotating, therefore we need a box as head:
-            this.headSkin = new THREE.Mesh ( new THREE.BoxGeometry(headSize, headSize, headSize),
+            // this.headSkin = new THREE.Mesh ( new THREE.BoxGeometry(headSize, headSize, headSize),
+            //     new THREE.MeshNormalMaterial());
+
+            this.headSkin = new THREE.Mesh ( new THREE.SphereGeometry(headSize/2, segments, segments),
                 new THREE.MeshNormalMaterial());
 
             //move the skin from the middle of this skeleton up to the top of the necks's skin:
