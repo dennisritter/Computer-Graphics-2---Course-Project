@@ -26,7 +26,7 @@ define(["three", "validation"],
             //config : mit den Wertebereichen der Parameter u und v (umin, umax, vmin, vmax) sowie der gewünschten 
             // Anzahl von Segmenten in u- und v-Richtung.
             config = validation.validateConfig(posFunc, config);
-            console.log(config);
+            // console.log("parametricGeo config: ", config);
             var umin = config.umin;
             var umax = config.umax;
             var vmin = config.vmin;

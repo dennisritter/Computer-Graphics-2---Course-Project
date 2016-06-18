@@ -1,7 +1,7 @@
 /** Make cool robot here. */
 
-define(["three"],
-    (function(THREE) {
+define(["three", "parametric", "BufferGeometry", "meshFactory"],
+    (function(THREE, Parametric, BufferGeometry, MeshFactory) {
 
         "use strict";
 
@@ -19,6 +19,32 @@ define(["three"],
             var handSize = minUnit;                      // radius of the sphere
             var legSize = [armSize[0], armSize[1]];      // legs are as long and big as the robot's arms
             var footSize = handSize;                     // radius, feet are as bis as hands
+
+            //what geometry type?
+            var handsParaPosFunc = "tranguloid";
+            //config parameters for the parametric geometry
+            var handsParaConfig = {
+                umin: -Math.PI,
+                umax: Math.PI,
+                vmin: -Math.PI,
+                vmax: Math.PI,
+                elementsU: 32,
+                elementsV: 32,
+                trefoilScale: 0.2
+            };
+
+            //what geometry type?
+            var feetParaPosFunc = "tranguloid";
+            //config parameters for the parametric geometry
+            var feetParaConfig = {
+                umin: -Math.PI,
+                umax: Math.PI,
+                vmin: -Math.PI,
+                vmax: Math.PI,
+                elementsU: 32,
+                elementsV: 32,
+                trefoilScale: 0.2
+            };
 
             this.root = new THREE.Object3D();
 
@@ -180,9 +206,9 @@ define(["three"],
             this.jointLul.name = "jointLUL";
 
             //move the skeleton from the center to the left bottom corner of the torso's skin
-            this.jointLul.translateY(-torsoSize[1]/2);
-            this.jointLul.translateX(torsoSize[0]/4);
-            this.jointLul.translateX(legSize[0]/2);
+            this.jointLul.translateY(-torsoSize[1] / 2);
+            this.jointLul.translateX(torsoSize[0] / 4);
+            this.jointLul.translateX(legSize[0] / 2);
             this.jointLulSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments), new THREE.MeshNormalMaterial());
             this.jointLul.add(this.jointLulSkin);
             this.torso.add(this.jointLul);
@@ -193,7 +219,7 @@ define(["three"],
 
             //move the skin from the center of the joint ( = skeleton-center ) to the bottom position
             this.lulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial());
-            this.lulSkin.translateY(-legSize[1]/2);
+            this.lulSkin.translateY(-legSize[1] / 2);
             this.lul.add(this.lulSkin);
             this.jointLul.add(this.lul);
 
@@ -212,10 +238,38 @@ define(["three"],
             this.lll.name = "lll";
 
             //move the skin from the center of the joint to the bottom, so the joint is on top of the LLL
-            this.lllSkin = this.rulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial());
-            this.lllSkin.translateY(-legSize[1]/2);
+            this.lllSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial());
+            this.lllSkin.translateY(-legSize[1] / 2);
             this.lll.add(this.lllSkin);
             this.jointLll.add(this.lll);
+
+            /* JOINT LEFT FOOT = jointLf */
+            this.jointLf = new THREE.Object3D();
+            this.jointLf.name = "jointLF";
+
+            //move the skeleton to the end of the left leg
+            this.jointLf.translateY(-legSize[1]);
+            this.jointLfSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments), new THREE.MeshNormalMaterial());
+            this.jointLf.add(this.jointLfSkin);
+            this.lll.add(this.jointLf);
+
+            /* LEFT FOOT = LF */
+            this.lf = new THREE.Object3D();
+            this.lf.name = "lf";
+
+            //the material to use
+            MeshFactory.material = 'solid';
+            var parametric = new Parametric(feetParaPosFunc, feetParaConfig);
+            var lfSkinParametric = new BufferGeometry();
+            //define vertices, normals, faces
+            lfSkinParametric.addAttribute("position", parametric.getPositions());
+            lfSkinParametric.addAttribute("normal", parametric.getColors());
+            lfSkinParametric.setIndex(parametric.getIndexArray());
+
+            // get the mesh and move the skin to the bottom of the lower legs joint
+            this.lfSkin = lfSkinParametric.getMesh();
+            this.lfSkin.translateY(-minUnit * 5 * feetParaConfig.trefoilScale);
+            this.jointLf.add(this.lfSkin);
 
             /***************************************************/
             /* * * * * * * * * * RIGHT LEG * * * * * * * * * * * */
@@ -225,9 +279,9 @@ define(["three"],
             this.jointRul.name = "jointRUL";
 
             //move the skeleton from the center to the left bottom corner of the torso's skin
-            this.jointRul.translateY(-torsoSize[1]/2);
-            this.jointRul.translateX(-torsoSize[0]/4);
-            this.jointRul.translateX(-legSize[0]/2);
+            this.jointRul.translateY(-torsoSize[1] / 2);
+            this.jointRul.translateX(-torsoSize[0] / 4);
+            this.jointRul.translateX(-legSize[0] / 2);
             this.jointRulSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments), new THREE.MeshNormalMaterial());
             this.jointRul.add(this.jointRulSkin);
             this.torso.add(this.jointRul);
@@ -238,7 +292,7 @@ define(["three"],
 
             //move the skin from the center of the joint ( = skeleton-center ) to the bottom position
             this.rulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial());
-            this.rulSkin.translateY(-legSize[1]/2);
+            this.rulSkin.translateY(-legSize[1] / 2);
             this.rul.add(this.rulSkin);
             this.jointRul.add(this.rul);
 
@@ -252,15 +306,40 @@ define(["three"],
             this.jointRll.add(this.jointRllSkin);
             this.rul.add(this.jointRll);
 
-            /* LEFT LOWER LEG = Lll */
+            /* RIGHT LOWER LEG = RLL */
             this.rll = new THREE.Object3D();
             this.rll.name = "rll";
 
             //move the skin from the center of the joint to the bottom, so the joint is on top of the LLL
             this.rllSkin = this.rulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial());
-            this.rllSkin.translateY(-legSize[1]/2);
+            this.rllSkin.translateY(-legSize[1] / 2);
             this.rll.add(this.rllSkin);
             this.jointRll.add(this.rll);
+
+            /* JOINT RIGHT FOOT = jointRf */
+            this.jointRf = new THREE.Object3D();
+            this.jointRf.name = "jointRF";
+
+            //move the skeleton to the end of the right leg
+            this.jointRf.translateY(-legSize[1]);
+            this.jointRfSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments), new THREE.MeshNormalMaterial());
+            this.jointRf.add(this.jointRfSkin);
+            this.rll.add(this.jointRf);
+
+            //the material to use
+            MeshFactory.material = 'solid';
+            var parametric = new Parametric(feetParaPosFunc, feetParaConfig);
+            var rfSkinParametric = new BufferGeometry();
+            //define vertices, normals, faces
+            rfSkinParametric.addAttribute("position", parametric.getPositions());
+            rfSkinParametric.addAttribute("normal", parametric.getColors());
+            rfSkinParametric.setIndex(parametric.getIndexArray());
+
+            // get the mesh and move the skin to the bottom of the lower legs joint
+            this.rfSkin = rfSkinParametric.getMesh();
+            this.rfSkin.translateY(-minUnit * 5 * feetParaConfig.trefoilScale);
+            this.jointRf.add(this.rfSkin);
+
         };
 
         Robot.prototype.getMesh = function() {

@@ -177,7 +177,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
 
                     // Tranguloid Trefoil scaling factor
                     trefoilScale: parseFloat( $('#trefoilScale').val() ),
-                    
+
                     // Cylinder Settings
                     cylinderRadius: parseFloat( $('#cylinderRadius').val() ),
                     cylinderHeight: parseFloat( $('#cylinderHeight').val() )
@@ -186,7 +186,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                 var parametric = new Parametric(geoFunction, config);
                 var bufferGeometryParametric = new BufferGeometry();
                 bufferGeometryParametric.addAttribute("position", parametric.getPositions());
-                bufferGeometryParametric.addAttribute("color", parametric.getColors());
+                bufferGeometryParametric.addAttribute("normal", parametric.getColors());
                 bufferGeometryParametric.setIndex( parametric.getIndexArray() );
 
                 scene.addBufferGeometry(bufferGeometryParametric);
