@@ -154,6 +154,20 @@ define(["three", "parametric", "BufferGeometry", "meshFactory"],
             this.jointLh.add(this.jointLhSkin);
             this.lfa.add(this.jointLh);
 
+            //the material to use
+            MeshFactory.material = 'solid';
+            var parametric = new Parametric(handsParaPosFunc, handsParaConfig);
+            var lhSkinParametric = new BufferGeometry();
+            //define vertices, normals, faces
+            lhSkinParametric.addAttribute("position", parametric.getPositions());
+            lhSkinParametric.addAttribute("normal", parametric.getColors());
+            lhSkinParametric.setIndex(parametric.getIndexArray());
+
+            // get the mesh and move the skin to the bottom of the lower legs joint
+            this.lhSkin = lhSkinParametric.getMesh();
+            this.lhSkin.translateX(minUnit * 5 * handsParaConfig.trefoilScale);
+            this.lhSkin.rotateX(Math.PI/2);
+            this.jointLh.add(this.lhSkin);
 
             /***************************************************/
             /* * * * * * * * * * RIGHT ARM * * * * * * * * * * * */
@@ -215,6 +229,21 @@ define(["three", "parametric", "BufferGeometry", "meshFactory"],
             this.jointRhSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments), new THREE.MeshNormalMaterial());
             this.jointRh.add(this.jointRhSkin);
             this.rfa.add(this.jointRh);
+
+            //the material to use
+            MeshFactory.material = 'solid';
+            var parametric = new Parametric(handsParaPosFunc, handsParaConfig);
+            var rhSkinParametric = new BufferGeometry();
+            //define vertices, normals, faces
+            rhSkinParametric.addAttribute("position", parametric.getPositions());
+            rhSkinParametric.addAttribute("normal", parametric.getColors());
+            rhSkinParametric.setIndex(parametric.getIndexArray());
+
+            // get the mesh and move the skin to the bottom of the lower legs joint
+            this.rhSkin = rhSkinParametric.getMesh();
+            this.rhSkin.translateX(-minUnit * 5 * handsParaConfig.trefoilScale);
+            this.rhSkin.rotateX(Math.PI/2);
+            this.jointRh.add(this.rhSkin);
 
             /***************************************************/
             /* * * * * * * * * * LEFT LEG * * * * * * * * * * * */
