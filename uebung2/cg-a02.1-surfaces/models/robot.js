@@ -197,6 +197,16 @@ define(["three"],
             this.lul.add(this.lulSkin);
             this.jointLul.add(this.lul);
 
+            /* JOINT LEFT LOWER LEG = jointLll */
+            this.jointLll = new THREE.Object3D();
+            this.jointLll.name = "jointLLL";
+
+            //move the skeleton to the middle of the leg (Knee)
+            this.jointLll.translateY(-legSize[1]);
+            this.jointLllSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments), new THREE.MeshNormalMaterial());
+            this.jointLll.add(this.jointLllSkin);
+            this.lul.add(this.jointLll);
+
             /**
             var torsoSize = [minUnit * 3, minUnit * 10];  // radius, length of the cylinder
             var neckSize = [minUnit, minUnit];           // radius, length of the cylinder
@@ -225,13 +235,23 @@ define(["three"],
 
             /* RIGHT UPPER LEG = RUL */
             this.rul = new THREE.Object3D();
-            this.rul.name = "lul";
+            this.rul.name = "rul";
 
             //move the skin from the center of the joint ( = skeleton-center ) to the bottom position
             this.rulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial(            ));
             this.rulSkin.translateY(-legSize[1]/2);
             this.rul.add(this.rulSkin);
             this.jointRul.add(this.rul);
+
+            /* JOINT RIGHT LOWER LEG = jointRll */
+            this.jointRll = new THREE.Object3D();
+            this.jointRll.name = "jointRLL";
+
+            //move the skeleton to the middle of the leg (Knee)
+            this.jointRll.translateY(-legSize[1]);
+            this.jointRllSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments), new THREE.MeshNormalMaterial());
+            this.jointRll.add(this.jointRllSkin);
+            this.rul.add(this.jointRll);
         };
 
         Robot.prototype.getMesh = function() {
