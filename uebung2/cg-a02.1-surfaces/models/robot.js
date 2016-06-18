@@ -145,6 +145,16 @@ define(["three", "parametric", "BufferGeometry", "meshFactory"],
             this.lfa.add(this.lfaSkin);
             this.jointLfa.add(this.lfa);
 
+            /* JOINT LEFT HAND = jointLh*/
+            this.jointLh = new THREE.Object3D();
+            this.jointLh.name = "jointLH";
+
+            this.jointLh.translateX(armSize[1]);
+            this.jointLhSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments), new THREE.MeshNormalMaterial());
+            this.jointLh.add(this.jointLhSkin);
+            this.lfa.add(this.jointLh);
+
+
             /***************************************************/
             /* * * * * * * * * * RIGHT ARM * * * * * * * * * * * */
             /***************************************************/
@@ -196,6 +206,15 @@ define(["three", "parametric", "BufferGeometry", "meshFactory"],
             this.rfaSkin.translateY(-armSize[1] / 2);
             this.rfa.add(this.rfaSkin);
             this.jointRfa.add(this.rfa);
+
+            /* JOINT RIGHT HAND = jointRh*/
+            this.jointRh = new THREE.Object3D();
+            this.jointRh.name = "jointRH";
+
+            this.jointRh.translateX(-armSize[1]);
+            this.jointRhSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments), new THREE.MeshNormalMaterial());
+            this.jointRh.add(this.jointRhSkin);
+            this.rfa.add(this.jointRh);
 
             /***************************************************/
             /* * * * * * * * * * LEFT LEG * * * * * * * * * * * */
