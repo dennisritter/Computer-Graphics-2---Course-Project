@@ -192,7 +192,7 @@ define(["three"],
             this.lul.name = "lul";
 
             //move the skin from the center of the joint ( = skeleton-center ) to the bottom position
-            this.lulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial(            ));
+            this.lulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial());
             this.lulSkin.translateY(-legSize[1]/2);
             this.lul.add(this.lulSkin);
             this.jointLul.add(this.lul);
@@ -207,16 +207,15 @@ define(["three"],
             this.jointLll.add(this.jointLllSkin);
             this.lul.add(this.jointLll);
 
-            /**
-            var torsoSize = [minUnit * 3, minUnit * 10];  // radius, length of the cylinder
-            var neckSize = [minUnit, minUnit];           // radius, length of the cylinder
-            var headSize = minUnit * 5;                  // diameter of the sphere, if head was a box the size would be minUnit * 4
-            var jointSize = minUnit;                      // radius of the sphere
-            var armSize = [minUnit, minUnit * 6];       // radius, length of the cylinder, upper arm and forearm are eqal
-            var handSize = minUnit;                      // radius of the sphere
-            var legSize = [armSize[0], armSize[1]];      // legs are as long and big as the robot's arms
-            var footSize = handSize;                     // radius, feet are as bis as hands
-            **/
+            /* LEFT LOWER LEG = Lll */
+            this.lll = new THREE.Object3D();
+            this.lll.name = "lll";
+
+            //move the skin from the center of the joint to the bottom, so the joint is on top of the LLL
+            this.lllSkin = this.rulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial());
+            this.lllSkin.translateY(-legSize[1]/2);
+            this.lll.add(this.lllSkin);
+            this.jointLll.add(this.lll);
 
             /***************************************************/
             /* * * * * * * * * * RIGHT LEG * * * * * * * * * * * */
@@ -238,7 +237,7 @@ define(["three"],
             this.rul.name = "rul";
 
             //move the skin from the center of the joint ( = skeleton-center ) to the bottom position
-            this.rulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial(            ));
+            this.rulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial());
             this.rulSkin.translateY(-legSize[1]/2);
             this.rul.add(this.rulSkin);
             this.jointRul.add(this.rul);
@@ -252,6 +251,16 @@ define(["three"],
             this.jointRllSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments), new THREE.MeshNormalMaterial());
             this.jointRll.add(this.jointRllSkin);
             this.rul.add(this.jointRll);
+
+            /* LEFT LOWER LEG = Lll */
+            this.rll = new THREE.Object3D();
+            this.rll.name = "rll";
+
+            //move the skin from the center of the joint to the bottom, so the joint is on top of the LLL
+            this.rllSkin = this.rulSkin = new THREE.Mesh(new THREE.CylinderGeometry(legSize[0], legSize[0], legSize[1], segments), new THREE.MeshNormalMaterial());
+            this.rllSkin.translateY(-legSize[1]/2);
+            this.rll.add(this.rllSkin);
+            this.jointRll.add(this.rll);
         };
 
         Robot.prototype.getMesh = function() {
