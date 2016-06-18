@@ -175,6 +175,9 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                     rOuter: parseFloat( $('#torusROuter').val() ),
                     rInner: parseFloat( $('#torusRInner').val() ),
 
+                    // Tranguloid Trefoil scaling factor
+                    trefoilScale: parseFloat( $('#trefoilScale').val() ),
+                    
                     // Cylinder Settings
                     cylinderRadius: parseFloat( $('#cylinderRadius').val() ),
                     cylinderHeight: parseFloat( $('#cylinderHeight').val() )
