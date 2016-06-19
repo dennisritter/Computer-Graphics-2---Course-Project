@@ -187,6 +187,24 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 }
             };
 
+            // Audio
+            var audioListener = new THREE.AudioListener();
+            var audioLoader = new THREE.AudioLoader();
+            var sound = new THREE.Audio( audioListener );
+            audioLoader.load('sound.ogg', function (buffer) {
+                sound.setBuffer(buffer);
+                sound.setVolume(1);
+                sound.setLoop(true);
+            });
+
+            this.playSound = function () {
+                sound.play();
+            };
+
+            this.stopSound = function () {
+                sound.stop();
+            };
+
         };
 
         // this module only exports the constructor for Scene objects
