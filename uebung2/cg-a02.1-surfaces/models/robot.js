@@ -52,8 +52,7 @@ define(["three", "parametric", "BufferGeometry", "meshFactory"],
 
             this.torso = new THREE.Object3D();
             this.torso.name = "torso";
-            this.torsoSkin = new THREE.Mesh(new THREE.CylinderGeometry(torsoSize[0], torsoSize[0],
-                torsoSize[1], segments), new THREE.MeshNormalMaterial());
+            this.torsoSkin = new THREE.Mesh( new THREE.BoxGeometry( 2*torsoSize[0], torsoSize[1], 2*torsoSize[0] ), new THREE.MeshNormalMaterial() );
             this.torso.add(this.torsoSkin);
             this.root.add(this.torso);
 
