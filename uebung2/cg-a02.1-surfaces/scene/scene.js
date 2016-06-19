@@ -77,12 +77,42 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                         return;
                 }
 
+                switch ( _this.keyboardBehavior ) {
+                    case 'rotate':
+                        scope.currentMesh.rotation[dim] += delta;
+                        break;
+
+                    case 'move':
+                        scope.currentMesh.position[dim] += delta * 100;
+                        break;
+
+                    default:
+                        var node = scope.scene.getObjectByName( _this.keyboardBehavior, true );
+                        if ( !node )
+                          break;
+
+                        switch ( dim ) {
+                            case 'x':
+                                node.rotateX(delta);
+                                break;
+
+                            case 'y':
+                                node.rotateY(delta);
+                                break;
+
+                            case 'z':
+                                node.rotateZ(delta);
+                        }
+                }
+
                 if ( _this.keyboardBehavior == 'rotate' ) {
                     scope.currentMesh.rotation[ dim ] += delta;
                 } else if ( _this.keyboardBehavior == 'move' ) {
                     scope.currentMesh.position[ dim ] += delta * 100;
+                } else {
+
                 }
-            };
+            }
 
             this.addBufferGeometry = function(bufferGeometry) {
                 scope.currentMesh = bufferGeometry.getMesh();

@@ -72,8 +72,34 @@
     </label><br/>
     <label for="selectKeyboardBehavior">Keyboard Behavior:</label>
     <select id="selectKeyboardBehavior">
-      <option value="rotate" selected>Rotate current mesh</option>
-      <option value="move">Move current mesh</option>
+      <optgroup label="all geometries">
+        <option value="rotate" selected>Rotate current mesh</option>
+        <option value="move">Move current mesh</option>
+      </optgroup>
+      <optgroup label="robot only">
+        <option value="head">rotate head</option>
+        <optgroup label="left arm">
+          <option value="jointLUA">rotate left upper arm</option>
+          <option value="jointLFA">rotate left forearm</option>
+          <option value="jointLH">rotate left hand</option>
+        </optgroup>
+        <optgroup label="right arm">
+          <option value="jointRUA">rotate right upper arm</option>
+          <option value="jointRFA">rotate right forearm</option>
+          <option value="jointRH">rotate right hand</option>
+        </optgroup>
+        <optgroup label="left leg">
+          <option value="jointLUL">rotate left upper leg</option>
+          <option value="jointLLL">rotate left lower leg</option>
+          <option value="jointLF">rotate left foot</option>
+        </optgroup>
+        <optgroup label="right leg">
+          <option value="jointRUL">rotate right upper leg</option>
+          <option value="jointRLL">rotate right lower leg</option>
+          <option value="jointRF">rotate right foot</option>
+        </optgroup>
+      </optgroup>
+
     </select>
 
     <!-- add more here... -->

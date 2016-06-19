@@ -80,6 +80,7 @@ define(["jquery", "three", "scene", "HtmlController"],
             var renderer = new THREE.WebGLRenderer();
             renderer.setSize( canvasWidth, canvasHeight );
             renderer.setClearColor( 0xEEEEEE, 1 );
+            renderer.setPixelRatio( window.devicePixelRatio ? window.devicePixelRatio : 1 );
 
             // the canvas is part of the renderer as a HTML DOM
             // element and needs to be appended in the DOM
