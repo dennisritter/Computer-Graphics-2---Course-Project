@@ -7,6 +7,7 @@ define(["three", "parametric", "BufferGeometry", "meshFactory"],
 
         var Robot = function() {
 
+            var _this = this;
             var minUnit = 30;
             var segments = 32;
 
@@ -79,16 +80,18 @@ define(["three", "parametric", "BufferGeometry", "meshFactory"],
             //move the skeleton from the center of the neck up to the upperside of the neck's skin:
             this.head.translateY(neckSize[1] / 2);
 
-            // you can't see a sphere rotating, therefore we need a box as head:
-            // this.headSkin = new THREE.Mesh ( new THREE.BoxGeometry(headSize, headSize, headSize),
-            //     new THREE.MeshNormalMaterial());
-
-            this.headSkin = new THREE.Mesh(new THREE.SphereGeometry(headSize / 2, segments, segments),
-                new THREE.MeshNormalMaterial());
+            var loader = new THREE.OBJLoader();
+            loader.load( 'obj/stalin.obj', function ( object ) {
+                for ( var i = 0; i < object.children.length; ++i ) {
+                    _this.headSkin = MeshFactory.createMesh( object.children[i].geometry );
+                    _this.headSkin.scale.set(.75,.75,.75);
+                    _this.headSkin.geometry.computeBoundingBox();
+                    _this.headSkin.translateY( _this.headSkin.geometry.boundingBox.max.y / 1.5 );
+                    _this.head.add(_this.headSkin);
+                }
+            });
 
             //move the skin from the middle of this skeleton up to the top of the necks's skin:
-            this.headSkin.translateY(headSize / 2);
-            this.head.add(this.headSkin);
             this.neck.add(this.head);
 
             /***************************************************/
