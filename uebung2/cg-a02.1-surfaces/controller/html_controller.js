@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj", "meshFactory", "robot"],
-    (function($,BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory, Robot) {
+define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj", "meshFactory", "robot", "animation"],
+    (function($,BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory, Robot, Animation) {
         "use strict";
 
         /*
@@ -270,6 +270,50 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
             $('#btnRobot').click( function (){
                var robot = new Robot();
                 scene.addMesh(robot.getMesh());
+
+                var animation = new Animation([
+                    {
+                        startAt: 1000,
+                        stopAt: 1200,
+                        trans: 'rotateZ',
+                        from: 0,
+                        to: Math.PI * 2,
+                        object: robot.head
+                    },{
+                        startAt: 1200,
+                        stopAt: 1400,
+                        trans: 'rotateZ',
+                        from: Math.PI * 2,
+                        to: 0,
+                        object: robot.head
+                    },{
+                        startAt: 1000,
+                        stopAt: 2000,
+                        trans: 'rotateZ',
+                        from: 0,
+                        to: Math.PI * 2,
+                        object: robot.jointLua
+                    },
+                    {
+                        startAt: 1500,
+                        stopAt: 3000,
+                        trans: 'scaleX',
+                        from: 0,
+                        to: 50,
+                        object: robot.jointRfa
+                    }
+                ]);
+
+                animation.onFinish = function () {
+                    scene.stopSound();
+                };
+
+                setTimeout(function () {
+                    animation.start();
+                    scene.playSound();
+                }, 1000);
+
+                console.log(animation);
             });
 
             var btnAnimateHead = $('#animateHead');
