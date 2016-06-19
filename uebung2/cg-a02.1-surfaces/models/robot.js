@@ -13,13 +13,13 @@ define(["three", "parametric", "BufferGeometry", "meshFactory"],
 
             /* Define the size for every element */
             var torsoSize = [minUnit * 3, minUnit * 10];  // radius, length of the cylinder
-            var neckSize = [minUnit, minUnit];           // radius, length of the cylinder
-            var headSize = minUnit * 5;                  // diameter of the sphere, if head was a box the size would be minUnit * 4
+            var neckSize = [minUnit, minUnit];            // radius, length of the cylinder
+            // var headSize = minUnit * 5;                // diameter of the sphere, if head was a box the size would be minUnit * 4
             var jointSize = minUnit;                      // radius of the sphere
-            var armSize = [minUnit, minUnit * 6];       // radius, length of the cylinder, upper arm and forearm are eqal
-            var handSize = minUnit;                      // radius of the sphere
-            var legSize = [armSize[0], armSize[1]];      // legs are as long and big as the robot's arms
-            var footSize = handSize;                     // radius, feet are as bis as hands
+            var armSize = [minUnit, minUnit * 6];         // radius, length of the cylinder, upper arm and forearm are equal
+            var handSize = minUnit;                       // radius of the sphere
+            var legSize = [armSize[0], armSize[1]];       // legs are as long and big as the robot's arms
+            // var footSize = handSize;                   // radius, feet are as big as hands
 
             //what geometry type?
             var handsParaPosFunc = "tranguloid";
@@ -67,7 +67,7 @@ define(["three", "parametric", "BufferGeometry", "meshFactory"],
             this.neckSkin = new THREE.Mesh(new THREE.SphereGeometry(jointSize, segments, segments),
                 new THREE.MeshNormalMaterial());
             //move the skin from the middle of the skeleton up to the top of the torso's skin (B)
-            this.neckSkin.translateY(neckSize[1] / 2);
+            // this.neckSkin.translateY(neckSize[1] / 2);
             this.neck.add(this.neckSkin);
             this.torso.add(this.neck);
 
