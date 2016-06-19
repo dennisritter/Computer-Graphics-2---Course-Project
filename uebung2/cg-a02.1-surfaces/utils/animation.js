@@ -1,4 +1,4 @@
-define(['three'], (function (THREE) {
+define(['three', 'jquery'], (function (THREE, $) {
 
   var example = [{
     startAt: 100, // Start pa at timestamp 100
@@ -26,7 +26,10 @@ define(['three'], (function (THREE) {
    * @constructor
    */
   var Animation = function ( config ) {
-    this.config = config;
+    this.initialConfig = config;
+    // Make a real copy of the array
+    this.config = $.merge([], config);
+    this.loop = false;
 
     // Convert from/to config properties to delta
     for ( var i = 0; i < this.config.length; ++i ) {
@@ -68,9 +71,15 @@ define(['three'], (function (THREE) {
   Animation.prototype.step = function () {
     // If every partial animation has finished, stop whole animation and trigger the onFinish callback if set
     if ( this.config.length < 1 ) {
-      this.stop();
-      if ( this.onFinish )
-        this.onFinish();
+      if ( this.loop ) {
+        this.config = $.merge([], this.initialConfig);
+        this.time = 0;
+      } else {
+        this.stop();
+        if (this.onFinish)
+          this.onFinish();
+      }
+      return;
     }
 
     // For each partial animation (pa)

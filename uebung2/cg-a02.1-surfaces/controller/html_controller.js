@@ -295,15 +295,32 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                         object: robot.jointLua
                     },
                     {
+                        startAt: 2000,
+                        stopAt: 2500,
+                        trans: 'rotateZ',
+                        from: Math.PI * 2,
+                        to: 0,
+                        object: robot.jointLua
+                    },
+                    {
                         startAt: 1500,
                         stopAt: 3000,
                         trans: 'scaleX',
                         from: 0,
                         to: 50,
                         object: robot.jointRfa
+                    },
+                    {
+                        startAt: 3000,
+                        stopAt: 4500,
+                        trans: 'scaleX',
+                        from: 50,
+                        to: 0,
+                        object: robot.jointRfa
                     }
                 ]);
 
+                animation.loop = true;
                 animation.onFinish = function () {
                     scene.stopSound();
                 };
