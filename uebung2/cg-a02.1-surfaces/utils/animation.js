@@ -43,7 +43,7 @@ define(['three', 'jquery'], (function (THREE, $) {
       if ( !c.from && c.from !== 0 || !c.to && c.to !== 0 )
         throw new Error("An animation config element must either contain a delta or from and to");
 
-      c.delta = (c.to - c.from) / ((c.stopAt - c.startAt) / 10);
+      c.delta = (c.to - c.from) / (((c.stopAt - c.startAt) / 100) + 1); console.log(c.delta);
     }
 
     // The current relative time

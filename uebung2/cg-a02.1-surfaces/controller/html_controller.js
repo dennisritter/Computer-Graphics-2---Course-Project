@@ -274,15 +274,15 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                 robotAnimation = new Animation([
                     {
                         startAt: 1000,
-                        stopAt: 1200,
-                        trans: 'rotateZ',
+                        stopAt: 2000,
+                        trans: 'rotateY',
                         from: 0,
                         to: Math.PI * 2,
                         object: robot.head
                     },{
-                        startAt: 1200,
-                        stopAt: 1400,
-                        trans: 'rotateZ',
+                        startAt: 2000,
+                        stopAt: 4000,
+                        trans: 'rotateY',
                         from: Math.PI * 2,
                         to: 0,
                         object: robot.head
@@ -307,14 +307,14 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                         stopAt: 3000,
                         trans: 'scaleX',
                         from: 0,
-                        to: 50,
+                        to: 1.2,
                         object: robot.jointRfa
                     },
                     {
                         startAt: 3000,
                         stopAt: 4500,
                         trans: 'scaleX',
-                        from: 50,
+                        from: 1.2,
                         to: 0,
                         object: robot.jointRfa
                     }
