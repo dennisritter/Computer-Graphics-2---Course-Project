@@ -266,12 +266,12 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                 }
             };
 
-
+            var robotAnimation;
             $('#btnRobot').click( function (){
-               var robot = new Robot();
+                var robot = new Robot();
                 scene.addMesh(robot.getMesh());
 
-                var animation = new Animation([
+                robotAnimation = new Animation([
                     {
                         startAt: 1000,
                         stopAt: 1200,
@@ -320,17 +320,20 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric","obj
                     }
                 ]);
 
-                animation.loop = true;
-                animation.onFinish = function () {
+                robotAnimation.loop = true;
+                robotAnimation.onFinish = function () {
                     scene.stopSound();
                 };
+            });
 
-                setTimeout(function () {
-                    animation.start();
-                    scene.playSound();
-                }, 1000);
+            $('#btnStartRobotAnimation').click(function () {
+                robotAnimation.start();
+                scene.playSound();
+            });
 
-                console.log(animation);
+            $('#btnStopRobotAnimation').click(function () {
+                robotAnimation.stop();
+                scene.stopSound();
             });
 
             var btnAnimateHead = $('#animateHead');
