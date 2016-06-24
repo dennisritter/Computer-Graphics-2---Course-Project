@@ -26,13 +26,15 @@ requirejs.config({
         "band" : "./models/band",
         "parametric" : "./models/parametric",
         "util"  : "./utils/util",
+        "animation": "./utils/animation",
         "meshFactory": "./utils/meshFactory",
         "validation" : "./utils/validation",
         "shaders" : "./shaders",
         "BufferGeometry" : "./scene/buffer_geometry",
         "HtmlController": "./controller/html_controller",
         "OBJLoader": "./loaders/OBJLoader",
-        "obj": "./models/obj"
+        "obj": "./models/obj",
+        "robot": "./models/robot"
 
     },
     shim: {
@@ -79,6 +81,7 @@ define(["jquery", "three", "scene", "HtmlController"],
             var renderer = new THREE.WebGLRenderer();
             renderer.setSize( canvasWidth, canvasHeight );
             renderer.setClearColor( 0xEEEEEE, 1 );
+            renderer.setPixelRatio( window.devicePixelRatio ? window.devicePixelRatio : 1 );
 
             // the canvas is part of the renderer as a HTML DOM
             // element and needs to be appended in the DOM

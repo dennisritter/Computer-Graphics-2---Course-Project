@@ -77,34 +77,42 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                         return;
                 }
 
+                switch ( _this.keyboardBehavior ) {
+                    case 'rotate':
+                        scope.currentMesh.rotation[dim] += delta;
+                        break;
+
+                    case 'move':
+                        scope.currentMesh.position[dim] += delta * 100;
+                        break;
+
+                    default:
+                        var node = scope.scene.getObjectByName( _this.keyboardBehavior, true );
+                        if ( !node )
+                          break;
+
+                        switch ( dim ) {
+                            case 'x':
+                                node.rotateX(delta);
+                                break;
+
+                            case 'y':
+                                node.rotateY(delta);
+                                break;
+
+                            case 'z':
+                                node.rotateZ(delta);
+                        }
+                }
+
                 if ( _this.keyboardBehavior == 'rotate' ) {
                     scope.currentMesh.rotation[ dim ] += delta;
                 } else if ( _this.keyboardBehavior == 'move' ) {
                     scope.currentMesh.position[ dim ] += delta * 100;
+                } else {
+
                 }
             }
-
-            var animInterval;
-            this.startAnimation = function () {
-                if ( !animInterval ) {
-                    animInterval = setInterval(function () {
-                        if ( !scope.currentMesh.rotation ) {
-                            return;
-                        }
-
-                        scope.currentMesh.rotation.x += .05;
-                        scope.currentMesh.rotation.y += .05;
-                        scope.currentMesh.rotation.z += .05;
-                    }, 50);
-                }
-            };
-
-            this.stopAnimation = function () {
-                if ( animInterval ) {
-                    clearInterval( animInterval );
-                    animInterval = undefined;
-                }
-            };
 
             this.addBufferGeometry = function(bufferGeometry) {
                 scope.currentMesh = bufferGeometry.getMesh();
@@ -116,13 +124,87 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 scope.scene.add( mesh );
             };
 
-            /*
-             * drawing the scene
+            /**
+             * draws the scene
              */
             this.draw = function() {
                 requestAnimFrame( scope.draw );
                 scope.renderer.render(scope.scene, scope.camera);
             };
+
+            /**
+             * animates a specific node of the robot
+             */
+            var animInterval;
+            this.animateRobot = function (name) {
+                var specificNode = scope.scene.getObjectByName(name, true);
+                // if ( !animInterval ) {
+                    animInterval = setInterval(function () {
+                        if ( !specificNode.rotation ) {
+                            return;
+                        }
+
+                        switch(specificNode.name){
+                            case "neck":
+                                specificNode.rotateZ(Math.PI+10);
+                                break;
+                            case "jointLUA":
+                                specificNode.rotateX(Math.PI+10);
+                                break;
+                            case "jointFLA":
+                                specificNode.rotateZ(Math.PI+10);
+                                break;
+                        }
+                        specificNode.rotateY(Math.PI+10);
+                    }, 500);
+                // }
+            };
+
+            /**
+             * animates the whole object
+             */
+            this.startAnimation = function () {
+                // if ( !animInterval ) {
+                    animInterval = setInterval(function () {
+                        if ( !scope.currentMesh.rotation ) {
+                            return;
+                        }
+
+                        scope.currentMesh.rotation.x += .05;
+                        scope.currentMesh.rotation.y += .05;
+                        scope.currentMesh.rotation.z += .05;
+                    }, 50);
+                // }
+            };
+
+            /**
+             * stops every kind of animation
+             */
+            this.stopAnimation = function () {
+                if ( animInterval ) {
+                    clearInterval( animInterval );
+                    animInterval = undefined;
+                }
+            };
+
+            // Audio
+            var audioListener = new THREE.AudioListener();
+            var audioLoader = new THREE.AudioLoader();
+            var sound = new THREE.Audio( audioListener );
+            audioLoader.load('sound.ogg', function (buffer) {
+                sound.setBuffer(buffer);
+                sound.setVolume(1);
+                sound.setLoop(true);
+            });
+
+            this.playSound = function () {
+                sound.play();
+            };
+
+            this.stopSound = function () {
+                sound.stop();
+            };
+
         };
 
         // this module only exports the constructor for Scene objects

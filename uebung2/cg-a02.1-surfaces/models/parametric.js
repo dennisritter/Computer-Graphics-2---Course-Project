@@ -26,7 +26,7 @@ define(["three", "validation"],
             //config : mit den Wertebereichen der Parameter u und v (umin, umax, vmin, vmax) sowie der gewünschten 
             // Anzahl von Segmenten in u- und v-Richtung.
             config = validation.validateConfig(posFunc, config);
-            console.log(config);
+            // console.log("parametricGeo config: ", config);
             var umin = config.umin;
             var umax = config.umax;
             var vmin = config.vmin;
@@ -143,9 +143,9 @@ define(["three", "validation"],
                         var z = (Math.cos(u) - 2 * Math.cos(2 * u)) * (2 + Math.cos(v)) * (2 + Math.cos(v + 2 * Math.PI / 3)) / 4;
 
                         // The multiplication faktor for x, y, z ensures that the Tranguloid looks as intended.
-                        this.positions[i] = 100 * x;
-                        this.positions[i + 1] = 5 * y;
-                        this.positions[i + 2] = 100 * z;
+                        this.positions[i] = 100 * x * config.trefoilScale;
+                        this.positions[i + 1] = 5 * y * config.trefoilScale;
+                        this.positions[i + 2] = 100 * z * config.trefoilScale;
 
                         color.setRGB(0, 0, 1);
 
