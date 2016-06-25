@@ -104,14 +104,6 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                                 node.rotateZ(delta);
                         }
                 }
-
-                if ( _this.keyboardBehavior == 'rotate' ) {
-                    scope.currentMesh.rotation[ dim ] += delta;
-                } else if ( _this.keyboardBehavior == 'move' ) {
-                    scope.currentMesh.position[ dim ] += delta * 100;
-                } else {
-
-                }
             }
 
             this.addBufferGeometry = function(bufferGeometry) {
