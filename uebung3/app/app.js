@@ -22,20 +22,26 @@ requirejs.config({
         "three" : "../lib/three",
 
         "scene" : "./scene/scene",
+        "BufferGeometry" : "./scene/buffer_geometry",
+
         "random" : "./models/random",
         "band" : "./models/band",
         "parametric" : "./models/parametric",
+        "obj": "./models/obj",
+        "robot": "./models/robot",
+        "explosion": "./models/explosion",
+        "planet": "./models/planet",
+
         "util"  : "./utils/util",
         "animation": "./utils/animation",
         "meshFactory": "./utils/meshFactory",
         "validation" : "./utils/validation",
-        "shaders" : "./shaders",
-        "BufferGeometry" : "./scene/buffer_geometry",
-        "HtmlController": "./controller/html_controller",
-        "OBJLoader": "./loaders/OBJLoader",
-        "obj": "./models/obj",
-        "robot": "./models/robot"
 
+        "shaders" : "./shaders",
+
+        "HtmlController": "./controller/html_controller",
+        
+        "OBJLoader": "./loaders/OBJLoader"
     },
     shim: {
         three: {
