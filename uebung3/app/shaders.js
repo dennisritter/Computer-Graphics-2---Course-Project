@@ -10,21 +10,37 @@
  */
 
 define(["text!shaders/vertex_color.vs", "text!shaders/vertex_color.fs",
-        "text!shaders/planet_vs.glsl",          "text!shaders/planet_fs.glsl",
-        "text!shaders/explosion_vs.glsl",          "text!shaders/explosion_fs.glsl"
+        "text!shaders/planet_vs.glsl",  "text!shaders/planet_fs.glsl",
+        "text!shaders/explosion_vs.glsl", "text!shaders/explosion_fs.glsl",
+        "text!shaders/phong_vs.glsl", "text!shaders/phong_fs.glsl"
     ],
     (function( vs_vertex_color, fs_vertex_color,
-               vs_planet,       fs_planet,
-               vs_explosion,    fs_explosion
+               vs_planet, fs_planet,
+               vs_explosion, fs_explosion,
+               vs_phong, fs_phong
     ) {
 
             "use strict";
 
             // store all shaders in an associative array
-            var shaders = {};
-            shaders["vertex_color"] = {vertex: vs_vertex_color, fragment: fs_vertex_color};
-            shaders["planet"] = {vertex: vs_planet, fragment: fs_planet};
-            shaders["explosion"] = {vertex: vs_explosion, fragment: fs_explosion};
+            var shaders = {
+              vertex_color: {
+                vertex: vs_vertex_color,
+                fragment: fs_vertex_color
+              },
+              planet: {
+                vertex: vs_planet,
+                fragment: fs_planet
+              },
+              explosion: {
+                vertex: vs_explosion,
+                fragment: fs_planet
+              },
+              phong: {
+                vertex: vs_phong,
+                fragment: fs_phong
+              }
+            };
 
             // return source code of a vertex shader
             shaders.getVertexShader = function(shadername) {
