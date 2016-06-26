@@ -205,6 +205,15 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 sound.stop();
             };
 
+            // Add lights
+            var lightColor = 0xffffff;
+            var ambientLight = new THREE.AmbientLight(lightColor);
+            scope.scene.add(ambientLight);
+
+            var directionalLight = new THREE.DirectionalLight(lightColor, 1);
+            directionalLight.name = 'directionalLight';
+            directionalLight.position.set(-1,0,-.3).normalize();
+            scope.scene.add(directionalLight);
         };
 
         // this module only exports the constructor for Scene objects
