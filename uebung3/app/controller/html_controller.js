@@ -30,9 +30,9 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
             });
 
             $('#btnPhongVertex').click(function () {
-                var geo = new THREE.SphereGeometry(100, 32, 32);
+                var geo = new THREE.SphereGeometry(200, 15, 15);
                 var c = new THREE.Color(1,1,1);
-                var phong = new PhongMaterial(new THREE.Color(.1,.1,.1),c,c,2,true);
+                var phong = new PhongMaterial( new THREE.Color(.2,0,0), c, c, 1, true);
                 var mesh = new THREE.Mesh( geo, phong.getShaderMaterial() );
                 scene.addMesh(mesh);
             });
