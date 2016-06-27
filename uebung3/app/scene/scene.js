@@ -212,7 +212,7 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
 
             var directionalLight = new THREE.DirectionalLight(lightColor, 1);
             directionalLight.name = 'directionalLight';
-            directionalLight.position.set(-1,0,-.3).normalize();
+            directionalLight.position.set(-1,0,-3).normalize();
             scope.scene.add(directionalLight);
         };
 

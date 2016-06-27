@@ -13,6 +13,7 @@ uniform DirectionalLight  directionalLights[NUM_DIR_LIGHTS];
 varying vec4  ecPosition;
 varying vec3  ecNormal;
 varying mat4  theProjectionMatrix;
+varying vec3  viewDir;
 
 uniform vec3  ambientMaterial;
 uniform vec3  diffuseMaterial;
@@ -32,7 +33,5 @@ vec3 phong ( in vec3 position, in vec3 normal, in vec3 viewDir ) {
 }
 
 void main () {
-    bool userOrtho = theProjectionMatrix[2][3] == 0.0;
-    vec3 viewDir = userOrtho ? vec3(0,0,1) : normalize( -ecPosition.xyz );
     gl_FragColor = vec4( phong( ecPosition.xyz, ecNormal, viewDir ), 1 );
 }
