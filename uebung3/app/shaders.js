@@ -9,15 +9,17 @@
  *
  */
 
-define(["text!shaders/vertex_color.vs", "text!shaders/vertex_color.fs",
+define(["text!shaders/vertex_color_vs.glsl", "text!shaders/vertex_color_fs.glsl",
         "text!shaders/planet_vs.glsl",  "text!shaders/planet_fs.glsl",
         "text!shaders/explosion_vs.glsl", "text!shaders/explosion_fs.glsl",
-        "text!shaders/phong_vs.glsl", "text!shaders/phong_fs.glsl"
+        "text!shaders/phong_vs.glsl", "text!shaders/phong_fs.glsl",
+        "text!shaders/phong_infs_vs.glsl"
     ],
     (function( vs_vertex_color, fs_vertex_color,
                vs_planet, fs_planet,
                vs_explosion, fs_explosion,
-               vs_phong, fs_phong
+               vs_phong, fs_phong,
+               vs_phong_infs
     ) {
 
             "use strict";
@@ -39,6 +41,9 @@ define(["text!shaders/vertex_color.vs", "text!shaders/vertex_color.fs",
               phong: {
                 vertex: vs_phong,
                 fragment: fs_phong
+              },
+              phong_infs: {
+                vertex: vs_phong_infs
               }
             };
 

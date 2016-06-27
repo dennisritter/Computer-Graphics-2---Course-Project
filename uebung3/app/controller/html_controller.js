@@ -37,6 +37,14 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
                 scene.addMesh(mesh);
             });
 
+            $('#btnPhongFragment').click(function () {
+                var geo = new THREE.SphereGeometry(200, 15, 15);
+                var c = new THREE.Color(1,1,1);
+                var phong = new PhongMaterial( new THREE.Color(.2,0,0), c, c, 1, false);
+                var mesh = new THREE.Mesh( geo, phong.getShaderMaterial() );
+                scene.addMesh(mesh);
+            });
+
 
             $("#random").show();
             $("#band").hide();

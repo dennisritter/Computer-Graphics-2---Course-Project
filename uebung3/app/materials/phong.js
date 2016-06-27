@@ -44,7 +44,7 @@ define(['three', 'shaders'], function (THREE, Shaders) {
       options.vertexShader = Shaders.getVertexShader('phong');
       options.fragmentShader = Shaders.getFragmentShader('vertex_color');
     } else {
-      options.vertexShader = Shaders.getVertexShader('vertex_color');
+      options.vertexShader = Shaders.getVertexShader('phong_infs');
       options.fragmentShader = Shaders.getFragmentShader('phong');
     }
 
