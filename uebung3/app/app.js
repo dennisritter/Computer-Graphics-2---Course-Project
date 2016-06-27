@@ -19,7 +19,7 @@ requirejs.config({
             //If the load via CDN fails, load locally
             '../lib/jquery-1.7.2.min'],
 
-        "three" : "../lib/three",
+        "three" : "../lib/three.min",
 
         "scene" : "./scene/scene",
         "BufferGeometry" : "./scene/buffer_geometry",
@@ -36,6 +36,8 @@ requirejs.config({
         "animation": "./utils/animation",
         "meshFactory": "./utils/meshFactory",
         "validation" : "./utils/validation",
+
+        "phongMaterial": "./materials/phong",
 
         "shaders" : "./shaders",
 

@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "obj", "meshFactory", "robot", "animation"],
-    (function($, BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory, Robot, Animation) {
+define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "obj", "meshFactory", "robot", "animation", "phongMaterial"],
+    (function($, BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory, Robot, Animation, PhongMaterial) {
         "use strict";
 
         /*
@@ -27,6 +27,14 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
                 if (val) {
                     MeshFactory.material = val;
                 }
+            });
+
+            $('#btnPhongVertex').click(function () {
+                var geo = new THREE.SphereGeometry(100, 32, 32);
+                var c = new THREE.Color(1,1,1);
+                var phong = new PhongMaterial(new THREE.Color(.1,.1,.1),c,c,2,true);
+                var mesh = new THREE.Mesh( geo, phong.getShaderMaterial() );
+                scene.addMesh(mesh);
             });
 
 
