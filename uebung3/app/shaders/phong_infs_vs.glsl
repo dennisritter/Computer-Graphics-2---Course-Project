@@ -13,6 +13,6 @@ void main() {
      theProjectionMatrix = projectionMatrix;
      ecPosition = modelViewMatrix * vec4(position, 1.0);
      bool userOrtho = projectionMatrix[2][3] == 0.0;
-     viewDir = userOrtho ? vec3(0,0,1) : normalize( -ecPosition.xyz );
+     viewDir = userOrtho ? vec3(0,0,1) : normalize( ecPosition.xyz );
      ecNormal = normalize(normalMatrix * normal);
 }
