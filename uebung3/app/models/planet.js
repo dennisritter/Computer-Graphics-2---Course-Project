@@ -4,12 +4,14 @@ define(["three", "shaders"],
 
         "use strict";
 
+
         var Planet = function() {
 
-
+            //day, night, clouds of type int[0,1] representing a boolean
+            this.day = 0;
+            this.night = 0;
+            this.clouds = 0;
             this.root = new THREE.Object3D();
-
-            // load and create required textures
             
             var scope = this;
 
@@ -21,8 +23,14 @@ define(["three", "shaders"],
                         specularMaterial: { type: 'c', value: new THREE.Color(0.7,0.7,0.7) },
                         ambientMaterial: { type: 'c', value: new THREE.Color(0.8,0.2,0.2) },
                         shininessMaterial: { type: 'f', value: 16.0 },
-                        texEarthMonth04: { type: 't', value: ""}
-                        //add other textures here
+
+                        dayTex: { type: 't', value: ""},
+                        nightTex: { type: 't', value: ""},
+                        cloudTex: { type: 't', value: ""},
+
+                        day: {type: 'i', value: 0},
+                        night: {type: 'i', value: 0},
+                        clouds: {type: 'i', value: 0}
                     }
                 ]),
                 vertexShader: Shaders.getVertexShader("planet"),
@@ -36,9 +44,25 @@ define(["three", "shaders"],
             // material.uniforms.<uniform-var-name>.value   = <uniform-value>;
             var texLoader = new THREE.TextureLoader();
             texLoader.load("textures/earth_month04.jpg", function(tex){
-                material.uniforms.texEarthMonth04.value = tex;
+                material.uniforms.dayTex.value = tex;
+            });
+            texLoader.load("textures/earth_at_night_2048.jpg", function(tex){
+                material.uniforms.nightTex.value = tex;
+            });
+            texLoader.load("textures/earth_clouds_2048.jpg", function(tex){
+                material.uniforms.cloudTex.value = tex;
             });
 
+            //should happen in html_controller(?) --> but has to change at runtime
+            $('input#dayTex').change(function(){
+                $('input#dayTex').prop("checked") ? material.uniforms.day.value = 1 : material.uniforms.day.value = 0;
+            });
+            $('input#nightTex').change(function(){
+                $('input#nightTex').prop("checked") ? material.uniforms.night.value = 1 : material.uniforms.night.value = 0;
+            });
+            $('input#cloudTex').change(function(){
+                $('input#cloudTex').prop("checked") ? material.uniforms.clouds.value = 1 : material.uniforms.clouds.value = 0;
+            });
             
             scope.mesh = new THREE.Mesh( new THREE.SphereGeometry(400, 100,100), material );
             scope.mesh.name = "planet";

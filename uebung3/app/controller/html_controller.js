@@ -45,25 +45,22 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
                 scene.addMesh(mesh);
             });
 
-            $('#btnPlanet').click(function () {
-
-                var day = 0;
-                var night = 0;
-                var clouds = 0;
-
-                if($('input#dayTex').prop("checked")){
-                    day = 1;
-                }
-                if($('input#nightTex').prop("checked")){
-                    night = 1;
-                }
-                if($('input#cloudTex').prop("checked")){
-                    clouds = 1;
-                }
-
-                var planet = new Planet(day, night, clouds);
-                scene.addMesh(planet.mesh);
+            var planet;
+            $('#btnPlanet').click(function () {;
+                planet = new Planet();
+                scene.addMesh(planet.getMesh());
             });
+
+            /** Moved to planet.js **/
+            // $('input#dayTex').change(function(){
+            //     $('input#dayTex').prop("checked") ? planet.day = 1 : planet.day = 0;
+            // });
+            // $('input#nightTex').change(function(){
+            //     $('input#nightTex').prop("checked") ? planet.night = 1 : planet.night = 0;
+            // });
+            // $('input#cloudTex').change(function(){
+            //     $('input#cloudTex').prop("checked") ? planet.clouds = 1 : planet.clouds = 0;
+            // });
 
 
             $("#random").show();
