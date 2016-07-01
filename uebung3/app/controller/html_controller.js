@@ -45,10 +45,8 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
                 scene.addMesh(mesh);
             });
 
-            var planet;
             $('#btnPlanet').click(function () {;
-                planet = new Planet();
-                scene.addMesh(planet.getMesh());
+                scene.addMesh(new Planet().getMesh());
             });
 
             /** Moved to planet.js **/

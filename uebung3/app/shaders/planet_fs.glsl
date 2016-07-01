@@ -26,14 +26,12 @@ uniform int day;
 uniform int night;
 uniform int clouds;
 
-
 // data from the vertex shader
 varying vec3 ecNormal;
 varying vec2 vUv;
-
 varying vec3 viewDir;
 
-void main() {
+vec3 earth(vec3 ecNormal, vec3 viewDir, vec2 vUv) {
     // get color from different textures
     vec3 dayColor = texture2D(dayTex, vUv).rgb;
     vec3 nightColor = texture2D(nightTex, vUv).rgb;
@@ -65,14 +63,16 @@ void main() {
    if(dot( viewDir, r_j ) > 0.0 && dot( viewDir, r_j ) <= 1.0){
        specular = specularMaterial * directionalLight[0].color * pow( dot( viewDir, r_j ), shininessMaterial );
    }
-
-
-     gl_FragColor = vec4(ambient + diffuse + specular, 1);
+   vec3 color = ambient + diffuse + specular;
+   return color;
+}
+void main(){
+   gl_FragColor = vec4(earth(ecNormal, viewDir, vUv), 1);
 }
 /**
     // Note: the texture value might have to get rescaled (gamma corrected)
     //       e.g. color = pow(color, vec3(0.6))*2.0;
-    
+
     // diffuse contribution
     vec3 diffuseCoeff = (daytimeTextureBool == 1 )? dayCol : diffuseMaterial;
     // clouds at day?

@@ -64,7 +64,7 @@ define(["three", "shaders"],
                 $('input#cloudTex').prop("checked") ? material.uniforms.clouds.value = 1 : material.uniforms.clouds.value = 0;
             });
             
-            scope.mesh = new THREE.Mesh( new THREE.SphereGeometry(400, 100,100), material );
+            scope.mesh = new THREE.Mesh( new THREE.SphereGeometry(400, 50,50), material );
             scope.mesh.name = "planet";
 
             scope.root.add(scope.mesh);
