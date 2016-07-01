@@ -46,7 +46,22 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
             });
 
             $('#btnPlanet').click(function () {
-                var planet = new Planet();
+
+                var day = 0;
+                var night = 0;
+                var clouds = 0;
+
+                if($('input#dayTex').prop("checked")){
+                    day = 1;
+                }
+                if($('input#nightTex').prop("checked")){
+                    night = 1;
+                }
+                if($('input#cloudTex').prop("checked")){
+                    clouds = 1;
+                }
+
+                var planet = new Planet(day, night, clouds);
                 scene.addMesh(planet.mesh);
             });
 
