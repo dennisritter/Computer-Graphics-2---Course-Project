@@ -6,7 +6,7 @@ struct DirectionalLight {
 };
 
 // uniform lights (we only have the sun)
-uniform DirectionalLight directionalLight;
+uniform DirectionalLight directionalLight[1];
 
 // uniform material constants k_a, k_d, k_s, alpha
 uniform vec3  ambientMaterial;
@@ -16,10 +16,16 @@ uniform float shininessMaterial;
 uniform vec3  ambientLightColor[1];
 
 // uniform sampler2D textures
-uniform sampler2D texEarthMonth04;
+uniform sampler2D dayTex;
+uniform sampler2D nightTex;
+uniform sampler2D cloudTex;
 
 // three js only supports int no bool
 // if you want a boolean value in the shader, use int
+uniform int day;
+uniform int night;
+uniform int clouds;
+
 
 // data from the vertex shader
 varying vec3 ecNormal;
@@ -29,30 +35,43 @@ varying vec3 viewDir;
 
 void main() {
     // get color from different textures
-    vec3 color = texture2D(texEarthMonth04, vUv).rgb;
-    gl_FragColor = vec4(color, 1.0);
-    
+    vec3 dayColor = texture2D(dayTex, vUv).rgb;
+    vec3 nightColor = texture2D(nightTex, vUv).rgb;
+    vec3 cloudColor = texture2D(cloudTex, vUv).rgb;
+
     // calculate color using phong illumination
     // depending on GUI checkbox:
     // color from night texture and clouds are added to ambient term (instead of ambient material k_a)
-    // color from day texture are added to diffuse term (instead of diffuse material k_d)
-     for ( int i = 0; i < NUM_DIR_LIGHTS; ++i ) {
-       vec3 s_j = -directionalLight.direction;
-       vec3 r_j = reflect(s_j, ecNormal);
-       if(dot( ecNormal, s_j ) > 0.0 && dot( ecNormal, s_j ) <= 1.0){
-           color += diffuseMaterial * directionalLight.color * dot( ecNormal, s_j );
-       }
-       if(dot( viewDir, r_j ) > 0.0 && dot( viewDir, r_j ) <= 1.0){
-           color += specularMaterial * directionalLight.color * pow( dot( viewDir, r_j ), shininessMaterial );
-       }
-     }
+    vec3 ambient = ambientLightColor[0];
+    if(night == 1){
+        ambient *= nightColor;
+    }
+    if(clouds == 1){
+        ambient *= cloudColor;
+    }
+    if(night == 0 && clouds == 0){
+        ambient *= ambientMaterial;
+    }
+
+   vec3 s_j = -directionalLight[0].direction;
+   vec3 diffuse = vec3(0.0);
+   if(dot( ecNormal, s_j ) > 0.0 && dot( ecNormal, s_j ) <= 1.0){
+   // color from day texture are added to diffuse term (instead of diffuse material k_d)
+       vec3 diffuseCoeff = (day == 1 ) ? dayColor : diffuseMaterial;
+       diffuse = diffuseCoeff * directionalLight[0].color * dot( ecNormal, s_j );
+   }
+   vec3 r_j = reflect(s_j, ecNormal);
+   vec3 specular = vec3(0.0);
+   if(dot( viewDir, r_j ) > 0.0 && dot( viewDir, r_j ) <= 1.0){
+       specular = specularMaterial * directionalLight[0].color * pow( dot( viewDir, r_j ), shininessMaterial );
+   }
+
+
+     gl_FragColor = vec4(ambient + diffuse + specular, 1);
+}
 /**
     // Note: the texture value might have to get rescaled (gamma corrected)
     //       e.g. color = pow(color, vec3(0.6))*2.0;
-    
-    // vector from light to current point
-    vec3 l = normalize(directionalLights[i].direction);
-
     
     // diffuse contribution
     vec3 diffuseCoeff = (daytimeTextureBool == 1 )? dayCol : diffuseMaterial;
@@ -71,6 +90,5 @@ void main() {
 
     vec3 color = vec3(1,0,0); //replace with ambient + diffuse + specular;
 **/
-    gl_FragColor = vec4(color, 1.0);
 
-}
+
