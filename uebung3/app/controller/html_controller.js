@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "obj", "meshFactory", "robot", "animation", "phongMaterial"],
-    (function($, BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory, Robot, Animation, PhongMaterial) {
+define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "obj", "meshFactory", "robot", "animation", "phongMaterial", "planet"],
+    (function($, BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory, Robot, Animation, PhongMaterial, Planet) {
         "use strict";
 
         /*
@@ -43,6 +43,11 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
                 var phong = new PhongMaterial( new THREE.Color(.2,0,0), c, c, 10, false);
                 var mesh = new THREE.Mesh( geo, phong.getShaderMaterial() );
                 scene.addMesh(mesh);
+            });
+
+            $('#btnPlanet').click(function () {
+                var planet = new Planet();
+                scene.addMesh(planet.mesh);
             });
 
 
