@@ -36,23 +36,27 @@ vec3 dayColor = texture2D(dayTex, vUv).rgb;
 vec3 nightColor = texture2D(nightTex, vUv).rgb;
 vec3 cloudColor = texture2D(cloudTex, vUv).rgb;
 
-vec3 ambientCoeff = ambientMaterial;
+vec3 ambientCoeff = ambientLightColor[0];
 if(night == 1){
-        ambientCoeff = nightColor;
+        ambientCoeff *= nightColor;
     }
     if(clouds == 1){
-        ambientCoeff = vec3(1.0, 1.0, 1.0) - cloudColor;
+        ambientCoeff *= vec3(1.0, 1.0, 1.0) - cloudColor;
     }
     if(night == 0 && clouds == 0){
-        ambientCoeff = ambientMaterial;
+        ambientCoeff *= ambientMaterial;
     }
 
+  vec3 l = normalize(-directionalLights[0].direction);
+  float nDotL = dot(ecNormal, l);
+  ambientCoeff *= vec3(1.0, 1.0, 1.0) - vec3(nDotL, nDotL, nDotL);
   vec3 c = ambientCoeff * ambientLightColor[0];
   for ( int i = 0; i < NUM_DIR_LIGHTS; ++i ) {
     vec3 s_j = -directionalLights[i].direction;
     vec3 r_j = reflect(s_j, normal);
     if(dot( normal, s_j ) > 0.0 && dot( normal, s_j ) <= 1.0){
         vec3 diffuseCoeff = (day == 1 ) ? dayColor : diffuseMaterial;
+        if(clouds == 1) diffuseCoeff *= vec3(1.0, 1.0, 1.0) - cloudColor;
         c += diffuseCoeff * directionalLights[i].color * dot( normal, s_j );
     }
     if(dot( viewDir, r_j ) > 0.0 && dot( viewDir, r_j ) <= 1.0){

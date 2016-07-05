@@ -19,9 +19,9 @@ define(["three", "shaders"],
                 uniforms: THREE.UniformsUtils.merge( [
                     THREE.UniformsLib['lights'],
                     {
-                        diffuseMaterial: { type: 'c', value: new THREE.Color(1,0,0) },
+                        diffuseMaterial: { type: 'c', value: new THREE.Color(.2,0,0) },
                         specularMaterial: { type: 'c', value: new THREE.Color(0.7,0.7,0.7) },
-                        ambientMaterial: { type: 'c', value: new THREE.Color(0.8,0.2,0.2) },
+                        ambientMaterial: { type: 'c', value: new THREE.Color(1, 0, 0) },
                         shininessMaterial: { type: 'f', value: 16.0 },
 
                         dayTex: { type: 't', value: ""},
