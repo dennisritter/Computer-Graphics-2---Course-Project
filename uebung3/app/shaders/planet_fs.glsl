@@ -48,9 +48,12 @@ if(night == 1){
     }
 
   vec3 l = normalize(-directionalLights[0].direction);
+  //When nDotL is 0 --> Directional Light is directly above this position --> no ambient term --> DayTexture
+  //When nDotL is 1.0 --> Directional Light is at the other side of the earth --> max ambient term --> nightTexture
   float nDotL = dot(ecNormal, l);
   ambientCoeff *= vec3(1.0, 1.0, 1.0) - vec3(nDotL, nDotL, nDotL);
   vec3 c = ambientCoeff * ambientLightColor[0];
+
   for ( int i = 0; i < NUM_DIR_LIGHTS; ++i ) {
     vec3 s_j = -directionalLights[i].direction;
     vec3 r_j = reflect(s_j, normal);

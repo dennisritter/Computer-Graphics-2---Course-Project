@@ -49,6 +49,10 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
                 scene.addMesh(new Planet().getMesh());
             });
 
+            $('#btnSun').click(function () {;
+                scene.animateSun();
+            });
+
             /** Moved to planet.js **/
             // $('input#dayTex').change(function(){
             //     $('input#dayTex').prop("checked") ? planet.day = 1 : planet.day = 0;
