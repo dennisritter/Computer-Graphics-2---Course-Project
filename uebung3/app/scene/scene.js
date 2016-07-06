@@ -215,21 +215,13 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             directionalLight.position.set(-2,0,-1);
             scope.scene.add(directionalLight);
 
-            this.animateSun = function(){
-                var up;
-                animInterval = setInterval(function () {
-                    if(directionalLight.position.x <= -2) up = true;
-                    if(directionalLight.position.x >= 2) up = false;
-                    if(up){
-                        scope.scene.getObjectByName('directionalLight').position.setX(scope.scene.getObjectByName('directionalLight').position.x + 0.1);
-                        // scope.scene.getObjectByName('directionalLight').position.setZ(scope.scene.getObjectByName('directionalLight').position.z + 0.05);
-                    }else{
-                        scope.scene.getObjectByName('directionalLight').position.setX(scope.scene.getObjectByName('directionalLight').position.x - 0.1);
-                        // scope.scene.getObjectByName('directionalLight').position.setZ(scope.scene.getObjectByName('directionalLight').position.z - 0.05);
-                    }
-
+            this.animateSun = function () {
+                var t = 0;
+                var interval = setInterval(function () {
+                    t += .1;
+                    directionalLight.position.set(Math.sin(t), 0, Math.cos(t));
                 }, 50);
-            }
+            };
         };
 
         // this module only exports the constructor for Scene objects
