@@ -215,13 +215,25 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             directionalLight.position.set(-2,0,-1);
             scope.scene.add(directionalLight);
 
-            this.animateSun = function () {
-                var t = 0;
-                var interval = setInterval(function () {
-                    t += .1;
-                    directionalLight.position.set(Math.sin(t), 0, Math.cos(t));
+            var animateInterval;
+            var animT = 0;
+            this.startSunAnimation = function () {
+                if ( animateInterval ) {
+                    return;
+                }
+
+                animateInterval = setInterval(function () {
+                    animT += .05;
+                    directionalLight.position.set(Math.sin(animT), 0, Math.cos(animT));
                 }, 50);
             };
+
+            this.stopSunAnimation = function () {
+                if ( animateInterval ) {
+                    clearInterval(animateInterval);
+                    animateInterval = null;
+                }
+            }
         };
 
         // this module only exports the constructor for Scene objects
