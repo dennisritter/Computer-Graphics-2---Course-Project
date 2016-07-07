@@ -53,6 +53,17 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
                 scene.animateSun();
             });
 
+            $('#expParams').hide();
+            $('#btnExplosionSettings').click(function () {
+                $('#expParams').show();
+            });
+
+            $('#btnAddExplosion').click(function () {
+                console.log("BOOM! Here's an exploding LSD Sphere.");
+            });
+
+
+
             /** Moved to planet.js **/
             // $('input#dayTex').change(function(){
             //     $('input#dayTex').prop("checked") ? planet.day = 1 : planet.day = 0;
