@@ -64,6 +64,11 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
             });
 
             $('#btnAddExplosion').click(function () {
+                var expFreqScale = $('#expFreqScale').attr('value');
+                var expColorScale = $('#expColorScale').attr('value');
+                var expWeight = $('#expWeight').attr('value');
+                //scene.addMesh(new Explosion(expFreqScale, expColorScale, expWeight).getMesh());
+                console.log("expSettings: ", expFreqScale, expColorScale, expWeight);
                 console.log("BOOM! Here's an exploding LSD Sphere.");
             });
 
