@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "obj", "meshFactory", "robot", "animation", "phongMaterial", "planet"],
-    (function($, BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory, Robot, Animation, PhongMaterial, Planet) {
+define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "obj", "meshFactory", "robot", "animation", "phongMaterial", "planet", "explosion"],
+    (function($, BufferGeometry, Random, Band, THREE, Parametric, Obj, MeshFactory, Robot, Animation, PhongMaterial, Planet, Explosion) {
         "use strict";
 
         /*
@@ -64,11 +64,13 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
             });
 
             $('#btnAddExplosion').click(function () {
-                var expFreqScale = $('#expFreqScale').attr('value');
-                var expColorScale = $('#expColorScale').attr('value');
-                var expWeight = $('#expWeight').attr('value');
-                //scene.addMesh(new Explosion(expFreqScale, expColorScale, expWeight).getMesh());
-                console.log("expSettings: ", expFreqScale, expColorScale, expWeight);
+                var freqScale = $('#expFreqScale').attr('value');
+                var colorScale = $('#expColorScale').attr('value');
+                var weight = $('#expWeight').attr('value');
+                
+                var explosion = new Explosion(freqScale, colorScale, weight);
+                scene.addMesh(explosion.getMesh);
+                // scene.startExplosion(explosion, Date.now());
                 console.log("BOOM! Here's an exploding LSD Sphere.");
             });
 
