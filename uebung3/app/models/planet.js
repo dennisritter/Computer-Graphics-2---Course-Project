@@ -43,15 +43,31 @@ define(["three", "shaders"],
             // and then can be set like any other uniform variable
             // material.uniforms.<uniform-var-name>.value   = <uniform-value>;
             var texLoader = new THREE.TextureLoader();
-            texLoader.load("textures/earth_month04.jpg", function(tex){
-                material.uniforms.dayTex.value = tex;
-            });
-            texLoader.load("textures/earth_at_night_2048.jpg", function(tex){
-                material.uniforms.nightTex.value = tex;
-            });
-            texLoader.load("textures/earth_clouds_2048.jpg", function(tex){
-                material.uniforms.cloudTex.value = tex;
-            });
+            texLoader.load("textures/earth_month04.jpg",
+                // onLoadSuccess
+                function(tex){ material.uniforms.dayTex.value = tex; },
+                // onLoadProgress
+                function(){ console.log( 'texture is loading...' ); },
+                // onLoadError
+                function(){ console.log( 'error while loading!' ); }
+            );
+            texLoader.load("textures/earth_at_night_2048.jpg",
+                // onLoadSuccess
+                function(tex){ material.uniforms.nightTex.value = tex;},
+                // onLoadProgress
+                function(){ console.log( 'texture is loading...' ); },
+                // onLoadError
+                function(){ console.log( 'error while loading!' ); }
+
+            );
+            texLoader.load("textures/earth_clouds_2048.jpg",
+                // onLoadSuccess
+                function(tex){ material.uniforms.cloudTex.value = tex; },
+                // onLoadProgress
+                function(){ console.log( 'texture is loading...' ); },
+                // onLoadError
+                function(){ console.log( 'error while loading!' ); }
+            );
 
             //should happen in html_controller(?) --> but has to change at runtime
             $('input#dayTex').change(function(){
