@@ -36,7 +36,7 @@ define(["text!shaders/vertex_color_vs.glsl", "text!shaders/vertex_color_fs.glsl"
               },
               explosion: {
                 vertex: vs_explosion,
-                fragment: fs_planet
+                fragment: fs_explosion
               },
               phong: {
                 vertex: vs_phong,
