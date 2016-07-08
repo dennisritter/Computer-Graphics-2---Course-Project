@@ -38,9 +38,9 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             // Add a listener for 'keydown' events. By this listener, all key events will be
             // passed to the function 'onDocumentKeyDown'. There's another event type 'keypress'.
             document.addEventListener("keydown", onDocumentKeyDown, false);
-
+            
             function onDocumentKeyDown (event) {
-                console.log('Congratulations! You hit the key with id ' + event.which + '! 🎖. You have successfully unlocked the achievement "Keyboard Expert"! 🏆');
+                // console.log('Congratulations! You hit the key with id ' + event.which + '! 🎖. You have successfully unlocked the achievement "Keyboard Expert"! 🏆');
                 var dim, delta;
                 switch (event.which) {
                     case 38: // up
@@ -234,6 +234,11 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                     animateInterval = null;
                 }
             }
+
+            // does not work yet, because material.uniforms is not accessible because of the merge()function?!
+            // this.startExplosion = function (explosion, start){
+            //     explosion.material.uniforms['time'].value = .00025 * ( Date.now() - start );
+            // };
         };
 
         // this module only exports the constructor for Scene objects
