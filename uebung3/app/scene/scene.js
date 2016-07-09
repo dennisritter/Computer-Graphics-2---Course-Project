@@ -235,10 +235,16 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 }
             }
 
-            // does not work yet, because material.uniforms is not accessible because of the merge()function?!
-            // this.startExplosion = function (explosion, start){
-            //     explosion.material.uniforms['time'].value = .00025 * ( Date.now() - start );
-            // };
+            var interval;
+            this.startExplosion = function (explosion, start){
+                if ( interval ) {
+                    return;
+                }
+
+                interval = setInterval(function () {
+                    explosion.material.uniforms['time'].value = .00035 * ( Date.now() - start );
+                }, 5);
+            };
         };
 
         // this module only exports the constructor for Scene objects
