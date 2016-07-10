@@ -147,12 +147,10 @@ void main() {
     // compute noise:
     // compute noise value using noise3d which is parameterized by a vec3, e.g.
     // a normal (scaled by a scalar controlling the frequency - high, low frequencies)
-    noise = noise3D( freqScale * normal ) + time;
-
     // when adding a uniform variable 'time' to that value it is getting animated
-//    noise = noise + time;
+    noise = noise3D( freqScale * normal + time );
 
-    // Hint: the result of noise is used for the displacement and the access into the 
+    // Hint: the result of noise is used for the displacement and the access into the
     // texture in the fragment shader
     float displacement = noise * weight;
 
