@@ -162,6 +162,6 @@ void main() {
     // transform the output correctly
     gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPosition,1.0);
 
-    // assign varying variables for vertex shader
+    // assign varying variables for fragment shader
     vUv = uv;
 }
