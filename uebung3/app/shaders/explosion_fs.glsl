@@ -12,6 +12,9 @@ void main() {
     float noiseAbs = abs(noise);
 
     // our noise values might also not be in the full range between 0-1
+    if ( noiseAbs > 1.0 ){
+        noiseAbs = 1.0;
+    };
 
     // add a scale (brightness) value that is controlled by a uniform variable
     noiseAbs = noiseAbs + colorScale;
@@ -24,7 +27,6 @@ void main() {
     // a small noise value should access a dark value in the texture
     // a high noise value should return a light value
     gl_FragColor = vec4( texColor * noiseAbs, 1.0 );
-
 
 }
 	

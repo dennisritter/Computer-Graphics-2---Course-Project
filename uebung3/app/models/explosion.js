@@ -21,7 +21,7 @@ define(["jquery", "three", "shaders"],
                     {
                         explosionTex: { type: 't', value: "" },
 
-                        time: { type: 'f', value: 0.0 },
+                        time: { type: 'f', value: 0 },
 
                         // weight: ... aka displacement weight - how strong is the displacement
                         weight: {  type: 'i', value: this.weight },
@@ -57,13 +57,17 @@ define(["jquery", "three", "shaders"],
 
             console.log("time = ", material.uniforms.time);
             scope.mesh = new THREE.Mesh( new THREE.SphereGeometry( 400, 100, 100 ), material );
-            scope.material = material;
+            // scope.material = material;
             scope.mesh.name = "explosion";
             scope.root.add(scope.mesh);
 
 
             this.getMesh = function() {
                 return this.root;
+            };
+            
+            this.getMaterial = function() {
+                return material;
             };
 
 

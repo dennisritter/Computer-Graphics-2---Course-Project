@@ -242,7 +242,7 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 }
 
                 interval = setInterval(function () {
-                    explosion.material.uniforms['time'].value = .00035 * ( Date.now() - start );
+                    explosion.getMaterial().uniforms['time'].value = .00035 * ( Date.now() - start );
                 }, 5);
             };
         };
