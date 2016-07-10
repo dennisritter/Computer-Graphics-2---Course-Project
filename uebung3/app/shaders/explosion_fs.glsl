@@ -17,16 +17,14 @@ void main() {
     };
 
     // add a scale (brightness) value that is controlled by a uniform variable
-    noiseAbs = noiseAbs + colorScale;
+    noiseAbs = noiseAbs * colorScale;
 
     // our goal is to access a color in our texture (explosion.png)
     // therefore we need a texture (uv) coordinate (vec2) that accesses a value in the texture
-    vec3 texColor = texture2D(explosionTex, vUv).rgb;
-
-
     // a small noise value should access a dark value in the texture
     // a high noise value should return a light value
-    gl_FragColor = vec4( texColor * noiseAbs, 1.0 );
+    vec3 texColor = texture2D(explosionTex, vUv * noiseAbs).rgb;
+
+    gl_FragColor = vec4( texColor, 1.0 );
 
 }
-	
