@@ -59,7 +59,7 @@ vec3 earth(in vec3 normal, in vec3 viewDir ) {
         vec3 r_j = reflect(s_j, normal);
         if(dot( normal, s_j ) > 0.0 && dot( normal, s_j ) <= 1.0){
             vec3 diffuseCoeff = (day == 1 ) ? dayColor : diffuseMaterial;
-            if(clouds == 1) diffuseCoeff *= vec3(1.0, 1.0, 1.0) - cloudColor;
+            if(clouds == 1) diffuseCoeff += cloudColor;
             c += diffuseCoeff * directionalLights[i].color * dot( normal, s_j );
         }
         if(dot( viewDir, r_j ) > 0.0 && dot( viewDir, r_j ) <= 1.0){
