@@ -5,7 +5,7 @@
  */
 
 
-/* 
+/*
  *  RequireJS alias/path configuration (http://requirejs.org/)
  */
 
@@ -42,7 +42,7 @@ requirejs.config({
         "shaders" : "./shaders",
 
         "HtmlController": "./controller/html_controller",
-        
+
         "OBJLoader": "./loaders/OBJLoader"
     },
     shim: {
@@ -105,5 +105,5 @@ define(["jquery", "three", "scene", "HtmlController"],
         })); // $(document).ready()
 
     })); // define module
-        
+
 

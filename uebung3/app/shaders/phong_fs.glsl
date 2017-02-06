@@ -8,7 +8,7 @@ struct DirectionalLight {
   vec3 direction;
 };
 
-uniform DirectionalLight  directionalLights[NUM_DIR_LIGHTS];
+uniform DirectionalLight directionalLights[NUM_DIR_LIGHTS];
 
 varying vec4  ecPosition;
 varying vec3  ecNormal;

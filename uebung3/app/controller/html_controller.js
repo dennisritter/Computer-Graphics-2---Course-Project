@@ -1,10 +1,10 @@
 /*
- * JavaScript / Canvas teaching framwork 
+ * JavaScript / Canvas teaching framwork
  * (C)opyright Kristian Hildebrand, khildebrand@beuth-hochschule.de
  *
  * Module: html_controller
  *
- * Defines callback functions for communicating with various 
+ * Defines callback functions for communicating with various
  * HTML elements on the page, e.g. buttons and parameter fields.
  *
  */
@@ -30,7 +30,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
             });
 
             $('#btnPhongVertex').click(function () {
-                var geo = new THREE.SphereGeometry(400, 50, 50);
+                var geo = new THREE.SphereGeometry(400, 10, 10);
                 var c = new THREE.Color(.5,.1,.1);
                 var phong = new PhongMaterial( new THREE.Color(.2,0,0), c, c, 10, true);
                 var mesh = new THREE.Mesh( geo, phong.getShaderMaterial() );
@@ -38,7 +38,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
             });
 
             $('#btnPhongFragment').click(function () {
-                var geo = new THREE.SphereGeometry(400, 50, 50);
+                var geo = new THREE.SphereGeometry(400, 10, 10);
                 var c = new THREE.Color(.5,.1,.1);
                 var phong = new PhongMaterial( new THREE.Color(.2,0,0), c, c, 10, false);
                 var mesh = new THREE.Mesh( geo, phong.getShaderMaterial() );
@@ -67,7 +67,7 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
                 var freqScale = $('#expFreqScale').attr('value');
                 var colorScale = $('#expColorScale').attr('value');
                 var weight = $('#expWeight').attr('value');
-                
+
                 var explosion = new Explosion(freqScale, colorScale, weight);
                 scene.addMesh(explosion.getMesh());
                 scene.startExplosion(explosion, Date.now());
@@ -631,4 +631,4 @@ define(["jquery", "BufferGeometry", "random", "band", "three", "parametric", "ob
 
 
 
-            
+

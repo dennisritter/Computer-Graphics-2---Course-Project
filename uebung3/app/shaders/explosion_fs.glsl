@@ -23,7 +23,7 @@ void main() {
     // therefore we need a texture (uv) coordinate (vec2) that accesses a value in the texture
     // a small noise value should access a dark value in the texture
     // a high noise value should return a light value
-    vec3 texColor = texture2D(explosionTex, vec2(noiseAbs, noiseAbs)).rgb;
+    vec3 texColor = texture2D(explosionTex, vec2(0.0, noiseAbs)).rgb;
 
     gl_FragColor = vec4( texColor, 1.0 );
 
