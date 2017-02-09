@@ -1,0 +1,45 @@
+/* default: white background, sans serif font */
+body {
+    font-family:Arial,Helvetica;
+    background-color:white;
+}
+
+/* subsection titles for the parameter area */
+h3 {
+    color: #000055;
+    font-size:14px;
+}
+
+/* region to display an error */
+#error { 
+    color:white; 
+    font-weight:bold; 
+    background-color:red; 
+    display:none; 
+}
+
+/* canvas to perform 2d graphcis */
+#drawing_area {
+    float:left;
+    border-width:1px;
+    border-style: dashed;
+    border-color: #c3c3c3;
+}
+
+/* container to display editable parameters */
+#param_area {
+    float:left;
+    width:500px;
+    padding: 0 5px;
+    text-align:left;
+}
+
+.form-row {
+    display: block;
+    margin: 5px 0;
+}
+
+.form-row input, .form-row label {
+    display: inline-block;
+    margin-right: 5px;
+}
